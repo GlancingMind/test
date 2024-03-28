@@ -1,0 +1,68 @@
+package org.xtext.fetaml.cpp.system
+
+import org.xtext.fetaml.model.CasedString
+
+class SingleEdgePortGraph {
+	val connections = <PortConnection>newLinkedList
+	val multiplexers = <PortInstance, MultiplexerNodeInstance>newHashMap
+	
+	new(Iterable<PortConnection> connections) {
+		val nc = <PortConnection>newLinkedHashSet
+		
+		for(port : connections.flatMap[ports]) {
+			val incomingPorts = getIncomingPorts(port, connections)
+			if(incomingPorts.length == 1) {
+				nc.add(new PortConnection(incomingPorts.head, port))
+			}
+			else if(incomingPorts.length > 1) {
+				val mpn = new MultiplexerNodeInstance(
+					CasedString::tryParse("multiplexer", multiplexers.keySet.length.toString),
+					port.provider.belongingSystem
+				)
+				multiplexers.putIfAbsent(port, mpn)
+				
+				nc.add(new PortConnection(mpn.getOrCreateOutputPort(port), port))
+				
+				for(inPort : incomingPorts) {
+					nc.add(new PortConnection(inPort, mpn.getOrCreateInputPortFor(inPort)))
+				}
+			}
+		}
+		
+		this.connections.addAll(nc)
+	}
+	
+	def PortInstance getSuccessor(PortInstance port) {
+		this.connections.findFirst[contains(port)].getSuccessor(port)
+	}
+	
+	def getMultiplexers() {
+		return this.multiplexers.values
+	}
+	
+	def Iterable<PortInstance> getPortsFor(PortProviderInstance provider) {
+		this.connections.flatMap[ports].filter[port|
+			port.provider.equals(provider)
+		].toSet
+	}
+	
+	private def getIncomingPorts(PortInstance port, Iterable<PortConnection> connections) {
+		val cons = connections.filter[contains(port)]
+		
+		if(port.isSystemPort) {
+			if(port.isListeningPort) {
+				return cons.filter[isConnection].map[getSuccessor(port)]
+			} else {
+				return cons.filter[isForwarding].map[getSuccessor(port)]
+			}
+		}
+		
+		if(port.isNodePort) {
+			if(port.isListeningPort) {
+				return cons.map[getSuccessor(port)]
+			} else {
+				return #[]
+			}
+		}
+	}
+}

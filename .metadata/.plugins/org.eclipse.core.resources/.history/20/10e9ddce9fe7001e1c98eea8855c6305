@@ -1,0 +1,179 @@
+package org.xtext.fetaml.cpp.pkg
+
+import org.xtext.fetaml.generator.PackageFile
+import org.xtext.fetaml.model.CasedString
+
+package class CMakeFile extends PackageFile {
+	
+	val ROSPackage pkg
+	val Iterable<Executable> executables
+	val CasedString libraryTargetName
+	val CasedString libraryTargets
+	
+	package new(ROSPackage pkg, Iterable<Executable> executables) {
+		super(pkg, "CMakeLists.txt")
+		this.pkg = pkg
+		this.executables = executables
+		this.libraryTargetName = pkg.name.append("Lib").toCasedString
+		this.libraryTargets = libraryTargetName.append("Targets")
+	}
+	
+	protected override getContent() '''
+		cmake_minimum_required(VERSION 3.5)
+		project(«pkg.name»)
+		
+		# Default to C99
+		if(NOT CMAKE_C_STANDARD)
+		  set(CMAKE_C_STANDARD 99)
+		endif()
+		
+		# Default to C++14
+		if(NOT CMAKE_CXX_STANDARD)
+		  set(CMAKE_CXX_STANDARD 14)
+		endif()
+		
+		if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+		  add_compile_options(-Wall -Wextra -Wpedantic)
+		endif()
+		
+		find_package(ament_cmake REQUIRED)
+		find_package(rclcpp REQUIRED)
+		«IF pkg.exportsMessages || pkg.exportsServices»
+			find_package(rosidl_default_generators REQUIRED)
+		«ENDIF»
+		«FOR dependency : pkg.referencedPackages»
+			find_package(«dependency.name» REQUIRED)
+		«ENDFOR»
+		
+		«IF pkg.exportsMessages || pkg.exportsServices»
+			rosidl_generate_interfaces(${PROJECT_NAME}
+				«FOR file : pkg.messageFiles»
+					"«file.packageRelativePath»"
+				«ENDFOR»
+				«FOR file : pkg.serviceFiles»
+					"«file.packageRelativePath»"
+				«ENDFOR»
+				«IF pkg.messageFiles.exists[hasPackageDependencies] || pkg.serviceFiles.exists[hasPackageDependencies]»
+					DEPENDENCIES
+					«FOR dependency : (pkg.messageFiles.flatMap[packageDependencies] + pkg.serviceFiles.flatMap[packageDependencies]).toSet»
+						«dependency»
+					«ENDFOR»
+				«ENDIF»
+			)
+			ament_export_dependencies(rosidl_default_runtime)
+		«ENDIF»
+		
+		«IF pkg.hasSourceFiles»
+			add_library(«libraryTargetName»
+				«FOR source : pkg.getSourceFilesWithout(executables.map[mainSourceFile])»
+					«source.packageRelativePath»
+				«ENDFOR»
+			)
+			
+			target_include_directories(«libraryTargetName»
+				PUBLIC
+					«FOR includeDir : pkg.includeDirectories»
+						$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/«includeDir»>
+					«ENDFOR»
+					$<INSTALL_INTERFACE:include>
+			)
+			
+			ament_target_dependencies(«libraryTargetName»
+				rclcpp
+				«FOR dependency : pkg.referencedPackages»
+					«dependency.name»
+				«ENDFOR»
+			)
+			
+			«IF pkg.usesOwnInterfaces»
+				rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME}
+					rosidl_typesupport_cpp)
+				target_link_libraries(«libraryTargetName» "${cpp_typesupport_target}")
+			«ENDIF»
+			
+			ament_export_targets(«libraryTargets» HAS_LIBRARY_TARGET)
+			«IF pkg.hasDependenciesToOtherPackages»
+				ament_export_dependencies(
+					«FOR dependency : pkg.referencedPackages»
+						«dependency.name»
+					«ENDFOR»
+				)
+			«ENDIF»
+			
+			«FOR executable : executables.toSet»
+				add_executable(«executable.name» «executable.mainSourceFile.packageRelativePath»)
+				«IF executable.belongsTo(this.pkg)»
+					target_link_libraries(«executable.name» «libraryTargetName»)
+				«ELSE»
+					ament_target_dependencies(«executable.name» «libraryTargetName»)
+				«ENDIF»
+			«ENDFOR»
+			
+			######################################################################
+			# Load user defined CMakeFile if present
+			# But first the PKG_LIB_NAME variable is set, so that the included 
+			# CMakeLists doesn't have to refer to the real library-target-name.
+			# Therefore reducing errors or changes when the library name might 
+			# change.
+«««			NOTE: When changing this variable names, also update the names
+«««			within the UserCodeCMakeFileExample.xtend
+			set(PKG_LIB_TARGET_NAME «libraryTargetName»)
+			set(EXECUTABLE_TARGET_NAMES «executables.map[name].join(" ")»)
+			
+«««			Load user-code/CMakeLists.txt when present
+			if((EXISTS ${CMAKE_CURRENT_LIST_DIR}/«pkg.userCodeDirectory»)
+			    AND (IS_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/«pkg.userCodeDirectory»)
+			    AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/«pkg.userCodeDirectory»/CMakeLists.txt))
+			    
+			    message("Loading «pkg.userCodeDirectory»/CMakeLists.txt...")
+			    add_subdirectory(«pkg.userCodeDirectory»)
+			    message("...loaded «pkg.userCodeDirectory»/CMakeLists.txt.")
+			else()
+				message("No CMakeLists.txt in user-code-directory \"«pkg.userCodeDirectory»\" found. Skip loading.")
+			endif()
+			######################################################################
+			
+			install(
+				DIRECTORY include/
+				DESTINATION include
+			)
+			
+			install(
+				TARGETS «libraryTargetName»
+				EXPORT «libraryTargets»
+				LIBRARY DESTINATION lib
+				ARCHIVE DESTINATION lib
+				RUNTIME DESTINATION bin
+				INCLUDES DESTINATION include
+			)
+			
+			«IF hasExecutables»
+				install(
+					TARGETS
+						«FOR executable : executables»
+							«executable.name»
+						«ENDFOR»
+					DESTINATION
+						lib/${PROJECT_NAME}
+				)
+			«ENDIF»
+			
+			«IF pkg.providesLaunchFiles»
+				install(DIRECTORY launch DESTINATION share/${PROJECT_NAME})
+			«ENDIF»
+		«ENDIF»
+		
+		ament_package()
+	'''
+	
+	private def hasExecutables() {
+		!executables.isNullOrEmpty
+	}
+	
+	private def usesOwnInterfaces(ROSPackage pkg) {
+		// TODO
+		// Currently it is assumed, that the package(-library) 
+		// always use its own custom defined messages and services 
+		true && (pkg.exportsMessages || pkg.exportsServices)
+	}
+}

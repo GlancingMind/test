@@ -1,0 +1,75 @@
+package org.xtext.fetaml.cpp.process
+
+import org.eclipse.xtend.lib.annotations.Data
+import org.xtext.fetaml.model.CasedString
+import org.xtext.fetaml.model.FetaMLPackageFactory
+import org.xtext.fetaml.model.UsedDefinitionsCollector
+import org.xtext.fetaml.cpp.process.ProcessClass
+import org.xtext.fetaml.fetaml.PackageDefinition
+import org.xtext.fetaml.cpp.pkg.Executable
+import org.xtext.fetaml.fetaml.NodeDefinition
+import org.xtext.fetaml.fetaml.DeviceDefinition
+import org.xtext.fetaml.fetaml.StateMachineDefinition
+import org.xtext.fetaml.fetaml.MessageDefinition
+import org.xtext.fetaml.fetaml.ServiceDefinition
+import org.xtext.fetaml.cpp.node.Node
+import org.xtext.fetaml.cpp.device.Device
+import org.xtext.fetaml.cpp.statemachine.StateMachineClass
+import org.xtext.fetaml.cpp.pkg.ROSMessageFile
+import org.xtext.fetaml.cpp.pkg.ROSServiceFile
+import org.xtext.fetaml.cpp.pkg.ROSPackage
+import org.xtext.fetaml.cpp.pkg.launch.action.LaunchNodeConfig
+import org.xtext.fetaml.cpp.pkg.launch.action.ParameterList
+
+@Data
+class Process {
+	val ROSPackage belongingPackage
+	val CasedString name
+	val Iterable<ProcessNode> nodes
+	val ProcessClass clazz
+	val ProcessEntrypoint entryPoint
+	
+	new(PackageDefinition pkg, String name, Iterable<ProcessNode> nodes) {
+		this.name = CasedString::tryParse(name)
+		this.nodes = nodes
+		this.belongingPackage = FetaMLPackageFactory::fromFetaML(pkg)
+		this.clazz = new ProcessClass(
+			belongingPackage,
+			this.name,
+			nodes
+		)
+		this.entryPoint = new ProcessEntrypoint(belongingPackage, this.name, this.clazz)
+	}
+	
+	private def getAllDependendDefinitions() {
+		val defs = 
+			nodes.flatMap[bindings].flatMap[binding| binding.dependendDefinitions]
+		 	+ nodes.flatMap[node| new UsedDefinitionsCollector(node.nodeDefinition).collect]
+		
+		defs.toSet
+	}
+	
+	def getExecutable() {
+		val usedDefinitions = allDependendDefinitions
+		val allSourceFiles = usedDefinitions.filter(NodeDefinition).flatMap[Node::fromFetaML(it).sources]
+					+ usedDefinitions.filter(DeviceDefinition).flatMap[Device::fromFetaML(it).sources]
+					+ usedDefinitions.filter(StateMachineDefinition).flatMap[StateMachineClass::fromFetaML(it).sources]
+					+ usedDefinitions.filter(MessageDefinition).map[ROSMessageFile::fromFetaML(it)]
+					+ usedDefinitions.filter(ServiceDefinition).map[ROSServiceFile::fromFetaML(it)]
+		println(x)
+		new Executable(
+			new Executable.Identifier(this.name),
+			this.entryPoint.markAsUserCodeFile,
+			allSourceFiles.toSet + this.clazz.sources
+		)
+	}
+	
+	def getLaunchConfig() {
+		new LaunchNodeConfig(
+			this.belongingPackage.name,
+			this.getExecutable.name,
+			this.nodes.flatMap[getRemappings],
+			new ParameterList()
+		)
+	}
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;org.xtext.fetaml/src/org/xtext/fetaml/extensions/SystemOrNodeInstanceRefExtension.xtend&apos; to &apos;SystemNodeReferenceExtension.xtend&apos;" description="Rename resource &apos;SystemOrNodeInstanceRefExtension.xtend&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/org/xtext/fetaml/extensions/SystemOrNodeInstanceRefExtension.xtend" name="SystemNodeReferenceExtension.xtend" stamp="1706900136066" updateReferences="true"/>
+</session>

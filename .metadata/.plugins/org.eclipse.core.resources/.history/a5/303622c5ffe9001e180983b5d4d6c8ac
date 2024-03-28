@@ -1,0 +1,59 @@
+package org.xtext.fetaml.cpp.system
+
+import org.xtext.fetaml.fetaml.NodeInstance
+import org.xtext.fetaml.extensions.PortExtensions.PortProviderType
+import org.xtext.fetaml.model.CasedString
+import org.eclipse.xtend.lib.annotations.EqualsHashCode
+import org.xtext.fetaml.fetaml.PortProvider
+import com.google.inject.Inject
+import org.eclipse.xtext.naming.IQualifiedNameProvider
+
+@EqualsHashCode
+class SystemNodeInstance implements PortProviderInstance {
+	
+	val CasedString name
+	val SystemInstance belongingSystemInstance
+	val NodeInstance nodeInstance
+	
+	new(SystemInstance belongingSystemInstance, NodeInstance nodeInstance) {
+		this.name = CasedString::tryParse(nodeInstance.name)
+		this.belongingSystemInstance = belongingSystemInstance
+		this.nodeInstance = nodeInstance
+	}
+	
+	def getQualifiedNameParts() {
+		belongingSystemInstance.getFullyQualifiedNameParts + #[nodeInstance.name]
+	}
+	
+	def getNodeInstance() {
+		return nodeInstance
+	}
+	
+	def Iterable<PortInstance> getPorts() {
+		this.belongingSystem.getPortsFor(this)
+	}
+	
+	override getName() {
+		this.name
+	}
+	
+	override getBelongingSystem() {
+		this.belongingSystemInstance
+	}
+	
+	override getFullyQualifiedNamePartsAsCasedStrings() {
+		this.belongingSystem.fullyQualifiedNamePartsAsCasedStrings + #[this.name]
+	}
+	
+	override getSuccessor(PortInstance port) {
+		this.belongingSystemInstance.getSuccessor(port)
+	}
+	
+	override isTypeOf(PortProviderType type) {
+		PortProviderType::NodeInstance == type
+	}
+	
+	override isInstanceOfFetaML(PortProvider provider) {
+		this.nodeInstance.equals(provider)
+	}
+}

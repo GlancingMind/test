@@ -1,0 +1,202 @@
+package org.xtext.fetaml.cpp.pkg
+
+import org.xtext.fetaml.fetaml.PackageDefinition
+import org.xtext.fetaml.fetaml.ServiceDefinition
+import org.xtext.fetaml.fetaml.MessageDefinition
+import org.xtext.fetaml.fetaml.DeploymentDefinition
+import org.xtext.fetaml.fetaml.DeviceDefinition
+import org.xtext.fetaml.fetaml.StateMachineDefinition
+import org.xtext.fetaml.fetaml.NodeDefinition
+import org.xtext.fetaml.generator.PackageFile
+import org.xtext.fetaml.generator.Path
+import org.xtext.fetaml.model.AbstractFetaMLPackage
+import org.xtext.fetaml.model.FetaMLPackageFactory
+import org.xtext.fetaml.model.UsedDefinitionsCollector
+import org.xtext.fetaml.cpp.CppPackage
+import org.xtext.fetaml.cpp.SourceFile
+import org.xtext.fetaml.cpp.node.Node
+import org.xtext.fetaml.cpp.device.Device
+import org.xtext.fetaml.cpp.statemachine.StateMachineClass
+import java.util.Optional
+import java.util.Set
+import java.util.Objects
+
+class ROSPackage extends CppPackage {
+	val Iterable<MessageDefinition> messages
+	val Iterable<ServiceDefinition> services
+	val Iterable<DeviceDefinition> devices
+	val Iterable<StateMachineDefinition> machines
+	val Iterable<NodeDefinition> nodes
+	val Optional<Deployment> deployment
+	
+	new(
+		PackageDefinition definition,
+		Iterable<MessageDefinition> messages,
+		Iterable<ServiceDefinition> services,
+		Iterable<DeploymentDefinition> deployments,
+		Iterable<DeviceDefinition> devices,
+		Iterable<StateMachineDefinition> machines,
+		Iterable<NodeDefinition> nodes
+	) {
+		super(definition)
+		this.messages = messages
+		this.services = services
+		this.devices = devices
+		this.machines = machines
+		this.nodes = nodes
+		this.deployment = Optional::ofNullable(deployments.head).map[Deployment::fromFetaML(it)]
+	}
+	
+	override getName() {
+		super.name
+	}
+	
+	def exportsMessages() {
+		!messageFiles.isNullOrEmpty
+	}
+	
+	package def getMessageFiles() {
+		packageFiles.filter(ROSMessageFile).filter[doesBelongTo(this)]
+	}
+	
+	def exportsServices() {
+		!serviceFiles.isNullOrEmpty
+	}
+	
+	package def getServiceFiles() {
+		packageFiles.filter(ROSServiceFile).filter[doesBelongTo(this)]
+	}
+	
+	def hasDependenciesToOtherPackages() {
+		!referencedPackages.isNullOrEmpty
+	}
+	
+	var Optional<Iterable<AbstractFetaMLPackage>> cachedReferencedPackages = Optional::empty
+	override Iterable<AbstractFetaMLPackage> getReferencedPackages() {
+		if(cachedReferencedPackages.isPresent) {
+			return cachedReferencedPackages.get
+		} 
+		
+		val referencedPackages = if(this.generatesUnusedDefinitions) {
+			// This is required as a deployment might be missing
+			// => no executables == no external sources 
+			// => only references to itself
+			(messages + services + devices + nodes + machines)
+				.flatMap[new UsedDefinitionsCollector(it).collect]
+				.filter(PackageDefinition)
+				.toSet
+				.reject[equals(this.definition)]
+				.map[pkg| FetaMLPackageFactory::fromFetaML(pkg)]
+		} else {
+			packageFiles.reject[doesBelongTo(this)].map[pkg].toSet
+		}
+		
+		cachedReferencedPackages = Optional::of(referencedPackages as Iterable<AbstractFetaMLPackage>)
+		return cachedReferencedPackages.get
+	}
+	
+	var Optional<Set<PackageFile>> cachedPackageFiles = Optional::empty
+	override getPackageFiles() {
+		if(cachedPackageFiles.isPresent) {
+			return cachedPackageFiles.get
+		}
+		
+		if(this.isAbstract) {
+			return #[]
+		}
+		
+		val sources = Optional::ofNullable(
+				if(this.generatesUnusedDefinitions) {
+					// Force generation of unused Device-, Node- and Machine sources.
+					devices.flatMap[Device::fromFetaML(it).sources]
+					+ nodes.flatMap[Node::fromFetaML(it).sources]
+					+ machines.flatMap[StateMachineClass::fromFetaML(it).sources]
+				}).orElse(#[])
+			+ messages.map[ROSMessageFile::fromFetaML(it)]
+			+ services.map[ROSServiceFile::fromFetaML(it)]
+			+ executables.flatMap[allSources]
+			+ launchFiles
+			+ #[
+				new ROSPackageManifest(this),
+				new CMakeFile(this, executables),
+				new UserCodeCMakeFileExample(this, executables)
+			]
+		
+		cachedPackageFiles = Optional::of(sources.toSet)
+		return cachedPackageFiles.get
+	}
+	
+	package def getSourceFiles() {
+		packageFiles.filter(SourceFile)
+	}
+	
+	package def getSourceFilesWithout(Iterable<SourceFile> excludedSources) {
+		sourceFiles.reject[excludedSources.contains(it)]
+	}
+	
+	def hasSourceFiles() {
+		!sourceFiles.isNullOrEmpty
+	}
+	
+	override getPackageRoot() {
+		new Path(this.name.toString)
+	}
+	
+	def getExecutables() {
+		if(!deployment.isPresent) {
+			return #[]
+		}
+		
+		return deployment.get.executables
+	}
+	
+	def getLaunchFiles() {
+		if(!deployment.isPresent) {
+			return #[]
+		}
+		
+		return deployment.get.launchFiles
+	}
+	
+	def providesLaunchFiles() {
+		!this.launchFiles.isEmpty
+	}
+	
+	// TODO exposing this methode is a workaround to allow the registration of the topic_tools package as dependency to the package-manifest
+	package def usedTopicTools() {
+		if(deployment.isPresent) {
+			deployment.get.requiresTopicTools
+		}
+		return false
+	} 
+	
+	/**
+	 * A ROSPackage is considered the same, when it has the same identifier.
+	 * As the package identifier is unique within FETA-ML model.
+	 */
+	override equals(Object o) {
+		if(o === this) { 
+			return true
+		}
+		
+		if(o === null) {
+			return false
+		}
+		
+		if(!(o instanceof ROSPackage)) {
+			return false;
+		}
+		
+		val other = o as ROSPackage;
+		
+		if(!other.definition.name.equals(this.definition.name)) {
+			return false
+		}
+		
+		return true;
+	}
+	
+	override hashCode() {
+		Objects::hash(definition.name)
+	}
+}

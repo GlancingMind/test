@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="org.eclipse.xtext.build.IncrementalBuilder"/>
+    <fullyQualifiedTypeName name="org.eclipse.xtext.ide.server.ServerModule"/>
+    <fullyQualifiedTypeName name="org.xtext.fetaml.ide.CustomServerModule"/>
+    <fullyQualifiedTypeName name="org.xtext.fetaml.Customg"/>
+    <fullyQualifiedTypeName name="org.eclipse.xtext.generator.IGenerator.NullGenerator"/>
+    <fullyQualifiedTypeName name="org.eclipse.xtext.generator.IGenerator"/>
+    <fullyQualifiedTypeName name="org.xtext.fetaml.generator.NullGenerator"/>
+    <fullyQualifiedTypeName name="org.eclipse.xtext.generator.IGenerator2"/>
+    <fullyQualifiedTypeName name="org.xtext.example.mydsl.myDsl.MyDslPackage"/>
+    <fullyQualifiedTypeName name="org.xtext.example.mydsl.myDsl.MyDslPackage.Literals"/>
+</qualifiedTypeNameHistroy>

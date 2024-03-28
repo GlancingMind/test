@@ -1,0 +1,56 @@
+package org.xtext.fetaml.cpp.system
+
+import java.util.Map
+import org.xtext.fetaml.fetaml.NodeInstance
+import org.xtext.fetaml.fetaml.PlatformInstance
+import org.xtext.fetaml.fetaml.DeploymentDefinition
+import org.xtext.fetaml.fetaml.ProcessInstance
+
+// TODO consider merging this class with the Deployment class
+class DeploymentInfo {
+	// TODO Note this class is also instantiated in the DeploymentValidator.
+	// But there the map will be initialized to an empty map, resulting in NullPointerExceptions
+	// when getExecutionEnvironmentFor() is called! Either return an 
+	// Optional<PlatformInstance> getExecutionEnvironmentFor(NodeInstance)
+	// or refactor so that SystemInstance won't require a DeploymentInfo.
+	val Map<NodeInstance, PlatformInstance> deploymentRelations
+	
+	static def fromFetaML(DeploymentDefinition deployment) {
+		val m = <NodeInstance, PlatformInstance>newHashMap
+		for(process : deployment.processes) {
+			for(ni : deployment.getProcessesNodeInstances(process)) {
+				m.put(ni, deployment.getPlatformInstanceForNodeInstance(ni))
+			}
+		}
+		new DeploymentInfo(m)
+	}
+	
+	new(Map<NodeInstance, PlatformInstance> deploymentRelations) {
+		this.deploymentRelations = deploymentRelations
+	}
+	
+	def getExecutionEnvironmentFor(NodeInstance ni) {
+		this.deploymentRelations.get(ni)
+	}
+	
+	def Iterable<NodeInstance> getNodeInstancesForPlatform(PlatformInstance platform) {
+		this.deploymentRelations.filter[node, plat| plat.equals(platform)].keySet
+	}
+	
+	private static def getPlatformRunningProcess(DeploymentDefinition deployment, ProcessInstance pi) {
+		deployment.processMappings.findFirst[mapped| mapped.process.equals(pi)].platform
+	}
+	
+	private static def getProcessRunning(DeploymentDefinition deployment, NodeInstance ni) {
+		deployment.processes.findFirst[process| process.nodes.exists[node| node.instance.equals(ni)]]
+	}
+	
+	private static def getPlatformInstanceForNodeInstance(DeploymentDefinition deployment, NodeInstance ni) {
+		val proc = deployment.getProcessRunning(ni)
+		deployment.getPlatformRunningProcess(proc)
+	}
+	
+	private static def getProcessesNodeInstances(DeploymentDefinition deployment, ProcessInstance pi) {
+		pi.nodes.map[instance]
+	}
+}

@@ -1,0 +1,663 @@
+package org.xtext.fetaml.tests.cpp
+
+import org.junit.jupiter.api.Test
+import org.xtext.fetaml.tests.GenerationTesterHelper
+
+class PackageCppGenerationTest extends GenerationTesterHelper {
+	
+	@Test
+	def packageWithExternalDependency() {
+		val myROSPackage = '''
+			cpp package MyROSPackage:
+				version: "0.0.0";
+				description: "My first ROS2 package";
+				license name: "MIT";
+				maintainers:
+					"Mickey Mouse": "micky.mouse@disney.com";
+					"Donald Duck": "donald.duck@disney.com";
+				properties:
+					GenerateUnusedDefinitions;
+			end MyROSPackage;
+			
+			message MsgWithExternalDependency in MyROSPackage:
+				components:
+					SomeOtherPackage.SomeMessage externalDependency;
+			end MsgWithExternalDependency;
+			
+			cpp package SomeOtherPackage:
+				version: "0.0.0";
+				description: "Some package to depend on!";
+				license name: "MIT";
+				maintainers:
+					"Donald Duck": "donald.duck@disney.com";
+				properties:
+					GenerateUnusedDefinitions;
+			end SomeOtherPackage;
+			
+			message SomeMessage in SomeOtherPackage:
+			end SomeMessage;
+		'''
+		
+		myROSPackage.assertCompilesTo(#{
+			"my_ros_package/package.xml" -> '''
+				<?xml version="1.0"?>
+				<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+				<package format="3">
+					<name>my_ros_package</name>
+					<version>0.0.0</version>
+					<description>My first ROS2 package</description>
+					<maintainer email="micky.mouse@disney.com">Mickey Mouse</maintainer>
+					<maintainer email="donald.duck@disney.com">Donald Duck</maintainer>
+					<license>MIT</license>
+					
+					<build_depend>rosidl_default_generators</build_depend>
+					
+					<buildtool_depend>ament_cmake</buildtool_depend>
+					
+					<!-- Default dependencies -->
+					<exec_depend>rclcpp</exec_depend>
+					<exec_depend>rosidl_default_runtime</exec_depend>
+					
+					<!-- Generated dependencies -->
+					<depend>some_other_package</depend>
+					
+					<test_depend>ament_lint_auto</test_depend>
+					<test_depend>ament_lint_common</test_depend>
+					
+					<member_of_group>rosidl_interface_packages</member_of_group>
+					
+					<export>
+						<build_type>ament_cmake</build_type>
+					</export>
+				</package>
+			''',
+			"my_ros_package/CMakeLists.txt" -> '''
+				cmake_minimum_required(VERSION 3.5)
+				project(my_ros_package)
+				
+				# Default to C99
+				if(NOT CMAKE_C_STANDARD)
+				  set(CMAKE_C_STANDARD 99)
+				endif()
+				
+				# Default to C++14
+				if(NOT CMAKE_CXX_STANDARD)
+				  set(CMAKE_CXX_STANDARD 14)
+				endif()
+				
+				if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+				  add_compile_options(-Wall -Wextra -Wpedantic)
+				endif()
+				
+				find_package(ament_cmake REQUIRED)
+				find_package(rclcpp REQUIRED)
+				find_package(rosidl_default_generators REQUIRED)
+				find_package(some_other_package REQUIRED)
+				
+				rosidl_generate_interfaces(${PROJECT_NAME}
+					"msg/MsgWithExternalDependency.msg"
+					DEPENDENCIES
+					some_other_package
+				)
+				ament_export_dependencies(rosidl_default_runtime)
+
+				ament_package()
+			''',
+			"my_ros_package/user-code/CMakeLists.txt" -> '''
+				# This is the user-code CMakeFile. It won't be overwritten by the generator.
+				# Following are some usage examples:
+				
+				# Generate compile_commands.json for the library and all executable targets
+				# of this ros package.
+				set_target_properties(${PKG_LIB_TARGET_NAME} ${EXECUTABLE_TARGET_NAMES}
+					PROPERTIES
+						EXPORT_COMPILE_COMMANDS ON
+				)
+				
+				# Add sources to the library target:
+				target_sources(${PKG_LIB_TARGET_NAME}
+					PRIVATE
+				#		"{CMAKE_CURRENT_LIST_DIR}/src/some-manually-created-source-file.cpp"
+				)
+				
+				# Add sources to an executable target.
+				# target_sources(ExecutableTargetName
+				#	PRIVATE
+				#		"{CMAKE_CURRENT_LIST_DIR}/src/some-manually-created-source-file.cpp"
+				#)
+				#
+				# NOTICE: Unless with the library example above, an individual executable 
+				# must be refered by the actual target name (not with an variable).
+				# Therefore the specified executable-target-name must be updated, if 
+				# the executable name changes within the model!
+				# As recommendation: Add source files to the library target (as seen previously).
+				# Because every generated process executable will be linked against the ${PKG_LIB_TARGET_NAME}
+				# in the root CMakeLists.txt.
+				
+				# Install manuelly written launch files.
+				# NOTE: This will overrides the launchfile installation directive
+				# within the root CMakeLists.txt. Therefore add the generated launchfiles too.
+				# And make sure, that filename are unique!
+				# install(
+				#	DIRECTORY
+				#		"../launch"
+				#		"launch"
+				#	DESTINATION
+				#		share/${PROJECT_NAME}
+				#  )
+			''',
+			"some_other_package/package.xml" -> '''
+				<?xml version="1.0"?>
+				<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+				<package format="3">
+					<name>some_other_package</name>
+					<version>0.0.0</version>
+					<description>Some package to depend on!</description>
+					<maintainer email="donald.duck@disney.com">Donald Duck</maintainer>
+					<license>MIT</license>
+					
+					<build_depend>rosidl_default_generators</build_depend>
+					<buildtool_depend>ament_cmake</buildtool_depend>
+					
+					<!-- Default dependencies -->
+					<exec_depend>rclcpp</exec_depend>
+					<exec_depend>rosidl_default_runtime</exec_depend>
+					
+					<test_depend>ament_lint_auto</test_depend>
+					<test_depend>ament_lint_common</test_depend>
+					
+					<member_of_group>rosidl_interface_packages</member_of_group>
+					
+					<export>
+						<build_type>ament_cmake</build_type>
+					</export>
+				</package>
+			''',
+			"some_other_package/CMakeLists.txt" -> '''
+				cmake_minimum_required(VERSION 3.5)
+				project(some_other_package)
+				
+				# Default to C99
+				if(NOT CMAKE_C_STANDARD)
+				  set(CMAKE_C_STANDARD 99)
+				endif()
+				
+				# Default to C++14
+				if(NOT CMAKE_CXX_STANDARD)
+				  set(CMAKE_CXX_STANDARD 14)
+				endif()
+				
+				if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+				  add_compile_options(-Wall -Wextra -Wpedantic)
+				endif()
+				
+				find_package(ament_cmake REQUIRED)
+				find_package(rclcpp REQUIRED)
+				find_package(rosidl_default_generators REQUIRED)
+				
+				rosidl_generate_interfaces(${PROJECT_NAME}
+					"msg/SomeMessage.msg"
+				)
+				
+				ament_export_dependencies(rosidl_default_runtime)
+				
+				ament_package()
+			''',
+			"some_other_package/user-code/CMakeLists.txt" -> '''
+				# This is the user-code CMakeFile. It won't be overwritten by the generator.
+				# Following are some usage examples:
+				
+				# Generate compile_commands.json for the library and all executable targets
+				# of this ros package.
+				set_target_properties(${PKG_LIB_TARGET_NAME} ${EXECUTABLE_TARGET_NAMES}
+					PROPERTIES
+						EXPORT_COMPILE_COMMANDS ON
+				)
+				
+				# Add sources to the library target:
+				target_sources(${PKG_LIB_TARGET_NAME}
+					PRIVATE
+				#		"{CMAKE_CURRENT_LIST_DIR}/src/some-manually-created-source-file.cpp"
+				)
+				
+				# Add sources to an executable target.
+				# target_sources(ExecutableTargetName
+				#	PRIVATE
+				#		"{CMAKE_CURRENT_LIST_DIR}/src/some-manually-created-source-file.cpp"
+				#)
+				#
+				# NOTICE: Unless with the library example above, an individual executable 
+				# must be refered by the actual target name (not with an variable).
+				# Therefore the specified executable-target-name must be updated, if 
+				# the executable name changes within the model!
+				# As recommendation: Add source files to the library target (as seen previously).
+				# Because every generated process executable will be linked against the ${PKG_LIB_TARGET_NAME}
+				# in the root CMakeLists.txt.
+				
+				# Install manuelly written launch files.
+				# NOTE: This will overrides the launchfile installation directive
+				# within the root CMakeLists.txt. Therefore add the generated launchfiles too.
+				# And make sure, that filename are unique!
+				# install(
+				#	DIRECTORY
+				#		"../launch"
+				#		"launch"
+				#	DESTINATION
+				#		share/${PROJECT_NAME}
+				#  )
+			'''
+		})
+	}
+	
+	@Test
+	def singelPackageGeneration() {
+		val source = '''
+			cpp package MyROSPackage:
+				version: "0.0.0";
+				description: "My first ROS2 package";
+				license name: "MIT";
+				maintainers:
+					"Mickey Mouse": "micky.mouse@disney.com";
+					"Donald Duck": "donald.duck@disney.com";
+			end MyROSPackage;
+			
+			deployment TestDeployment in MyROSPackage:
+				systems:
+					MyROSPackage.VibratingHat hat;
+				platforms:
+					MyROSPackage.Testplatform test;
+				processes:
+					sensingProcess runs hat.headTracking;
+					actingProcess runs hat.vibration;
+				process mappings:
+					actingProcess -> test;
+					sensingProcess -> test;
+				function mappings:
+					hat.vibration.initMotorDriver - test.motors.Init;
+					hat.vibration.setMotorIntensity - test.motors.SetMotorIntensity;
+					hat.vibration.stopMotorProfile - test.motors.StopAllMotors;
+					
+					hat.headTracking.Init	-	test.imu1.Init;
+					hat.headTracking.ReadNewData - test.imu1.ReadNewData;
+					hat.headTracking.IsSensorAvailable	-	test.imu1.IsSensorAvailable;
+					
+					hat.headTracking.GetPositionX	-	test.imu1.GetPositionX;
+					hat.headTracking.GetPositionY	-	test.imu1.GetPositionY;
+					hat.headTracking.GetPositionZ	-	test.imu1.GetPositionZ;
+					hat.headTracking.GetAngleX		-	test.imu1.GetAngleX;
+					hat.headTracking.GetAngleY		-	test.imu1.GetAngleY;
+					hat.headTracking.GetAngleZ		-	test.imu1.GetAngleZ;
+					
+					// Callbacks
+					hat.headTracking.sensorError - test.imu1.SensorError;
+					hat.headTracking.sensorInitialized - test.imu1.SensorInitialized;
+			end TestDeployment;
+			
+			platform Testplatform in MyROSPackage:
+				os:
+					Linux;
+				buses:
+					SPI spi0;
+					SPI spi1;
+				devices:
+					MyROSPackage.MotionSensor imu1 uses spi0;
+					MyROSPackage.VibrationMotorChain motors uses spi1;
+			end Testplatform;
+			
+			device MotionSensor in MyROSPackage:
+				to:
+					void Init();
+					void ReadNewData();
+					Bool IsSensorAvailable();
+			
+					Int16 GetPositionX();
+					Int16 GetPositionY();
+					Int16 GetPositionZ();
+					Int16 GetAngleX();
+					Int16 GetAngleY();
+					Int16 GetAngleZ();
+			
+				from:
+					void SensorError();
+					void SensorInitialized();
+			end MotionSensor;
+			
+			device VibrationMotorChain in MyROSPackage:
+				to:
+					void Init();
+					void SetMotorIntensity(UInt16 index, UInt8 intensity);
+			
+					void StopAllMotors();
+					void SetAllMotorIntensities(UInt8 intensity);
+			end VibrationMotorChain;
+			
+			message SomeMessage in MyROSPackage:
+				components:
+					Int16 comp1;
+			end SomeMessage;
+			
+			node VibrationNode in MyROSPackage:
+				functions:
+					// Test function to "mark" SomeMessage as used
+					void sendMsg(MyROSPackage.SomeMessage msg);
+				
+					// State machine functions
+					void calculateMotorIndex();
+					void startMotorProfile();
+					void stopMotorProfile();
+					
+					// Device functions
+					void initMotorDriver();
+					void setMotorIntensity(UInt16 index, UInt8 intensity);
+				
+				statemachines:
+					MyROSPackage.VibrationStateMachine;
+			end VibrationNode;
+			
+			node HeadTrackingNode in MyROSPackage:
+				functions:
+					void PublishSensorActive();
+					void PublishSensorInactive();
+			
+					// Device functions
+					void Init();			// called from state machine
+					void ReadNewData(); 	// called from state machine
+					Int16 GetPositionX();
+					Int16 GetPositionY();
+					Int16 GetPositionZ();
+					Int16 GetAngleX();
+					Int16 GetAngleY();
+					Int16 GetAngleZ();
+			
+					void ReadDataFromSensor();
+					Bool IsSensorAvailable();
+			
+					// called by device to trigger the state machine
+					// events
+					void sensorError();
+					void sensorInitialized();
+				
+				statemachines:
+					MyROSPackage.HeadTrackingStateMachine;
+			end HeadTrackingNode;
+			
+			system VibratingHat in MyROSPackage:
+				node instances:
+					// The instance of the vibration driver to drive
+					// the motors
+					MyROSPackage.VibrationNode vibration;
+					
+					// The instance of the head tracking node to
+					// read out and publish the motion sensor data
+					MyROSPackage.HeadTrackingNode headTracking;
+			end VibratingHat;
+			
+			state HeadTrackingIdle in MyROSPackage:
+				always:
+					Init;
+			end HeadTrackingIdle;
+			
+			state Measuring in MyROSPackage:
+				enter:
+					PublishSensorActive;
+				always:
+					ReadNewData;
+				leave:
+					PublishSensorInactive;
+			end Measuring;
+			
+			statemachine HeadTrackingStateMachine in MyROSPackage:
+				events:
+					sensorError;
+					sensorInitialized;
+			
+				transitions:
+					init -> MyROSPackage.HeadTrackingIdle;
+			
+					MyROSPackage.Measuring -[sensorError]-> MyROSPackage.HeadTrackingIdle;
+					MyROSPackage.HeadTrackingIdle -[sensorInitialized]-> MyROSPackage.Measuring;
+			end HeadTrackingStateMachine;
+			
+			state VibrationIdle in MyROSPackage:
+				enter:
+					InitMotorDriver;
+			end VibrationIdle;
+			
+			state Vibrating in MyROSPackage:
+				enter:
+					startMotorProfile;
+				always:
+					calculateMotorIndex;
+				leave:
+					stopMotorProfile;
+			end Vibrating;
+			
+			state Error in MyROSPackage:
+				enter:
+					stopMotorProfile;
+			end Error;
+			
+			statemachine VibrationStateMachine in MyROSPackage:
+				events:
+					sensorError;
+					sensorActive;
+					startVibration;
+					stopVibration;
+				transitions:
+					init -> MyROSPackage.VibrationIdle;
+					MyROSPackage.VibrationIdle -[startVibration]-> MyROSPackage.Vibrating;
+					MyROSPackage.Vibrating -[stopVibration]-> MyROSPackage.VibrationIdle;
+					
+					//Error handling
+					MyROSPackage.VibrationIdle -[sensorError]-> MyROSPackage.Error;
+					MyROSPackage.Vibrating -[sensorError]-> MyROSPackage.Error;
+					MyROSPackage.Error -[sensorActive]-> MyROSPackage.VibrationIdle;
+			end VibrationStateMachine;
+		'''
+		
+		source.assertCompilesTo(#{
+			"my_ros_package/package.xml" -> '''
+				<?xml version="1.0"?>
+				<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+				<package format="3">
+					<name>my_ros_package</name>
+					<version>0.0.0</version>
+					<description>My first ROS2 package</description>
+					<maintainer email="micky.mouse@disney.com">Mickey Mouse</maintainer>
+					<maintainer email="donald.duck@disney.com">Donald Duck</maintainer>
+					<license>MIT</license>
+					
+					<build_depend>rosidl_default_generators</build_depend>
+					
+					<buildtool_depend>ament_cmake</buildtool_depend>
+					
+					<exec_depend>rclcpp</exec_depend>
+					<exec_depend>rosidl_default_runtime</exec_depend>
+					<exec_depend>ros2launch</exec_depend>
+					
+					<test_depend>ament_lint_auto</test_depend>
+					<test_depend>ament_lint_common</test_depend>
+					
+					<member_of_group>rosidl_interface_packages</member_of_group>
+					
+					<export>
+						<build_type>ament_cmake</build_type>
+					</export>
+				</package>
+			''',
+			"my_ros_package/CMakeLists.txt" -> '''
+				cmake_minimum_required(VERSION 3.5)
+				project(my_ros_package)
+				
+				# Default to C99
+				if(NOT CMAKE_C_STANDARD)
+				  set(CMAKE_C_STANDARD 99)
+				endif()
+				
+				# Default to C++14
+				if(NOT CMAKE_CXX_STANDARD)
+				  set(CMAKE_CXX_STANDARD 14)
+				endif()
+				
+				if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+				  add_compile_options(-Wall -Wextra -Wpedantic)
+				endif()
+				
+				find_package(ament_cmake REQUIRED)
+				find_package(rclcpp REQUIRED)
+				find_package(rosidl_default_generators REQUIRED)
+				
+				rosidl_generate_interfaces(${PROJECT_NAME}
+					"msg/SomeMessage.msg"
+				)
+				
+				ament_export_dependencies(rosidl_default_runtime)
+				
+				add_library(my_ros_package_lib
+					user-code/src/VibrationNode.cpp
+					src/VibrationNodeBase.cpp
+					user-code/src/VibrationMotorChainDevice.cpp
+					src/VibrationStateMachine.cpp
+					src/TickHSM.cpp
+					src/ActingProcessProcess.cpp
+					user-code/src/HeadTrackingNode.cpp
+					src/HeadTrackingNodeBase.cpp
+					user-code/src/MotionSensorDevice.cpp
+					src/MotionSensorBaseDevice.cpp
+					src/HeadTrackingStateMachine.cpp
+					src/SensingProcessProcess.cpp
+				)
+				
+				target_include_directories(my_ros_package_lib
+					PUBLIC
+						$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/my_ros_package>
+						$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/user-code/include/my_ros_package>
+						$<INSTALL_INTERFACE:include>
+				)
+				
+				ament_target_dependencies(my_ros_package_lib
+					rclcpp
+				)
+				
+				rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME}
+					rosidl_typesupport_cpp)
+				target_link_libraries(my_ros_package_lib "${cpp_typesupport_target}")
+				
+				ament_export_targets(my_ros_package_lib_targets HAS_LIBRARY_TARGET)
+				
+				add_executable(acting_process user-code/src/ActingProcessEntryPoint.cpp)
+				target_link_libraries(acting_process my_ros_package_lib)
+				
+				add_executable(sensing_process user-code/src/SensingProcessEntryPoint.cpp)
+				target_link_libraries(sensing_process my_ros_package_lib)
+				
+				######################################################################
+				# Load user defined CMakeFile if present
+				# But first the PKG_LIB_NAME variable is set, so that the included 
+				# CMakeLists doesn't have to refer to the real library-target-name.
+				# Therefore reducing errors or changes when the library name might 
+				# change.
+				set(PKG_LIB_TARGET_NAME my_ros_package_lib)
+				set(EXECUTABLE_TARGET_NAMES acting_process sensing_process)
+				
+				if((EXISTS ${CMAKE_CURRENT_LIST_DIR}/user-code)
+				    AND (IS_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/user-code)
+				    AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/user-code/CMakeLists.txt))
+				    message("Loading user-code/CMakeLists.txt...")
+				    add_subdirectory(user-code)
+				    message("...loaded user-code/CMakeLists.txt.")
+				else()
+					message("No CMakeLists.txt in user-code-directory \"user-code\" found. Skip loading.")
+				endif()
+				######################################################################
+				
+				install(
+					DIRECTORY include/
+					DESTINATION include
+				)
+				
+				install(
+					TARGETS my_ros_package_lib
+					EXPORT my_ros_package_lib_targets
+					LIBRARY DESTINATION lib
+					ARCHIVE DESTINATION lib
+					RUNTIME DESTINATION bin
+					INCLUDES DESTINATION include
+				)
+				
+				install(
+					TARGETS
+						acting_process
+						sensing_process
+					DESTINATION
+						lib/${PROJECT_NAME}
+				)
+				
+				install(DIRECTORY launch DESTINATION share/${PROJECT_NAME})
+				
+				ament_package()
+			''',
+			"my_ros_package/user-code/CMakeLists.txt" -> '''
+				# This is the user-code CMakeFile. It won't be overwritten by the generator.
+				# Following are some usage examples:
+				
+				# Generate compile_commands.json for the library and all executable targets
+				# of this ros package.
+				set_target_properties(${PKG_LIB_TARGET_NAME} ${EXECUTABLE_TARGET_NAMES}
+					PROPERTIES
+						EXPORT_COMPILE_COMMANDS ON
+				)
+				
+				# Add sources to the library target:
+				target_sources(${PKG_LIB_TARGET_NAME}
+					PRIVATE
+				#		"{CMAKE_CURRENT_LIST_DIR}/src/some-manually-created-source-file.cpp"
+				)
+				
+				# Add sources to an executable target.
+				# target_sources(ExecutableTargetName # e.g. one of: acting_process, sensing_process
+				#	PRIVATE
+				#		"{CMAKE_CURRENT_LIST_DIR}/src/some-manually-created-source-file.cpp"
+				#)
+				#
+				# NOTICE: Unless with the library example above, an individual executable 
+				# must be refered by the actual target name (not with an variable).
+				# Therefore the specified executable-target-name must be updated, if 
+				# the executable name changes within the model!
+				# As recommendation: Add source files to the library target (as seen previously).
+				# Because every generated process executable will be linked against the ${PKG_LIB_TARGET_NAME}
+				# in the root CMakeLists.txt.
+				
+				# Install manuelly written launch files.
+				# NOTE: This will overrides the launchfile installation directive
+				# within the root CMakeLists.txt. Therefore add the generated launchfiles too.
+				# And make sure, that filename are unique!
+				# install(
+				#	DIRECTORY
+				#		"../launch"
+				#		"launch"
+				#	DESTINATION
+				#		share/${PROJECT_NAME}
+				#  )
+			'''
+		})
+	}
+	
+	@Test
+	def dontGenerateAnAbstractPackage() {
+		val source = '''
+			abstract cpp package MyROSPackage:
+				version: 0.0.0;
+				description: "My first ROS2 project";
+				license name: "MIT";
+				maintainers:
+					"Mickey Mouse": "micky.mouse@disney.com";
+			end MyROSPackage;
+		'''
+		
+		source.assertNotGenerated(#{
+			"my_ros_package/package.xml",
+			"my_ros_package/CMakeLists.txt"
+		})
+	}
+}

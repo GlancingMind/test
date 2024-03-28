@@ -1,0 +1,132 @@
+package org.xtext.fetaml.cpp.system
+
+import org.eclipse.xtend.lib.annotations.Data
+import org.xtext.fetaml.cpp.pkg.launch.action.ParameterList
+import org.xtext.fetaml.cpp.pkg.launch.action.ParameterList.ParameterValue
+import org.xtext.fetaml.ros.ROSTopic
+import org.xtext.fetaml.model.CasedString
+import org.xtext.fetaml.cpp.pkg.launch.action.LaunchNodeConfig
+import org.xtext.fetaml.model.PackageIdentifier
+import org.xtext.fetaml.cpp.pkg.Executable
+import org.xtext.fetaml.cpp.pkg.launch.action.LaunchAction
+import org.xtext.fetaml.extensions.PortExtensions.PortProviderType
+import java.util.Optional
+
+class MultiplexerNodeInstance implements PortProviderInstance {
+	
+	val CasedString name
+	val SystemInstance belongingSystem
+	var Optional<PortInstance> outputPort = Optional::empty
+	val inputPorts = <PortInstance, PortInstance>newLinkedHashMap
+	
+	new(CasedString name, SystemInstance belongingSystem) {
+		this.name = name
+		this.belongingSystem = belongingSystem
+	}
+	
+	def getOrCreateOutputPort(PortInstance inPort) {
+		if(outputPort.isEmpty) {
+			this.outputPort = Optional::of(new PortInstance(inPort.name, this, inPort.type))
+		}
+		return outputPort.get
+	}
+	
+	def getOrCreateInputPortFor(PortInstance outPort) {
+		if(inputPorts.containsKey(outPort)) {
+			return inputPorts.get(outPort)
+		}
+		
+		val newInputPortOfMP = new PortInstance(outPort.name.append(inputPorts.size.toString), this, outPort.type)
+		inputPorts.put(outPort, newInputPortOfMP)
+		return newInputPortOfMP
+	}
+	
+	def parameters() {
+		val pl = new ParameterList()
+		val inTopics = this.inputPorts.values.map[inPort|
+			inPort.toROSTopic.withNamespace(inPort.provider.fullyQualifiedNamePartsAsCasedStrings)
+		]
+		pl.putParameter("input_topics", new InputTopicsParameterValue(inTopics)
+		val outTopic = outputPort.get.toROSTopic.withNamespace(outputPort.get.provider.fullyQualifiedNamePartsAsCasedStrings)
+		pl.putParameter("output_topic", new OutputTopicParameterValue(outTopic))
+		return pl
+	}
+	
+	private static def ROSTopic toROSTopic(PortInstance port) {
+		switch(port.type) {
+			case Publisher: ROSTopic::createPublisherTopic(port.name)
+			case Subscriber: ROSTopic::createSubscriberTopic(port.name)
+			case ServiceProvider: ROSTopic::createServiceProviderTopic(port.name)
+			case ServiceConsumer: ROSTopic::createServiceClientTopic(port.name)
+		}
+	}
+	
+	@Data
+	private static class InputTopicsParameterValue implements ParameterValue {
+		
+		val Iterable<ROSTopic> topicPaths
+		
+		override toPythonEntry() '''
+			[
+				«FOR topicPath : this.topicPaths»
+					"«topicPath.toString»"
+				«ENDFOR»
+			]
+		'''
+		
+		override String toXMLEntry() {
+			throw new UnsupportedOperationException("TODO: toXMLEntry isn't currently implemented")
+		}
+		
+		override String toYamlEntry() {
+			throw new UnsupportedOperationException("TODO: toYamlEntry isn't currently implemented")
+		}
+	}
+	
+	@Data
+	private static class OutputTopicParameterValue implements ParameterValue {
+		
+		val ROSTopic topicPath
+		
+		override toPythonEntry() {
+			'''"«topicPath.toString»"'''
+		}
+		
+		override String toXMLEntry() {
+			throw new UnsupportedOperationException("TODO: toXMLEntry isn't currently implemented")
+		}
+		
+		override String toYamlEntry() {
+			throw new UnsupportedOperationException("TODO: toYamlEntry isn't currently implemented")
+		}
+	}
+	
+	def LaunchAction getLaunchConfig() {
+		new LaunchNodeConfig(
+			new PackageIdentifier("topic_tools"),
+			new Executable.Identifier("mux"),
+			#[],
+			this.parameters
+		)
+	}
+	
+	override getFullyQualifiedNamePartsAsCasedStrings() {
+		this.getBelongingSystem.fullyQualifiedNamePartsAsCasedStrings + #[name]
+	}
+	
+	override getBelongingSystem() {
+		this.belongingSystem
+	}
+	
+	override getSuccessor(PortInstance port) {
+		this.belongingSystem.getSuccessor(port)
+	}
+	
+	override isTypeOf(PortProviderType type) {
+		type == PortProviderType::NodeInstance
+	}
+	
+	override getName() {
+		this.name
+	}
+}

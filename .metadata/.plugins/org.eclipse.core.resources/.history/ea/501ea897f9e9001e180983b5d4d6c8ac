@@ -1,0 +1,33 @@
+package org.xtext.fetaml
+
+import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider
+import org.eclipse.xtext.naming.QualifiedName
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils
+import org.xtext.fetaml.fetaml.DefinitionName
+import org.xtext.fetaml.fetaml.FetamlPackage
+import org.xtext.fetaml.fetaml.SystemNodeReference
+
+class FetamlQualifiedNameProvider extends DefaultDeclarativeQualifiedNameProvider {
+
+	protected def QualifiedName qualifiedName(DefinitionName definition) {
+		// Name calculation is done prior to indexing which has to be finished before linking.
+		// Therefore cannot use the `definition.package crossreference` as it will result into a cyclic
+		// link resolution exception. 
+		// Source: https://nittka.github.io/2011/08/01/scoping1.html
+		// See also: https://www.eclipse.org/forums/index.php?t=msg&th=1091749&goto=1782405&#msg_1782405
+		val packageName = NodeModelUtils.findNodesForFeature(definition, FetamlPackage.Literals.DEFINITION_NAME__PACKAGE).head.text.trim
+		QualifiedName.create(packageName, definition.name)
+	}
+	
+	protected def QualifiedName qualifiedName(SystemNodeReference ni) {
+		val rootSystem = NodeModelUtils.findNodesForFeature(ni, FetamlPackage.Literals.SYSTEM_NODE_REFERENCE__FROM_SYSTEM).head.text.trim
+		val systems = NodeModelUtils.findNodesForFeature(ni, FetamlPackage.Literals.SYSTEM_NODE_REFERENCE__INSTANCE).head.text.trim
+		println(rootSystem+"."+systems.split('\\.').join("-"))
+		val x = (rootSystem+"."+systems).split('.')
+		println(x) 
+		val qn = QualifiedName.create(x)
+		println("qn")
+		println(qn)
+		qn
+	}
+}

@@ -1,0 +1,75 @@
+package org.xtext.fetaml.ros
+
+import org.eclipse.xtend.lib.annotations.EqualsHashCode
+import java.util.Optional
+import java.util.List
+import org.xtext.fetaml.model.CasedString
+
+@EqualsHashCode
+class ROSTopic {
+	val String topicPath
+	val boolean isServiceTopic
+	var Optional<CasedString> nodeInstanceName = Optional::empty
+	var List<CasedString> namespaceSegments = #[]
+	
+	static def createPublisherTopic(CasedString publisherName) {
+		val topicPath = (#[CasedString::tryParse("output"), publisherName]).map[toLowerSnakeCase].join("/")
+		new ROSTopic(topicPath, false)
+	}
+	
+	static def createSubscriberTopic(CasedString subscriberName) {
+		val topicPath = (#[CasedString::tryParse("input"), subscriberName]).map[toLowerSnakeCase].join("/")
+		new ROSTopic(topicPath, false)
+	}
+	
+	static def createServiceProviderTopic(CasedString serviceProviderName) {
+		val topicPath = serviceProviderName.toLowerSnakeCase.toString
+		new ROSTopic(topicPath, true)
+	}
+	
+	static def createServiceClientTopic(CasedString serviceClientName) {
+		val topicPath = serviceClientName.toLowerSnakeCase.toString
+		new ROSTopic(topicPath, true)
+	}
+	
+	private new(String topic, boolean isServiceTopic) {
+		this.topicPath = topic
+		this.isServiceTopic = isServiceTopic
+	}
+	
+	def ofNode(CasedString nameInstanceName) {
+		nodeInstanceName = Optional::of(nameInstanceName)
+		return this
+	}
+	
+	def withNamespace(CasedString... segments) {
+		this.namespaceSegments = segments.toList // must convert iterable to list, as ROSTopics wouldn't be equal anymore...
+		return this
+	}
+	
+	def getNodeInstanceName() {
+		this.nodeInstanceName
+	}
+	
+	def getTopicStringWithNamespace() {
+		return (namespaceSegments + #[topicPath]).join('/')
+	}
+	
+	def getTopicStringWithTopicTypeAndNodeName() {
+		val sb = new StringBuilder()
+		
+		if(nodeInstanceName.isPresent && !nodeInstanceName.get.isEmpty) {
+			sb.append(nodeInstanceName.get.toUpperCamelCase+":")
+		}
+		
+		if(isServiceTopic) {
+			sb.append("rosservice://")
+		} else {
+			sb.append("rostopic://")	
+		}
+		
+		sb.append(topicPath)
+		
+		return sb.toString
+	}
+}

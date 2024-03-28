@@ -1,0 +1,20 @@
+package org.xtext.fetaml.cpp.system
+
+import org.xtext.fetaml.extensions.PortExtensions.PortProviderType
+import org.xtext.fetaml.model.CasedString
+import org.xtext.fetaml.fetaml.PortProvider
+
+interface PortProviderInstance {
+	
+	def CasedString getName()
+	
+	def stemsFrom(PortProvider provider)
+	
+	def boolean isTypeOf(PortProviderType type)
+	
+	def Iterable<CasedString> getFullyQualifiedNamePartsAsCasedStrings()
+	
+	def SystemInstance getBelongingSystem()
+	
+	def PortInstance getSuccessor(PortInstance port)
+}
