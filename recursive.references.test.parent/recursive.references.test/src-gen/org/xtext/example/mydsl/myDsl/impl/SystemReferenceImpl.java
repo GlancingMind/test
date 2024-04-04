@@ -9,7 +9,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
 import org.xtext.example.mydsl.myDsl.SystemInstance;
@@ -24,12 +23,11 @@ import org.xtext.example.mydsl.myDsl.SystemReference;
  * </p>
  * <ul>
  *   <li>{@link org.xtext.example.mydsl.myDsl.impl.SystemReferenceImpl#getSystem <em>System</em>}</li>
- *   <li>{@link org.xtext.example.mydsl.myDsl.impl.SystemReferenceImpl#getSubsystem <em>Subsystem</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class SystemReferenceImpl extends MinimalEObjectImpl.Container implements SystemReference
+public class SystemReferenceImpl extends NodeInstanceReferenceImpl implements SystemReference
 {
   /**
    * The cached value of the '{@link #getSystem() <em>System</em>}' reference.
@@ -40,16 +38,6 @@ public class SystemReferenceImpl extends MinimalEObjectImpl.Container implements
    * @ordered
    */
   protected SystemInstance system;
-
-  /**
-   * The cached value of the '{@link #getSubsystem() <em>Subsystem</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getSubsystem()
-   * @generated
-   * @ordered
-   */
-  protected SystemReference subsystem;
 
   /**
    * <!-- begin-user-doc -->
@@ -123,51 +111,6 @@ public class SystemReferenceImpl extends MinimalEObjectImpl.Container implements
    * @generated
    */
   @Override
-  public SystemReference getSubsystem()
-  {
-    if (subsystem != null && subsystem.eIsProxy())
-    {
-      InternalEObject oldSubsystem = (InternalEObject)subsystem;
-      subsystem = (SystemReference)eResolveProxy(oldSubsystem);
-      if (subsystem != oldSubsystem)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, MyDslPackage.SYSTEM_REFERENCE__SUBSYSTEM, oldSubsystem, subsystem));
-      }
-    }
-    return subsystem;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public SystemReference basicGetSubsystem()
-  {
-    return subsystem;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void setSubsystem(SystemReference newSubsystem)
-  {
-    SystemReference oldSubsystem = subsystem;
-    subsystem = newSubsystem;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.SYSTEM_REFERENCE__SUBSYSTEM, oldSubsystem, subsystem));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
     switch (featureID)
@@ -175,9 +118,6 @@ public class SystemReferenceImpl extends MinimalEObjectImpl.Container implements
       case MyDslPackage.SYSTEM_REFERENCE__SYSTEM:
         if (resolve) return getSystem();
         return basicGetSystem();
-      case MyDslPackage.SYSTEM_REFERENCE__SUBSYSTEM:
-        if (resolve) return getSubsystem();
-        return basicGetSubsystem();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -194,9 +134,6 @@ public class SystemReferenceImpl extends MinimalEObjectImpl.Container implements
     {
       case MyDslPackage.SYSTEM_REFERENCE__SYSTEM:
         setSystem((SystemInstance)newValue);
-        return;
-      case MyDslPackage.SYSTEM_REFERENCE__SUBSYSTEM:
-        setSubsystem((SystemReference)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -215,9 +152,6 @@ public class SystemReferenceImpl extends MinimalEObjectImpl.Container implements
       case MyDslPackage.SYSTEM_REFERENCE__SYSTEM:
         setSystem((SystemInstance)null);
         return;
-      case MyDslPackage.SYSTEM_REFERENCE__SUBSYSTEM:
-        setSubsystem((SystemReference)null);
-        return;
     }
     super.eUnset(featureID);
   }
@@ -234,8 +168,6 @@ public class SystemReferenceImpl extends MinimalEObjectImpl.Container implements
     {
       case MyDslPackage.SYSTEM_REFERENCE__SYSTEM:
         return system != null;
-      case MyDslPackage.SYSTEM_REFERENCE__SUBSYSTEM:
-        return subsystem != null;
     }
     return super.eIsSet(featureID);
   }

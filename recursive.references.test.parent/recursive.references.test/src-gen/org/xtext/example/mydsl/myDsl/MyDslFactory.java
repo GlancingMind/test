@@ -69,6 +69,15 @@ public interface MyDslFactory extends EFactory
   SystemInstance createSystemInstance();
 
   /**
+   * Returns a new object of class '<em>Node Instance Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Node Instance Reference</em>'.
+   * @generated
+   */
+  NodeInstanceReference createNodeInstanceReference();
+
+  /**
    * Returns a new object of class '<em>System Reference</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -78,13 +87,13 @@ public interface MyDslFactory extends EFactory
   SystemReference createSystemReference();
 
   /**
-   * Returns a new object of class '<em>Node Instance Reference</em>'.
+   * Returns a new object of class '<em>Feature</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Node Instance Reference</em>'.
+   * @return a new object of class '<em>Feature</em>'.
    * @generated
    */
-  NodeInstanceReference createNodeInstanceReference();
+  Feature createFeature();
 
   /**
    * Returns a new object of class '<em>Deployment Statement</em>'.

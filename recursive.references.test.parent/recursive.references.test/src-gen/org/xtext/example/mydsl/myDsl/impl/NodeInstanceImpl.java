@@ -9,7 +9,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
 import org.xtext.example.mydsl.myDsl.NodeDefinition;
@@ -24,12 +23,11 @@ import org.xtext.example.mydsl.myDsl.NodeInstance;
  * </p>
  * <ul>
  *   <li>{@link org.xtext.example.mydsl.myDsl.impl.NodeInstanceImpl#getType <em>Type</em>}</li>
- *   <li>{@link org.xtext.example.mydsl.myDsl.impl.NodeInstanceImpl#getName <em>Name</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class NodeInstanceImpl extends MinimalEObjectImpl.Container implements NodeInstance
+public class NodeInstanceImpl extends FeatureImpl implements NodeInstance
 {
   /**
    * The cached value of the '{@link #getType() <em>Type</em>}' reference.
@@ -40,26 +38,6 @@ public class NodeInstanceImpl extends MinimalEObjectImpl.Container implements No
    * @ordered
    */
   protected NodeDefinition type;
-
-  /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -133,31 +111,6 @@ public class NodeInstanceImpl extends MinimalEObjectImpl.Container implements No
    * @generated
    */
   @Override
-  public String getName()
-  {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.NODE_INSTANCE__NAME, oldName, name));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
     switch (featureID)
@@ -165,8 +118,6 @@ public class NodeInstanceImpl extends MinimalEObjectImpl.Container implements No
       case MyDslPackage.NODE_INSTANCE__TYPE:
         if (resolve) return getType();
         return basicGetType();
-      case MyDslPackage.NODE_INSTANCE__NAME:
-        return getName();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -183,9 +134,6 @@ public class NodeInstanceImpl extends MinimalEObjectImpl.Container implements No
     {
       case MyDslPackage.NODE_INSTANCE__TYPE:
         setType((NodeDefinition)newValue);
-        return;
-      case MyDslPackage.NODE_INSTANCE__NAME:
-        setName((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -204,9 +152,6 @@ public class NodeInstanceImpl extends MinimalEObjectImpl.Container implements No
       case MyDslPackage.NODE_INSTANCE__TYPE:
         setType((NodeDefinition)null);
         return;
-      case MyDslPackage.NODE_INSTANCE__NAME:
-        setName(NAME_EDEFAULT);
-        return;
     }
     super.eUnset(featureID);
   }
@@ -223,27 +168,8 @@ public class NodeInstanceImpl extends MinimalEObjectImpl.Container implements No
     {
       case MyDslPackage.NODE_INSTANCE__TYPE:
         return type != null;
-      case MyDslPackage.NODE_INSTANCE__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuilder result = new StringBuilder(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(')');
-    return result.toString();
   }
 
 } //NodeInstanceImpl

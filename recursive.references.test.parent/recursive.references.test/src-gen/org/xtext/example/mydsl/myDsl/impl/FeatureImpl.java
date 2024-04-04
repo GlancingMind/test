@@ -6,45 +6,54 @@ package org.xtext.example.mydsl.myDsl.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.xtext.example.mydsl.myDsl.Feature;
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
-import org.xtext.example.mydsl.myDsl.SystemDefinition;
-import org.xtext.example.mydsl.myDsl.SystemInstance;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>System Instance</b></em>'.
+ * An implementation of the model object '<em><b>Feature</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.example.mydsl.myDsl.impl.SystemInstanceImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.impl.FeatureImpl#getName <em>Name</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class SystemInstanceImpl extends FeatureImpl implements SystemInstance
+public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 {
   /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' reference.
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getType()
+   * @see #getName()
    * @generated
    * @ordered
    */
-  protected SystemDefinition type;
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected SystemInstanceImpl()
+  protected FeatureImpl()
   {
     super();
   }
@@ -57,7 +66,7 @@ public class SystemInstanceImpl extends FeatureImpl implements SystemInstance
   @Override
   protected EClass eStaticClass()
   {
-    return MyDslPackage.Literals.SYSTEM_INSTANCE;
+    return MyDslPackage.Literals.FEATURE;
   }
 
   /**
@@ -66,29 +75,9 @@ public class SystemInstanceImpl extends FeatureImpl implements SystemInstance
    * @generated
    */
   @Override
-  public SystemDefinition getType()
+  public String getName()
   {
-    if (type != null && type.eIsProxy())
-    {
-      InternalEObject oldType = (InternalEObject)type;
-      type = (SystemDefinition)eResolveProxy(oldType);
-      if (type != oldType)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, MyDslPackage.SYSTEM_INSTANCE__TYPE, oldType, type));
-      }
-    }
-    return type;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public SystemDefinition basicGetType()
-  {
-    return type;
+    return name;
   }
 
   /**
@@ -97,12 +86,12 @@ public class SystemInstanceImpl extends FeatureImpl implements SystemInstance
    * @generated
    */
   @Override
-  public void setType(SystemDefinition newType)
+  public void setName(String newName)
   {
-    SystemDefinition oldType = type;
-    type = newType;
+    String oldName = name;
+    name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.SYSTEM_INSTANCE__TYPE, oldType, type));
+      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.FEATURE__NAME, oldName, name));
   }
 
   /**
@@ -115,9 +104,8 @@ public class SystemInstanceImpl extends FeatureImpl implements SystemInstance
   {
     switch (featureID)
     {
-      case MyDslPackage.SYSTEM_INSTANCE__TYPE:
-        if (resolve) return getType();
-        return basicGetType();
+      case MyDslPackage.FEATURE__NAME:
+        return getName();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -132,8 +120,8 @@ public class SystemInstanceImpl extends FeatureImpl implements SystemInstance
   {
     switch (featureID)
     {
-      case MyDslPackage.SYSTEM_INSTANCE__TYPE:
-        setType((SystemDefinition)newValue);
+      case MyDslPackage.FEATURE__NAME:
+        setName((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -149,8 +137,8 @@ public class SystemInstanceImpl extends FeatureImpl implements SystemInstance
   {
     switch (featureID)
     {
-      case MyDslPackage.SYSTEM_INSTANCE__TYPE:
-        setType((SystemDefinition)null);
+      case MyDslPackage.FEATURE__NAME:
+        setName(NAME_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -166,10 +154,27 @@ public class SystemInstanceImpl extends FeatureImpl implements SystemInstance
   {
     switch (featureID)
     {
-      case MyDslPackage.SYSTEM_INSTANCE__TYPE:
-        return type != null;
+      case MyDslPackage.FEATURE__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
     }
     return super.eIsSet(featureID);
   }
 
-} //SystemInstanceImpl
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuilder result = new StringBuilder(super.toString());
+    result.append(" (name: ");
+    result.append(name);
+    result.append(')');
+    return result.toString();
+  }
+
+} //FeatureImpl

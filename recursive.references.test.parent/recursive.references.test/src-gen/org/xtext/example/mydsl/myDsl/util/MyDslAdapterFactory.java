@@ -101,14 +101,19 @@ public class MyDslAdapterFactory extends AdapterFactoryImpl
         return createSystemInstanceAdapter();
       }
       @Override
+      public Adapter caseNodeInstanceReference(NodeInstanceReference object)
+      {
+        return createNodeInstanceReferenceAdapter();
+      }
+      @Override
       public Adapter caseSystemReference(SystemReference object)
       {
         return createSystemReferenceAdapter();
       }
       @Override
-      public Adapter caseNodeInstanceReference(NodeInstanceReference object)
+      public Adapter caseFeature(Feature object)
       {
-        return createNodeInstanceReferenceAdapter();
+        return createFeatureAdapter();
       }
       @Override
       public Adapter caseDeploymentStatement(DeploymentStatement object)
@@ -223,6 +228,21 @@ public class MyDslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.NodeInstanceReference <em>Node Instance Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.myDsl.NodeInstanceReference
+   * @generated
+   */
+  public Adapter createNodeInstanceReferenceAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.SystemReference <em>System Reference</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -238,16 +258,16 @@ public class MyDslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.NodeInstanceReference <em>Node Instance Reference</em>}'.
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.Feature <em>Feature</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.example.mydsl.myDsl.NodeInstanceReference
+   * @see org.xtext.example.mydsl.myDsl.Feature
    * @generated
    */
-  public Adapter createNodeInstanceReferenceAdapter()
+  public Adapter createFeatureAdapter()
   {
     return null;
   }

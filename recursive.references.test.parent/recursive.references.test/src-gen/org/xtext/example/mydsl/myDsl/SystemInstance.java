@@ -3,7 +3,6 @@
  */
 package org.xtext.example.mydsl.myDsl;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -15,14 +14,13 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.xtext.example.mydsl.myDsl.SystemInstance#getType <em>Type</em>}</li>
- *   <li>{@link org.xtext.example.mydsl.myDsl.SystemInstance#getName <em>Name</em>}</li>
  * </ul>
  *
  * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getSystemInstance()
  * @model
  * @generated
  */
-public interface SystemInstance extends EObject
+public interface SystemInstance extends Feature
 {
   /**
    * Returns the value of the '<em><b>Type</b></em>' reference.
@@ -45,27 +43,5 @@ public interface SystemInstance extends EObject
    * @generated
    */
   void setType(SystemDefinition value);
-
-  /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getSystemInstance_Name()
-   * @model
-   * @generated
-   */
-  String getName();
-
-  /**
-   * Sets the value of the '{@link org.xtext.example.mydsl.myDsl.SystemInstance#getName <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
-   * @generated
-   */
-  void setName(String value);
 
 } // SystemInstance

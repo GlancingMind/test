@@ -12,10 +12,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.xtext.example.mydsl.myDsl.Feature;
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
-import org.xtext.example.mydsl.myDsl.NodeInstance;
 import org.xtext.example.mydsl.myDsl.NodeInstanceReference;
-import org.xtext.example.mydsl.myDsl.SystemReference;
 
 /**
  * <!-- begin-user-doc -->
@@ -25,8 +24,8 @@ import org.xtext.example.mydsl.myDsl.SystemReference;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.example.mydsl.myDsl.impl.NodeInstanceReferenceImpl#getBelongingSystemReference <em>Belonging System Reference</em>}</li>
- *   <li>{@link org.xtext.example.mydsl.myDsl.impl.NodeInstanceReferenceImpl#getNode <em>Node</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.impl.NodeInstanceReferenceImpl#getRef <em>Ref</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.impl.NodeInstanceReferenceImpl#getTail <em>Tail</em>}</li>
  * </ul>
  *
  * @generated
@@ -34,24 +33,24 @@ import org.xtext.example.mydsl.myDsl.SystemReference;
 public class NodeInstanceReferenceImpl extends MinimalEObjectImpl.Container implements NodeInstanceReference
 {
   /**
-   * The cached value of the '{@link #getBelongingSystemReference() <em>Belonging System Reference</em>}' containment reference.
+   * The cached value of the '{@link #getRef() <em>Ref</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getBelongingSystemReference()
+   * @see #getRef()
    * @generated
    * @ordered
    */
-  protected SystemReference belongingSystemReference;
+  protected NodeInstanceReference ref;
 
   /**
-   * The cached value of the '{@link #getNode() <em>Node</em>}' reference.
+   * The cached value of the '{@link #getTail() <em>Tail</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getNode()
+   * @see #getTail()
    * @generated
    * @ordered
    */
-  protected NodeInstance node;
+  protected Feature tail;
 
   /**
    * <!-- begin-user-doc -->
@@ -80,9 +79,9 @@ public class NodeInstanceReferenceImpl extends MinimalEObjectImpl.Container impl
    * @generated
    */
   @Override
-  public SystemReference getBelongingSystemReference()
+  public NodeInstanceReference getRef()
   {
-    return belongingSystemReference;
+    return ref;
   }
 
   /**
@@ -90,13 +89,13 @@ public class NodeInstanceReferenceImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetBelongingSystemReference(SystemReference newBelongingSystemReference, NotificationChain msgs)
+  public NotificationChain basicSetRef(NodeInstanceReference newRef, NotificationChain msgs)
   {
-    SystemReference oldBelongingSystemReference = belongingSystemReference;
-    belongingSystemReference = newBelongingSystemReference;
+    NodeInstanceReference oldRef = ref;
+    ref = newRef;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, MyDslPackage.NODE_INSTANCE_REFERENCE__BELONGING_SYSTEM_REFERENCE, oldBelongingSystemReference, newBelongingSystemReference);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, MyDslPackage.NODE_INSTANCE_REFERENCE__REF, oldRef, newRef);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -108,20 +107,20 @@ public class NodeInstanceReferenceImpl extends MinimalEObjectImpl.Container impl
    * @generated
    */
   @Override
-  public void setBelongingSystemReference(SystemReference newBelongingSystemReference)
+  public void setRef(NodeInstanceReference newRef)
   {
-    if (newBelongingSystemReference != belongingSystemReference)
+    if (newRef != ref)
     {
       NotificationChain msgs = null;
-      if (belongingSystemReference != null)
-        msgs = ((InternalEObject)belongingSystemReference).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - MyDslPackage.NODE_INSTANCE_REFERENCE__BELONGING_SYSTEM_REFERENCE, null, msgs);
-      if (newBelongingSystemReference != null)
-        msgs = ((InternalEObject)newBelongingSystemReference).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - MyDslPackage.NODE_INSTANCE_REFERENCE__BELONGING_SYSTEM_REFERENCE, null, msgs);
-      msgs = basicSetBelongingSystemReference(newBelongingSystemReference, msgs);
+      if (ref != null)
+        msgs = ((InternalEObject)ref).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - MyDslPackage.NODE_INSTANCE_REFERENCE__REF, null, msgs);
+      if (newRef != null)
+        msgs = ((InternalEObject)newRef).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - MyDslPackage.NODE_INSTANCE_REFERENCE__REF, null, msgs);
+      msgs = basicSetRef(newRef, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.NODE_INSTANCE_REFERENCE__BELONGING_SYSTEM_REFERENCE, newBelongingSystemReference, newBelongingSystemReference));
+      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.NODE_INSTANCE_REFERENCE__REF, newRef, newRef));
   }
 
   /**
@@ -130,19 +129,19 @@ public class NodeInstanceReferenceImpl extends MinimalEObjectImpl.Container impl
    * @generated
    */
   @Override
-  public NodeInstance getNode()
+  public Feature getTail()
   {
-    if (node != null && node.eIsProxy())
+    if (tail != null && tail.eIsProxy())
     {
-      InternalEObject oldNode = (InternalEObject)node;
-      node = (NodeInstance)eResolveProxy(oldNode);
-      if (node != oldNode)
+      InternalEObject oldTail = (InternalEObject)tail;
+      tail = (Feature)eResolveProxy(oldTail);
+      if (tail != oldTail)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, MyDslPackage.NODE_INSTANCE_REFERENCE__NODE, oldNode, node));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, MyDslPackage.NODE_INSTANCE_REFERENCE__TAIL, oldTail, tail));
       }
     }
-    return node;
+    return tail;
   }
 
   /**
@@ -150,9 +149,9 @@ public class NodeInstanceReferenceImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  public NodeInstance basicGetNode()
+  public Feature basicGetTail()
   {
-    return node;
+    return tail;
   }
 
   /**
@@ -161,12 +160,12 @@ public class NodeInstanceReferenceImpl extends MinimalEObjectImpl.Container impl
    * @generated
    */
   @Override
-  public void setNode(NodeInstance newNode)
+  public void setTail(Feature newTail)
   {
-    NodeInstance oldNode = node;
-    node = newNode;
+    Feature oldTail = tail;
+    tail = newTail;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.NODE_INSTANCE_REFERENCE__NODE, oldNode, node));
+      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.NODE_INSTANCE_REFERENCE__TAIL, oldTail, tail));
   }
 
   /**
@@ -179,8 +178,8 @@ public class NodeInstanceReferenceImpl extends MinimalEObjectImpl.Container impl
   {
     switch (featureID)
     {
-      case MyDslPackage.NODE_INSTANCE_REFERENCE__BELONGING_SYSTEM_REFERENCE:
-        return basicSetBelongingSystemReference(null, msgs);
+      case MyDslPackage.NODE_INSTANCE_REFERENCE__REF:
+        return basicSetRef(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -195,11 +194,11 @@ public class NodeInstanceReferenceImpl extends MinimalEObjectImpl.Container impl
   {
     switch (featureID)
     {
-      case MyDslPackage.NODE_INSTANCE_REFERENCE__BELONGING_SYSTEM_REFERENCE:
-        return getBelongingSystemReference();
-      case MyDslPackage.NODE_INSTANCE_REFERENCE__NODE:
-        if (resolve) return getNode();
-        return basicGetNode();
+      case MyDslPackage.NODE_INSTANCE_REFERENCE__REF:
+        return getRef();
+      case MyDslPackage.NODE_INSTANCE_REFERENCE__TAIL:
+        if (resolve) return getTail();
+        return basicGetTail();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -214,11 +213,11 @@ public class NodeInstanceReferenceImpl extends MinimalEObjectImpl.Container impl
   {
     switch (featureID)
     {
-      case MyDslPackage.NODE_INSTANCE_REFERENCE__BELONGING_SYSTEM_REFERENCE:
-        setBelongingSystemReference((SystemReference)newValue);
+      case MyDslPackage.NODE_INSTANCE_REFERENCE__REF:
+        setRef((NodeInstanceReference)newValue);
         return;
-      case MyDslPackage.NODE_INSTANCE_REFERENCE__NODE:
-        setNode((NodeInstance)newValue);
+      case MyDslPackage.NODE_INSTANCE_REFERENCE__TAIL:
+        setTail((Feature)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -234,11 +233,11 @@ public class NodeInstanceReferenceImpl extends MinimalEObjectImpl.Container impl
   {
     switch (featureID)
     {
-      case MyDslPackage.NODE_INSTANCE_REFERENCE__BELONGING_SYSTEM_REFERENCE:
-        setBelongingSystemReference((SystemReference)null);
+      case MyDslPackage.NODE_INSTANCE_REFERENCE__REF:
+        setRef((NodeInstanceReference)null);
         return;
-      case MyDslPackage.NODE_INSTANCE_REFERENCE__NODE:
-        setNode((NodeInstance)null);
+      case MyDslPackage.NODE_INSTANCE_REFERENCE__TAIL:
+        setTail((Feature)null);
         return;
     }
     super.eUnset(featureID);
@@ -254,10 +253,10 @@ public class NodeInstanceReferenceImpl extends MinimalEObjectImpl.Container impl
   {
     switch (featureID)
     {
-      case MyDslPackage.NODE_INSTANCE_REFERENCE__BELONGING_SYSTEM_REFERENCE:
-        return belongingSystemReference != null;
-      case MyDslPackage.NODE_INSTANCE_REFERENCE__NODE:
-        return node != null;
+      case MyDslPackage.NODE_INSTANCE_REFERENCE__REF:
+        return ref != null;
+      case MyDslPackage.NODE_INSTANCE_REFERENCE__TAIL:
+        return tail != null;
     }
     return super.eIsSet(featureID);
   }

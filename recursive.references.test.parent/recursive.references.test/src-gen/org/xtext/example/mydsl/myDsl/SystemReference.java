@@ -3,7 +3,6 @@
  */
 package org.xtext.example.mydsl.myDsl;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -15,14 +14,13 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.xtext.example.mydsl.myDsl.SystemReference#getSystem <em>System</em>}</li>
- *   <li>{@link org.xtext.example.mydsl.myDsl.SystemReference#getSubsystem <em>Subsystem</em>}</li>
  * </ul>
  *
  * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getSystemReference()
  * @model
  * @generated
  */
-public interface SystemReference extends EObject
+public interface SystemReference extends NodeInstanceReference
 {
   /**
    * Returns the value of the '<em><b>System</b></em>' reference.
@@ -45,27 +43,5 @@ public interface SystemReference extends EObject
    * @generated
    */
   void setSystem(SystemInstance value);
-
-  /**
-   * Returns the value of the '<em><b>Subsystem</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Subsystem</em>' reference.
-   * @see #setSubsystem(SystemReference)
-   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getSystemReference_Subsystem()
-   * @model
-   * @generated
-   */
-  SystemReference getSubsystem();
-
-  /**
-   * Sets the value of the '{@link org.xtext.example.mydsl.myDsl.SystemReference#getSubsystem <em>Subsystem</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Subsystem</em>' reference.
-   * @see #getSubsystem()
-   * @generated
-   */
-  void setSubsystem(SystemReference value);
 
 } // SystemReference

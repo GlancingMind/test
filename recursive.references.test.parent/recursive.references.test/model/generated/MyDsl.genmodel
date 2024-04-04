@@ -16,7 +16,6 @@
     </genClasses>
     <genClasses ecoreClass="MyDsl.ecore#//NodeInstance">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference MyDsl.ecore#//NodeInstance/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//NodeInstance/name"/>
     </genClasses>
     <genClasses ecoreClass="MyDsl.ecore#//SystemDefinition">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//SystemDefinition/name"/>
@@ -25,15 +24,16 @@
     </genClasses>
     <genClasses ecoreClass="MyDsl.ecore#//SystemInstance">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference MyDsl.ecore#//SystemInstance/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//SystemInstance/name"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//NodeInstanceReference">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//NodeInstanceReference/ref"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference MyDsl.ecore#//NodeInstanceReference/tail"/>
     </genClasses>
     <genClasses ecoreClass="MyDsl.ecore#//SystemReference">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference MyDsl.ecore#//SystemReference/system"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference MyDsl.ecore#//SystemReference/subsystem"/>
     </genClasses>
-    <genClasses ecoreClass="MyDsl.ecore#//NodeInstanceReference">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//NodeInstanceReference/belongingSystemReference"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference MyDsl.ecore#//NodeInstanceReference/node"/>
+    <genClasses ecoreClass="MyDsl.ecore#//Feature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//Feature/name"/>
     </genClasses>
     <genClasses ecoreClass="MyDsl.ecore#//DeploymentStatement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//DeploymentStatement/nodes"/>

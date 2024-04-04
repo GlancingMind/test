@@ -91,6 +91,7 @@ public class MyDslSwitch<T> extends Switch<T>
       {
         NodeInstance nodeInstance = (NodeInstance)theEObject;
         T result = caseNodeInstance(nodeInstance);
+        if (result == null) result = caseFeature(nodeInstance);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -105,13 +106,7 @@ public class MyDslSwitch<T> extends Switch<T>
       {
         SystemInstance systemInstance = (SystemInstance)theEObject;
         T result = caseSystemInstance(systemInstance);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case MyDslPackage.SYSTEM_REFERENCE:
-      {
-        SystemReference systemReference = (SystemReference)theEObject;
-        T result = caseSystemReference(systemReference);
+        if (result == null) result = caseFeature(systemInstance);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -119,6 +114,21 @@ public class MyDslSwitch<T> extends Switch<T>
       {
         NodeInstanceReference nodeInstanceReference = (NodeInstanceReference)theEObject;
         T result = caseNodeInstanceReference(nodeInstanceReference);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case MyDslPackage.SYSTEM_REFERENCE:
+      {
+        SystemReference systemReference = (SystemReference)theEObject;
+        T result = caseSystemReference(systemReference);
+        if (result == null) result = caseNodeInstanceReference(systemReference);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case MyDslPackage.FEATURE:
+      {
+        Feature feature = (Feature)theEObject;
+        T result = caseFeature(feature);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -228,6 +238,22 @@ public class MyDslSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Node Instance Reference</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Node Instance Reference</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseNodeInstanceReference(NodeInstanceReference object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>System Reference</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -244,17 +270,17 @@ public class MyDslSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Node Instance Reference</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Feature</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Node Instance Reference</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Feature</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseNodeInstanceReference(NodeInstanceReference object)
+  public T caseFeature(Feature object)
   {
     return null;
   }

@@ -20,14 +20,20 @@ SystemDefinition:
 	'}'
 ;
 
-// !MESSAGE org.eclipse.xtext.linking.lazy.LazyLinkingResource
-// An element of type SystemInstanceImpl is not assignable to the reference SystemReference.subsystem
-
 SystemInstance: type=[SystemDefinition] name=ID;
 
-SystemReference: system=[SystemInstance] ('.' subsystem=[SystemReference])?;
+// Right recursive
+//SystemReference: system=[SystemInstance] ('.' subsystem=SystemReference)?;
 
-NodeInstanceReference: belongingSystemReference=SystemReference '->' node=[NodeInstance];
+NodeInstanceReference: 
+	SystemReference ({NodeInstanceReference.ref=current} '.' tail=[Feature])*
+;
+
+SystemReference: system=[SystemInstance];
+
+Feature:
+	SystemInstance | NodeInstance
+;
 
 DeploymentStatement:
 	'deploys' nodes=NodeInstanceReference 'on' platform=[PlatformInstance] ';'

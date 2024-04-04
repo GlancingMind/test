@@ -4,14 +4,18 @@
 package org.xtext.example.mydsl.scoping;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.Iterables;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
+import org.eclipse.xtext.xbase.lib.InputOutput;
+import org.xtext.example.mydsl.myDsl.Feature;
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
 import org.xtext.example.mydsl.myDsl.NodeInstance;
 import org.xtext.example.mydsl.myDsl.NodeInstanceReference;
+import org.xtext.example.mydsl.myDsl.SystemDefinition;
 import org.xtext.example.mydsl.myDsl.SystemInstance;
 import org.xtext.example.mydsl.myDsl.SystemReference;
 
@@ -22,19 +26,10 @@ public class MyDslScopeProvider extends AbstractMyDslScopeProvider {
     IScope _switchResult = null;
     boolean _matched = false;
     if (context instanceof NodeInstanceReference) {
-      boolean _equals = Objects.equal(reference, MyDslPackage.Literals.NODE_INSTANCE_REFERENCE__NODE);
+      boolean _equals = Objects.equal(reference, MyDslPackage.Literals.NODE_INSTANCE_REFERENCE__TAIL);
       if (_equals) {
         _matched=true;
-        _switchResult = this.getScopeForNodeInstanceReferenceNode(((NodeInstanceReference)context), reference);
-      }
-    }
-    if (!_matched) {
-      if (context instanceof SystemReference) {
-        boolean _equals = Objects.equal(reference, MyDslPackage.Literals.SYSTEM_REFERENCE__SUBSYSTEM);
-        if (_equals) {
-          _matched=true;
-          _switchResult = this.getScopeForSystemReferenceSubSystem(((SystemReference)context), reference);
-        }
+        _switchResult = this.getScopeForNodeInstanceReferenceTail(((NodeInstanceReference)context), reference);
       }
     }
     if (!_matched) {
@@ -43,17 +38,51 @@ public class MyDslScopeProvider extends AbstractMyDslScopeProvider {
     return _switchResult;
   }
   
-  private IScope getScopeForNodeInstanceReferenceNode(final NodeInstanceReference nodeRef, final EReference reference) {
-    SystemReference sysRef = nodeRef.getBelongingSystemReference();
-    while ((sysRef.getSubsystem() != null)) {
-      sysRef = sysRef.getSubsystem();
+  private IScope getScopeForNodeInstanceReferenceTail(final NodeInstanceReference nodeRef, final EReference reference) {
+    IScope _xblockexpression = null;
+    {
+      final NodeInstanceReference head = nodeRef.getRef();
+      IScope _switchResult = null;
+      boolean _matched = false;
+      if (head instanceof SystemReference) {
+        _matched=true;
+        final SystemDefinition sysType = ((SystemReference)head).getSystem().getType();
+        final EList<NodeInstance> nodes = sysType.getNodes();
+        final EList<SystemInstance> subSystems = sysType.getSubsystems();
+        final Iterable<Feature> candiadates = Iterables.<Feature>concat(nodes, subSystems);
+        return Scopes.scopeFor(candiadates);
+      }
+      if (!_matched) {
+        if (head instanceof NodeInstanceReference) {
+          _matched=true;
+          final Feature tail = head.getTail();
+          boolean _matched_1 = false;
+          if (tail instanceof SystemInstance) {
+            _matched_1=true;
+            final SystemDefinition sysType = ((SystemInstance)tail).getType();
+            final EList<NodeInstance> nodes = sysType.getNodes();
+            final EList<SystemInstance> subSystems = sysType.getSubsystems();
+            final Iterable<Feature> candiadates = Iterables.<Feature>concat(nodes, subSystems);
+            return Scopes.scopeFor(candiadates);
+          }
+          if (!_matched_1) {
+            if (tail instanceof NodeInstance) {
+              _matched_1=true;
+              final NodeInstance node = ((NodeInstance)tail);
+              InputOutput.<String>println(node.eContainingFeature().getName());
+              final String fqnNodeName = "";
+              InputOutput.<String>println(fqnNodeName);
+              return IScope.NULLSCOPE;
+            }
+          }
+          return IScope.NULLSCOPE;
+        }
+      }
+      if (!_matched) {
+        _switchResult = IScope.NULLSCOPE;
+      }
+      _xblockexpression = _switchResult;
     }
-    final EList<NodeInstance> candidates = sysRef.getSystem().getType().getNodes();
-    return Scopes.scopeFor(candidates);
-  }
-  
-  private IScope getScopeForSystemReferenceSubSystem(final SystemReference sysRef, final EReference reference) {
-    final EList<SystemInstance> candidates = sysRef.getSystem().getType().getSubsystems();
-    return Scopes.scopeFor(candidates);
+    return _xblockexpression;
   }
 }

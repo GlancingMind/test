@@ -405,6 +405,59 @@ ruleSystemInstance returns [EObject current=null]
 	)
 ;
 
+// Entry rule entryRuleNodeInstanceReference
+entryRuleNodeInstanceReference returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getNodeInstanceReferenceRule()); }
+	iv_ruleNodeInstanceReference=ruleNodeInstanceReference
+	{ $current=$iv_ruleNodeInstanceReference.current; }
+	EOF;
+
+// Rule NodeInstanceReference
+ruleNodeInstanceReference returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		{
+			newCompositeNode(grammarAccess.getNodeInstanceReferenceAccess().getSystemReferenceParserRuleCall_0());
+		}
+		this_SystemReference_0=ruleSystemReference
+		{
+			$current = $this_SystemReference_0.current;
+			afterParserOrEnumRuleCall();
+		}
+		(
+			(
+				{
+					$current = forceCreateModelElementAndSet(
+						grammarAccess.getNodeInstanceReferenceAccess().getNodeInstanceReferenceRefAction_1_0(),
+						$current);
+				}
+			)
+			otherlv_2='.'
+			{
+				newLeafNode(otherlv_2, grammarAccess.getNodeInstanceReferenceAccess().getFullStopKeyword_1_1());
+			}
+			(
+				(
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getNodeInstanceReferenceRule());
+						}
+					}
+					otherlv_3=RULE_ID
+					{
+						newLeafNode(otherlv_3, grammarAccess.getNodeInstanceReferenceAccess().getTailFeatureCrossReference_1_2_0());
+					}
+				)
+			)
+		)*
+	)
+;
+
 // Entry rule entryRuleSystemReference
 entryRuleSystemReference returns [EObject current=null]:
 	{ newCompositeNode(grammarAccess.getSystemReferenceRule()); }
@@ -422,91 +475,15 @@ ruleSystemReference returns [EObject current=null]
 }:
 	(
 		(
-			(
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getSystemReferenceRule());
-					}
-				}
-				otherlv_0=RULE_ID
-				{
-					newLeafNode(otherlv_0, grammarAccess.getSystemReferenceAccess().getSystemSystemInstanceCrossReference_0_0());
-				}
-			)
-		)
-		(
-			otherlv_1='.'
 			{
-				newLeafNode(otherlv_1, grammarAccess.getSystemReferenceAccess().getFullStopKeyword_1_0());
+				if ($current==null) {
+					$current = createModelElement(grammarAccess.getSystemReferenceRule());
+				}
 			}
-			(
-				(
-					{
-						if ($current==null) {
-							$current = createModelElement(grammarAccess.getSystemReferenceRule());
-						}
-					}
-					otherlv_2=RULE_ID
-					{
-						newLeafNode(otherlv_2, grammarAccess.getSystemReferenceAccess().getSubsystemSystemReferenceCrossReference_1_1_0());
-					}
-				)
-			)
-		)?
-	)
-;
-
-// Entry rule entryRuleNodeInstanceReference
-entryRuleNodeInstanceReference returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getNodeInstanceReferenceRule()); }
-	iv_ruleNodeInstanceReference=ruleNodeInstanceReference
-	{ $current=$iv_ruleNodeInstanceReference.current; }
-	EOF;
-
-// Rule NodeInstanceReference
-ruleNodeInstanceReference returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		(
-			(
-				{
-					newCompositeNode(grammarAccess.getNodeInstanceReferenceAccess().getBelongingSystemReferenceSystemReferenceParserRuleCall_0_0());
-				}
-				lv_belongingSystemReference_0_0=ruleSystemReference
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getNodeInstanceReferenceRule());
-					}
-					set(
-						$current,
-						"belongingSystemReference",
-						lv_belongingSystemReference_0_0,
-						"org.xtext.example.mydsl.MyDsl.SystemReference");
-					afterParserOrEnumRuleCall();
-				}
-			)
-		)
-		otherlv_1='->'
-		{
-			newLeafNode(otherlv_1, grammarAccess.getNodeInstanceReferenceAccess().getHyphenMinusGreaterThanSignKeyword_1());
-		}
-		(
-			(
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getNodeInstanceReferenceRule());
-					}
-				}
-				otherlv_2=RULE_ID
-				{
-					newLeafNode(otherlv_2, grammarAccess.getNodeInstanceReferenceAccess().getNodeNodeInstanceCrossReference_2_0());
-				}
-			)
+			otherlv_0=RULE_ID
+			{
+				newLeafNode(otherlv_0, grammarAccess.getSystemReferenceAccess().getSystemSystemInstanceCrossReference_0());
+			}
 		)
 	)
 ;

@@ -70,8 +70,9 @@ public class MyDslFactoryImpl extends EFactoryImpl implements MyDslFactory
       case MyDslPackage.NODE_INSTANCE: return createNodeInstance();
       case MyDslPackage.SYSTEM_DEFINITION: return createSystemDefinition();
       case MyDslPackage.SYSTEM_INSTANCE: return createSystemInstance();
-      case MyDslPackage.SYSTEM_REFERENCE: return createSystemReference();
       case MyDslPackage.NODE_INSTANCE_REFERENCE: return createNodeInstanceReference();
+      case MyDslPackage.SYSTEM_REFERENCE: return createSystemReference();
+      case MyDslPackage.FEATURE: return createFeature();
       case MyDslPackage.DEPLOYMENT_STATEMENT: return createDeploymentStatement();
       case MyDslPackage.DEPLOYMENT: return createDeployment();
       case MyDslPackage.PLATFORM_INSTANCE: return createPlatformInstance();
@@ -146,6 +147,18 @@ public class MyDslFactoryImpl extends EFactoryImpl implements MyDslFactory
    * @generated
    */
   @Override
+  public NodeInstanceReference createNodeInstanceReference()
+  {
+    NodeInstanceReferenceImpl nodeInstanceReference = new NodeInstanceReferenceImpl();
+    return nodeInstanceReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public SystemReference createSystemReference()
   {
     SystemReferenceImpl systemReference = new SystemReferenceImpl();
@@ -158,10 +171,10 @@ public class MyDslFactoryImpl extends EFactoryImpl implements MyDslFactory
    * @generated
    */
   @Override
-  public NodeInstanceReference createNodeInstanceReference()
+  public Feature createFeature()
   {
-    NodeInstanceReferenceImpl nodeInstanceReference = new NodeInstanceReferenceImpl();
-    return nodeInstanceReference;
+    FeatureImpl feature = new FeatureImpl();
+    return feature;
   }
 
   /**

@@ -14,8 +14,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.example.mydsl.myDsl.NodeInstanceReference#getBelongingSystemReference <em>Belonging System Reference</em>}</li>
- *   <li>{@link org.xtext.example.mydsl.myDsl.NodeInstanceReference#getNode <em>Node</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.NodeInstanceReference#getRef <em>Ref</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.NodeInstanceReference#getTail <em>Tail</em>}</li>
  * </ul>
  *
  * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getNodeInstanceReference()
@@ -25,47 +25,47 @@ import org.eclipse.emf.ecore.EObject;
 public interface NodeInstanceReference extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Belonging System Reference</b></em>' containment reference.
+   * Returns the value of the '<em><b>Ref</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Belonging System Reference</em>' containment reference.
-   * @see #setBelongingSystemReference(SystemReference)
-   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getNodeInstanceReference_BelongingSystemReference()
+   * @return the value of the '<em>Ref</em>' containment reference.
+   * @see #setRef(NodeInstanceReference)
+   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getNodeInstanceReference_Ref()
    * @model containment="true"
    * @generated
    */
-  SystemReference getBelongingSystemReference();
+  NodeInstanceReference getRef();
 
   /**
-   * Sets the value of the '{@link org.xtext.example.mydsl.myDsl.NodeInstanceReference#getBelongingSystemReference <em>Belonging System Reference</em>}' containment reference.
+   * Sets the value of the '{@link org.xtext.example.mydsl.myDsl.NodeInstanceReference#getRef <em>Ref</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Belonging System Reference</em>' containment reference.
-   * @see #getBelongingSystemReference()
+   * @param value the new value of the '<em>Ref</em>' containment reference.
+   * @see #getRef()
    * @generated
    */
-  void setBelongingSystemReference(SystemReference value);
+  void setRef(NodeInstanceReference value);
 
   /**
-   * Returns the value of the '<em><b>Node</b></em>' reference.
+   * Returns the value of the '<em><b>Tail</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Node</em>' reference.
-   * @see #setNode(NodeInstance)
-   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getNodeInstanceReference_Node()
+   * @return the value of the '<em>Tail</em>' reference.
+   * @see #setTail(Feature)
+   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getNodeInstanceReference_Tail()
    * @model
    * @generated
    */
-  NodeInstance getNode();
+  Feature getTail();
 
   /**
-   * Sets the value of the '{@link org.xtext.example.mydsl.myDsl.NodeInstanceReference#getNode <em>Node</em>}' reference.
+   * Sets the value of the '{@link org.xtext.example.mydsl.myDsl.NodeInstanceReference#getTail <em>Tail</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Node</em>' reference.
-   * @see #getNode()
+   * @param value the new value of the '<em>Tail</em>' reference.
+   * @see #getTail()
    * @generated
    */
-  void setNode(NodeInstance value);
+  void setTail(Feature value);
 
 } // NodeInstanceReference

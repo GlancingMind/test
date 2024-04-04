@@ -231,8 +231,6 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		
-		//// !MESSAGE org.eclipse.xtext.linking.lazy.LazyLinkingResource
-		//// An element of type SystemInstanceImpl is not assignable to the reference SystemReference.subsystem
 		//SystemInstance: type=[SystemDefinition] name=ID;
 		@Override public ParserRule getRule() { return rule; }
 		
@@ -254,81 +252,85 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 	}
-	public class SystemReferenceElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.SystemReference");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cSystemAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final CrossReference cSystemSystemInstanceCrossReference_0_0 = (CrossReference)cSystemAssignment_0.eContents().get(0);
-		private final RuleCall cSystemSystemInstanceIDTerminalRuleCall_0_0_1 = (RuleCall)cSystemSystemInstanceCrossReference_0_0.eContents().get(1);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Assignment cSubsystemAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final CrossReference cSubsystemSystemReferenceCrossReference_1_1_0 = (CrossReference)cSubsystemAssignment_1_1.eContents().get(0);
-		private final RuleCall cSubsystemSystemReferenceIDTerminalRuleCall_1_1_0_1 = (RuleCall)cSubsystemSystemReferenceCrossReference_1_1_0.eContents().get(1);
-		
-		//SystemReference: system=[SystemInstance] ('.' subsystem=[SystemReference])?;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//system=[SystemInstance] ('.' subsystem=[SystemReference])?
-		public Group getGroup() { return cGroup; }
-		
-		//system=[SystemInstance]
-		public Assignment getSystemAssignment_0() { return cSystemAssignment_0; }
-		
-		//[SystemInstance]
-		public CrossReference getSystemSystemInstanceCrossReference_0_0() { return cSystemSystemInstanceCrossReference_0_0; }
-		
-		//ID
-		public RuleCall getSystemSystemInstanceIDTerminalRuleCall_0_0_1() { return cSystemSystemInstanceIDTerminalRuleCall_0_0_1; }
-		
-		//('.' subsystem=[SystemReference])?
-		public Group getGroup_1() { return cGroup_1; }
-		
-		//'.'
-		public Keyword getFullStopKeyword_1_0() { return cFullStopKeyword_1_0; }
-		
-		//subsystem=[SystemReference]
-		public Assignment getSubsystemAssignment_1_1() { return cSubsystemAssignment_1_1; }
-		
-		//[SystemReference]
-		public CrossReference getSubsystemSystemReferenceCrossReference_1_1_0() { return cSubsystemSystemReferenceCrossReference_1_1_0; }
-		
-		//ID
-		public RuleCall getSubsystemSystemReferenceIDTerminalRuleCall_1_1_0_1() { return cSubsystemSystemReferenceIDTerminalRuleCall_1_1_0_1; }
-	}
 	public class NodeInstanceReferenceElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.NodeInstanceReference");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cBelongingSystemReferenceAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cBelongingSystemReferenceSystemReferenceParserRuleCall_0_0 = (RuleCall)cBelongingSystemReferenceAssignment_0.eContents().get(0);
-		private final Keyword cHyphenMinusGreaterThanSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cNodeAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final CrossReference cNodeNodeInstanceCrossReference_2_0 = (CrossReference)cNodeAssignment_2.eContents().get(0);
-		private final RuleCall cNodeNodeInstanceIDTerminalRuleCall_2_0_1 = (RuleCall)cNodeNodeInstanceCrossReference_2_0.eContents().get(1);
+		private final RuleCall cSystemReferenceParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Action cNodeInstanceReferenceRefAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Keyword cFullStopKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Assignment cTailAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final CrossReference cTailFeatureCrossReference_1_2_0 = (CrossReference)cTailAssignment_1_2.eContents().get(0);
+		private final RuleCall cTailFeatureIDTerminalRuleCall_1_2_0_1 = (RuleCall)cTailFeatureCrossReference_1_2_0.eContents().get(1);
 		
-		//NodeInstanceReference: belongingSystemReference=SystemReference '->' node=[NodeInstance];
+		//// Right recursive
+		////SystemReference: system=[SystemInstance] ('.' subsystem=SystemReference)?;
+		//NodeInstanceReference:
+		//    SystemReference ({NodeInstanceReference.ref=current} '.' tail=[Feature])*
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//belongingSystemReference=SystemReference '->' node=[NodeInstance]
+		//SystemReference ({NodeInstanceReference.ref=current} '.' tail=[Feature])*
 		public Group getGroup() { return cGroup; }
 		
-		//belongingSystemReference=SystemReference
-		public Assignment getBelongingSystemReferenceAssignment_0() { return cBelongingSystemReferenceAssignment_0; }
-		
 		//SystemReference
-		public RuleCall getBelongingSystemReferenceSystemReferenceParserRuleCall_0_0() { return cBelongingSystemReferenceSystemReferenceParserRuleCall_0_0; }
+		public RuleCall getSystemReferenceParserRuleCall_0() { return cSystemReferenceParserRuleCall_0; }
 		
-		//'->'
-		public Keyword getHyphenMinusGreaterThanSignKeyword_1() { return cHyphenMinusGreaterThanSignKeyword_1; }
+		//({NodeInstanceReference.ref=current} '.' tail=[Feature])*
+		public Group getGroup_1() { return cGroup_1; }
 		
-		//node=[NodeInstance]
-		public Assignment getNodeAssignment_2() { return cNodeAssignment_2; }
+		//{NodeInstanceReference.ref=current}
+		public Action getNodeInstanceReferenceRefAction_1_0() { return cNodeInstanceReferenceRefAction_1_0; }
 		
-		//[NodeInstance]
-		public CrossReference getNodeNodeInstanceCrossReference_2_0() { return cNodeNodeInstanceCrossReference_2_0; }
+		//'.'
+		public Keyword getFullStopKeyword_1_1() { return cFullStopKeyword_1_1; }
+		
+		//tail=[Feature]
+		public Assignment getTailAssignment_1_2() { return cTailAssignment_1_2; }
+		
+		//[Feature]
+		public CrossReference getTailFeatureCrossReference_1_2_0() { return cTailFeatureCrossReference_1_2_0; }
 		
 		//ID
-		public RuleCall getNodeNodeInstanceIDTerminalRuleCall_2_0_1() { return cNodeNodeInstanceIDTerminalRuleCall_2_0_1; }
+		public RuleCall getTailFeatureIDTerminalRuleCall_1_2_0_1() { return cTailFeatureIDTerminalRuleCall_1_2_0_1; }
+	}
+	public class SystemReferenceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.SystemReference");
+		private final Assignment cSystemAssignment = (Assignment)rule.eContents().get(1);
+		private final CrossReference cSystemSystemInstanceCrossReference_0 = (CrossReference)cSystemAssignment.eContents().get(0);
+		private final RuleCall cSystemSystemInstanceIDTerminalRuleCall_0_1 = (RuleCall)cSystemSystemInstanceCrossReference_0.eContents().get(1);
+		
+		//SystemReference: system=[SystemInstance];
+		@Override public ParserRule getRule() { return rule; }
+		
+		//system=[SystemInstance]
+		public Assignment getSystemAssignment() { return cSystemAssignment; }
+		
+		//[SystemInstance]
+		public CrossReference getSystemSystemInstanceCrossReference_0() { return cSystemSystemInstanceCrossReference_0; }
+		
+		//ID
+		public RuleCall getSystemSystemInstanceIDTerminalRuleCall_0_1() { return cSystemSystemInstanceIDTerminalRuleCall_0_1; }
+	}
+	public class FeatureElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.Feature");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cSystemInstanceParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cNodeInstanceParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//Feature:
+		//    SystemInstance | NodeInstance
+		//;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//SystemInstance | NodeInstance
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//SystemInstance
+		public RuleCall getSystemInstanceParserRuleCall_0() { return cSystemInstanceParserRuleCall_0; }
+		
+		//NodeInstance
+		public RuleCall getNodeInstanceParserRuleCall_1() { return cNodeInstanceParserRuleCall_1; }
 	}
 	public class DeploymentStatementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.DeploymentStatement");
@@ -478,8 +480,9 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	private final NodeInstanceElements pNodeInstance;
 	private final SystemDefinitionElements pSystemDefinition;
 	private final SystemInstanceElements pSystemInstance;
-	private final SystemReferenceElements pSystemReference;
 	private final NodeInstanceReferenceElements pNodeInstanceReference;
+	private final SystemReferenceElements pSystemReference;
+	private final FeatureElements pFeature;
 	private final DeploymentStatementElements pDeploymentStatement;
 	private final DeploymentElements pDeployment;
 	private final PlatformInstanceElements pPlatformInstance;
@@ -498,8 +501,9 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		this.pNodeInstance = new NodeInstanceElements();
 		this.pSystemDefinition = new SystemDefinitionElements();
 		this.pSystemInstance = new SystemInstanceElements();
-		this.pSystemReference = new SystemReferenceElements();
 		this.pNodeInstanceReference = new NodeInstanceReferenceElements();
+		this.pSystemReference = new SystemReferenceElements();
+		this.pFeature = new FeatureElements();
 		this.pDeploymentStatement = new DeploymentStatementElements();
 		this.pDeployment = new DeploymentElements();
 		this.pPlatformInstance = new PlatformInstanceElements();
@@ -577,8 +581,6 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		return getSystemDefinitionAccess().getRule();
 	}
 	
-	//// !MESSAGE org.eclipse.xtext.linking.lazy.LazyLinkingResource
-	//// An element of type SystemInstanceImpl is not assignable to the reference SystemReference.subsystem
 	//SystemInstance: type=[SystemDefinition] name=ID;
 	public SystemInstanceElements getSystemInstanceAccess() {
 		return pSystemInstance;
@@ -588,7 +590,20 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		return getSystemInstanceAccess().getRule();
 	}
 	
-	//SystemReference: system=[SystemInstance] ('.' subsystem=[SystemReference])?;
+	//// Right recursive
+	////SystemReference: system=[SystemInstance] ('.' subsystem=SystemReference)?;
+	//NodeInstanceReference:
+	//    SystemReference ({NodeInstanceReference.ref=current} '.' tail=[Feature])*
+	//;
+	public NodeInstanceReferenceElements getNodeInstanceReferenceAccess() {
+		return pNodeInstanceReference;
+	}
+	
+	public ParserRule getNodeInstanceReferenceRule() {
+		return getNodeInstanceReferenceAccess().getRule();
+	}
+	
+	//SystemReference: system=[SystemInstance];
 	public SystemReferenceElements getSystemReferenceAccess() {
 		return pSystemReference;
 	}
@@ -597,13 +612,15 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		return getSystemReferenceAccess().getRule();
 	}
 	
-	//NodeInstanceReference: belongingSystemReference=SystemReference '->' node=[NodeInstance];
-	public NodeInstanceReferenceElements getNodeInstanceReferenceAccess() {
-		return pNodeInstanceReference;
+	//Feature:
+	//    SystemInstance | NodeInstance
+	//;
+	public FeatureElements getFeatureAccess() {
+		return pFeature;
 	}
 	
-	public ParserRule getNodeInstanceReferenceRule() {
-		return getNodeInstanceReferenceAccess().getRule();
+	public ParserRule getFeatureRule() {
+		return getFeatureAccess().getRule();
 	}
 	
 	//DeploymentStatement:
