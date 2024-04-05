@@ -33,7 +33,6 @@ public class MyDslParser extends AbstractContentAssistParser {
 		private static void init(ImmutableMap.Builder<AbstractElement, String> builder, MyDslGrammarAccess grammarAccess) {
 			builder.put(grammarAccess.getModelAccess().getAlternatives(), "rule__Model__Alternatives");
 			builder.put(grammarAccess.getSystemDefinitionAccess().getAlternatives_3(), "rule__SystemDefinition__Alternatives_3");
-			builder.put(grammarAccess.getFeatureAccess().getAlternatives(), "rule__Feature__Alternatives");
 			builder.put(grammarAccess.getNodeDefinitionAccess().getGroup(), "rule__NodeDefinition__Group__0");
 			builder.put(grammarAccess.getNodeInstanceAccess().getGroup(), "rule__NodeInstance__Group__0");
 			builder.put(grammarAccess.getSystemDefinitionAccess().getGroup(), "rule__SystemDefinition__Group__0");
@@ -42,8 +41,8 @@ public class MyDslParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getSystemDefinitionAccess().getGroup_3_1(), "rule__SystemDefinition__Group_3_1__0");
 			builder.put(grammarAccess.getSystemDefinitionAccess().getGroup_3_1_2(), "rule__SystemDefinition__Group_3_1_2__0");
 			builder.put(grammarAccess.getSystemInstanceAccess().getGroup(), "rule__SystemInstance__Group__0");
-			builder.put(grammarAccess.getNodeInstanceReferenceAccess().getGroup(), "rule__NodeInstanceReference__Group__0");
-			builder.put(grammarAccess.getNodeInstanceReferenceAccess().getGroup_1(), "rule__NodeInstanceReference__Group_1__0");
+			builder.put(grammarAccess.getSubSystemReferenceAccess().getGroup(), "rule__SubSystemReference__Group__0");
+			builder.put(grammarAccess.getSubSystemReferenceAccess().getGroup_1(), "rule__SubSystemReference__Group_1__0");
 			builder.put(grammarAccess.getDeploymentStatementAccess().getGroup(), "rule__DeploymentStatement__Group__0");
 			builder.put(grammarAccess.getDeploymentAccess().getGroup(), "rule__Deployment__Group__0");
 			builder.put(grammarAccess.getDeploymentAccess().getGroup_3(), "rule__Deployment__Group_3__0");
@@ -59,10 +58,11 @@ public class MyDslParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getSystemDefinitionAccess().getSubsystemsAssignment_3_1_2_0(), "rule__SystemDefinition__SubsystemsAssignment_3_1_2_0");
 			builder.put(grammarAccess.getSystemInstanceAccess().getTypeAssignment_0(), "rule__SystemInstance__TypeAssignment_0");
 			builder.put(grammarAccess.getSystemInstanceAccess().getNameAssignment_1(), "rule__SystemInstance__NameAssignment_1");
-			builder.put(grammarAccess.getNodeInstanceReferenceAccess().getTailAssignment_1_2(), "rule__NodeInstanceReference__TailAssignment_1_2");
+			builder.put(grammarAccess.getSubSystemReferenceAccess().getTailAssignment_1_2(), "rule__SubSystemReference__TailAssignment_1_2");
 			builder.put(grammarAccess.getSystemReferenceAccess().getSystemAssignment(), "rule__SystemReference__SystemAssignment");
-			builder.put(grammarAccess.getDeploymentStatementAccess().getNodesAssignment_1(), "rule__DeploymentStatement__NodesAssignment_1");
-			builder.put(grammarAccess.getDeploymentStatementAccess().getPlatformAssignment_3(), "rule__DeploymentStatement__PlatformAssignment_3");
+			builder.put(grammarAccess.getDeploymentStatementAccess().getSystemAssignment_1(), "rule__DeploymentStatement__SystemAssignment_1");
+			builder.put(grammarAccess.getDeploymentStatementAccess().getNodeAssignment_3(), "rule__DeploymentStatement__NodeAssignment_3");
+			builder.put(grammarAccess.getDeploymentStatementAccess().getPlatformAssignment_5(), "rule__DeploymentStatement__PlatformAssignment_5");
 			builder.put(grammarAccess.getDeploymentAccess().getPlatformsAssignment_3_1(), "rule__Deployment__PlatformsAssignment_3_1");
 			builder.put(grammarAccess.getDeploymentAccess().getSystemsAssignment_4_1(), "rule__Deployment__SystemsAssignment_4_1");
 			builder.put(grammarAccess.getDeploymentAccess().getDeploymentsAssignment_5(), "rule__Deployment__DeploymentsAssignment_5");

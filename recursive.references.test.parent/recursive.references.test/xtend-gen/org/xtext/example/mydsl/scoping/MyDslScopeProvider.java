@@ -10,11 +10,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
-import org.eclipse.xtext.xbase.lib.InputOutput;
-import org.xtext.example.mydsl.myDsl.Feature;
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
 import org.xtext.example.mydsl.myDsl.NodeInstance;
 import org.xtext.example.mydsl.myDsl.NodeInstanceReference;
+import org.xtext.example.mydsl.myDsl.SubSystemReference;
 import org.xtext.example.mydsl.myDsl.SystemDefinition;
 import org.xtext.example.mydsl.myDsl.SystemInstance;
 import org.xtext.example.mydsl.myDsl.SystemReference;
@@ -41,7 +40,7 @@ public class MyDslScopeProvider extends AbstractMyDslScopeProvider {
   private IScope getScopeForNodeInstanceReferenceTail(final NodeInstanceReference nodeRef, final EReference reference) {
     IScope _xblockexpression = null;
     {
-      final NodeInstanceReference head = nodeRef.getRef();
+      final SubSystemReference head = nodeRef.getRef();
       IScope _switchResult = null;
       boolean _matched = false;
       if (head instanceof SystemReference) {
@@ -49,29 +48,25 @@ public class MyDslScopeProvider extends AbstractMyDslScopeProvider {
         final SystemDefinition sysType = ((SystemReference)head).getSystem().getType();
         final EList<NodeInstance> nodes = sysType.getNodes();
         final EList<SystemInstance> subSystems = sysType.getSubsystems();
-        final Iterable<Feature> candiadates = Iterables.<Feature>concat(nodes, subSystems);
+        final Iterable<EObject> candiadates = Iterables.<EObject>concat(nodes, subSystems);
         return Scopes.scopeFor(candiadates);
       }
       if (!_matched) {
         if (head instanceof NodeInstanceReference) {
           _matched=true;
-          final Feature tail = head.getTail();
+          final SystemInstance tail = ((NodeInstanceReference)head).getTail();
           boolean _matched_1 = false;
           if (tail instanceof SystemInstance) {
             _matched_1=true;
-            final SystemDefinition sysType = ((SystemInstance)tail).getType();
+            final SystemDefinition sysType = tail.getType();
             final EList<NodeInstance> nodes = sysType.getNodes();
             final EList<SystemInstance> subSystems = sysType.getSubsystems();
-            final Iterable<Feature> candiadates = Iterables.<Feature>concat(nodes, subSystems);
+            final Iterable<EObject> candiadates = Iterables.<EObject>concat(nodes, subSystems);
             return Scopes.scopeFor(candiadates);
           }
           if (!_matched_1) {
             if (tail instanceof NodeInstance) {
               _matched_1=true;
-              final NodeInstance node = ((NodeInstance)tail);
-              InputOutput.<String>println(node.eContainingFeature().getName());
-              final String fqnNodeName = "";
-              InputOutput.<String>println(fqnNodeName);
               return IScope.NULLSCOPE;
             }
           }

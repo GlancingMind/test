@@ -20,7 +20,7 @@ package org.xtext.example.mydsl.myDsl;
  * @model
  * @generated
  */
-public interface SystemReference extends NodeInstanceReference
+public interface SystemReference extends SubSystemReference
 {
   /**
    * Returns the value of the '<em><b>System</b></em>' reference.

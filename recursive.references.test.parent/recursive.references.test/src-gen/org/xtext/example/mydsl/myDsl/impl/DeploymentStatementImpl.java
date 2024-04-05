@@ -14,8 +14,9 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.xtext.example.mydsl.myDsl.DeploymentStatement;
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
-import org.xtext.example.mydsl.myDsl.NodeInstanceReference;
+import org.xtext.example.mydsl.myDsl.NodeInstance;
 import org.xtext.example.mydsl.myDsl.PlatformInstance;
+import org.xtext.example.mydsl.myDsl.SubSystemReference;
 
 /**
  * <!-- begin-user-doc -->
@@ -25,7 +26,8 @@ import org.xtext.example.mydsl.myDsl.PlatformInstance;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.example.mydsl.myDsl.impl.DeploymentStatementImpl#getNodes <em>Nodes</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.impl.DeploymentStatementImpl#getSystem <em>System</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.impl.DeploymentStatementImpl#getNode <em>Node</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.myDsl.impl.DeploymentStatementImpl#getPlatform <em>Platform</em>}</li>
  * </ul>
  *
@@ -34,14 +36,24 @@ import org.xtext.example.mydsl.myDsl.PlatformInstance;
 public class DeploymentStatementImpl extends MinimalEObjectImpl.Container implements DeploymentStatement
 {
   /**
-   * The cached value of the '{@link #getNodes() <em>Nodes</em>}' containment reference.
+   * The cached value of the '{@link #getSystem() <em>System</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getNodes()
+   * @see #getSystem()
    * @generated
    * @ordered
    */
-  protected NodeInstanceReference nodes;
+  protected SubSystemReference system;
+
+  /**
+   * The cached value of the '{@link #getNode() <em>Node</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getNode()
+   * @generated
+   * @ordered
+   */
+  protected NodeInstance node;
 
   /**
    * The cached value of the '{@link #getPlatform() <em>Platform</em>}' reference.
@@ -80,9 +92,9 @@ public class DeploymentStatementImpl extends MinimalEObjectImpl.Container implem
    * @generated
    */
   @Override
-  public NodeInstanceReference getNodes()
+  public SubSystemReference getSystem()
   {
-    return nodes;
+    return system;
   }
 
   /**
@@ -90,13 +102,13 @@ public class DeploymentStatementImpl extends MinimalEObjectImpl.Container implem
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetNodes(NodeInstanceReference newNodes, NotificationChain msgs)
+  public NotificationChain basicSetSystem(SubSystemReference newSystem, NotificationChain msgs)
   {
-    NodeInstanceReference oldNodes = nodes;
-    nodes = newNodes;
+    SubSystemReference oldSystem = system;
+    system = newSystem;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, MyDslPackage.DEPLOYMENT_STATEMENT__NODES, oldNodes, newNodes);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM, oldSystem, newSystem);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -108,20 +120,65 @@ public class DeploymentStatementImpl extends MinimalEObjectImpl.Container implem
    * @generated
    */
   @Override
-  public void setNodes(NodeInstanceReference newNodes)
+  public void setSystem(SubSystemReference newSystem)
   {
-    if (newNodes != nodes)
+    if (newSystem != system)
     {
       NotificationChain msgs = null;
-      if (nodes != null)
-        msgs = ((InternalEObject)nodes).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - MyDslPackage.DEPLOYMENT_STATEMENT__NODES, null, msgs);
-      if (newNodes != null)
-        msgs = ((InternalEObject)newNodes).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - MyDslPackage.DEPLOYMENT_STATEMENT__NODES, null, msgs);
-      msgs = basicSetNodes(newNodes, msgs);
+      if (system != null)
+        msgs = ((InternalEObject)system).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM, null, msgs);
+      if (newSystem != null)
+        msgs = ((InternalEObject)newSystem).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM, null, msgs);
+      msgs = basicSetSystem(newSystem, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.DEPLOYMENT_STATEMENT__NODES, newNodes, newNodes));
+      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM, newSystem, newSystem));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NodeInstance getNode()
+  {
+    if (node != null && node.eIsProxy())
+    {
+      InternalEObject oldNode = (InternalEObject)node;
+      node = (NodeInstance)eResolveProxy(oldNode);
+      if (node != oldNode)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, MyDslPackage.DEPLOYMENT_STATEMENT__NODE, oldNode, node));
+      }
+    }
+    return node;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NodeInstance basicGetNode()
+  {
+    return node;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setNode(NodeInstance newNode)
+  {
+    NodeInstance oldNode = node;
+    node = newNode;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.DEPLOYMENT_STATEMENT__NODE, oldNode, node));
   }
 
   /**
@@ -179,8 +236,8 @@ public class DeploymentStatementImpl extends MinimalEObjectImpl.Container implem
   {
     switch (featureID)
     {
-      case MyDslPackage.DEPLOYMENT_STATEMENT__NODES:
-        return basicSetNodes(null, msgs);
+      case MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM:
+        return basicSetSystem(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -195,8 +252,11 @@ public class DeploymentStatementImpl extends MinimalEObjectImpl.Container implem
   {
     switch (featureID)
     {
-      case MyDslPackage.DEPLOYMENT_STATEMENT__NODES:
-        return getNodes();
+      case MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM:
+        return getSystem();
+      case MyDslPackage.DEPLOYMENT_STATEMENT__NODE:
+        if (resolve) return getNode();
+        return basicGetNode();
       case MyDslPackage.DEPLOYMENT_STATEMENT__PLATFORM:
         if (resolve) return getPlatform();
         return basicGetPlatform();
@@ -214,8 +274,11 @@ public class DeploymentStatementImpl extends MinimalEObjectImpl.Container implem
   {
     switch (featureID)
     {
-      case MyDslPackage.DEPLOYMENT_STATEMENT__NODES:
-        setNodes((NodeInstanceReference)newValue);
+      case MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM:
+        setSystem((SubSystemReference)newValue);
+        return;
+      case MyDslPackage.DEPLOYMENT_STATEMENT__NODE:
+        setNode((NodeInstance)newValue);
         return;
       case MyDslPackage.DEPLOYMENT_STATEMENT__PLATFORM:
         setPlatform((PlatformInstance)newValue);
@@ -234,8 +297,11 @@ public class DeploymentStatementImpl extends MinimalEObjectImpl.Container implem
   {
     switch (featureID)
     {
-      case MyDslPackage.DEPLOYMENT_STATEMENT__NODES:
-        setNodes((NodeInstanceReference)null);
+      case MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM:
+        setSystem((SubSystemReference)null);
+        return;
+      case MyDslPackage.DEPLOYMENT_STATEMENT__NODE:
+        setNode((NodeInstance)null);
         return;
       case MyDslPackage.DEPLOYMENT_STATEMENT__PLATFORM:
         setPlatform((PlatformInstance)null);
@@ -254,8 +320,10 @@ public class DeploymentStatementImpl extends MinimalEObjectImpl.Container implem
   {
     switch (featureID)
     {
-      case MyDslPackage.DEPLOYMENT_STATEMENT__NODES:
-        return nodes != null;
+      case MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM:
+        return system != null;
+      case MyDslPackage.DEPLOYMENT_STATEMENT__NODE:
+        return node != null;
       case MyDslPackage.DEPLOYMENT_STATEMENT__PLATFORM:
         return platform != null;
     }

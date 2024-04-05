@@ -405,15 +405,15 @@ ruleSystemInstance returns [EObject current=null]
 	)
 ;
 
-// Entry rule entryRuleNodeInstanceReference
-entryRuleNodeInstanceReference returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getNodeInstanceReferenceRule()); }
-	iv_ruleNodeInstanceReference=ruleNodeInstanceReference
-	{ $current=$iv_ruleNodeInstanceReference.current; }
+// Entry rule entryRuleSubSystemReference
+entryRuleSubSystemReference returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getSubSystemReferenceRule()); }
+	iv_ruleSubSystemReference=ruleSubSystemReference
+	{ $current=$iv_ruleSubSystemReference.current; }
 	EOF;
 
-// Rule NodeInstanceReference
-ruleNodeInstanceReference returns [EObject current=null]
+// Rule SubSystemReference
+ruleSubSystemReference returns [EObject current=null]
 @init {
 	enterRule();
 }
@@ -422,7 +422,7 @@ ruleNodeInstanceReference returns [EObject current=null]
 }:
 	(
 		{
-			newCompositeNode(grammarAccess.getNodeInstanceReferenceAccess().getSystemReferenceParserRuleCall_0());
+			newCompositeNode(grammarAccess.getSubSystemReferenceAccess().getSystemReferenceParserRuleCall_0());
 		}
 		this_SystemReference_0=ruleSystemReference
 		{
@@ -433,24 +433,24 @@ ruleNodeInstanceReference returns [EObject current=null]
 			(
 				{
 					$current = forceCreateModelElementAndSet(
-						grammarAccess.getNodeInstanceReferenceAccess().getNodeInstanceReferenceRefAction_1_0(),
+						grammarAccess.getSubSystemReferenceAccess().getNodeInstanceReferenceRefAction_1_0(),
 						$current);
 				}
 			)
 			otherlv_2='.'
 			{
-				newLeafNode(otherlv_2, grammarAccess.getNodeInstanceReferenceAccess().getFullStopKeyword_1_1());
+				newLeafNode(otherlv_2, grammarAccess.getSubSystemReferenceAccess().getFullStopKeyword_1_1());
 			}
 			(
 				(
 					{
 						if ($current==null) {
-							$current = createModelElement(grammarAccess.getNodeInstanceReferenceRule());
+							$current = createModelElement(grammarAccess.getSubSystemReferenceRule());
 						}
 					}
 					otherlv_3=RULE_ID
 					{
-						newLeafNode(otherlv_3, grammarAccess.getNodeInstanceReferenceAccess().getTailFeatureCrossReference_1_2_0());
+						newLeafNode(otherlv_3, grammarAccess.getSubSystemReferenceAccess().getTailSystemInstanceCrossReference_1_2_0());
 					}
 				)
 			)
@@ -511,25 +511,25 @@ ruleDeploymentStatement returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getDeploymentStatementAccess().getNodesNodeInstanceReferenceParserRuleCall_1_0());
+					newCompositeNode(grammarAccess.getDeploymentStatementAccess().getSystemSubSystemReferenceParserRuleCall_1_0());
 				}
-				lv_nodes_1_0=ruleNodeInstanceReference
+				lv_system_1_0=ruleSubSystemReference
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getDeploymentStatementRule());
 					}
 					set(
 						$current,
-						"nodes",
-						lv_nodes_1_0,
-						"org.xtext.example.mydsl.MyDsl.NodeInstanceReference");
+						"system",
+						lv_system_1_0,
+						"org.xtext.example.mydsl.MyDsl.SubSystemReference");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)
-		otherlv_2='on'
+		otherlv_2='.'
 		{
-			newLeafNode(otherlv_2, grammarAccess.getDeploymentStatementAccess().getOnKeyword_2());
+			newLeafNode(otherlv_2, grammarAccess.getDeploymentStatementAccess().getFullStopKeyword_2());
 		}
 		(
 			(
@@ -540,13 +540,30 @@ ruleDeploymentStatement returns [EObject current=null]
 				}
 				otherlv_3=RULE_ID
 				{
-					newLeafNode(otherlv_3, grammarAccess.getDeploymentStatementAccess().getPlatformPlatformInstanceCrossReference_3_0());
+					newLeafNode(otherlv_3, grammarAccess.getDeploymentStatementAccess().getNodeNodeInstanceCrossReference_3_0());
 				}
 			)
 		)
-		otherlv_4=';'
+		otherlv_4='on'
 		{
-			newLeafNode(otherlv_4, grammarAccess.getDeploymentStatementAccess().getSemicolonKeyword_4());
+			newLeafNode(otherlv_4, grammarAccess.getDeploymentStatementAccess().getOnKeyword_4());
+		}
+		(
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getDeploymentStatementRule());
+					}
+				}
+				otherlv_5=RULE_ID
+				{
+					newLeafNode(otherlv_5, grammarAccess.getDeploymentStatementAccess().getPlatformPlatformInstanceCrossReference_5_0());
+				}
+			)
+		)
+		otherlv_6=';'
+		{
+			newLeafNode(otherlv_6, grammarAccess.getDeploymentStatementAccess().getSemicolonKeyword_6());
 		}
 	)
 ;

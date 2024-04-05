@@ -3,7 +3,6 @@
  */
 package org.xtext.example.mydsl.myDsl;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,19 +21,19 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface NodeInstanceReference extends EObject
+public interface NodeInstanceReference extends SubSystemReference
 {
   /**
    * Returns the value of the '<em><b>Ref</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Ref</em>' containment reference.
-   * @see #setRef(NodeInstanceReference)
+   * @see #setRef(SubSystemReference)
    * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getNodeInstanceReference_Ref()
    * @model containment="true"
    * @generated
    */
-  NodeInstanceReference getRef();
+  SubSystemReference getRef();
 
   /**
    * Sets the value of the '{@link org.xtext.example.mydsl.myDsl.NodeInstanceReference#getRef <em>Ref</em>}' containment reference.
@@ -44,19 +43,19 @@ public interface NodeInstanceReference extends EObject
    * @see #getRef()
    * @generated
    */
-  void setRef(NodeInstanceReference value);
+  void setRef(SubSystemReference value);
 
   /**
    * Returns the value of the '<em><b>Tail</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Tail</em>' reference.
-   * @see #setTail(Feature)
+   * @see #setTail(SystemInstance)
    * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getNodeInstanceReference_Tail()
    * @model
    * @generated
    */
-  Feature getTail();
+  SystemInstance getTail();
 
   /**
    * Sets the value of the '{@link org.xtext.example.mydsl.myDsl.NodeInstanceReference#getTail <em>Tail</em>}' reference.
@@ -66,6 +65,6 @@ public interface NodeInstanceReference extends EObject
    * @see #getTail()
    * @generated
    */
-  void setTail(Feature value);
+  void setTail(SystemInstance value);
 
 } // NodeInstanceReference

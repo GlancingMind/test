@@ -14,7 +14,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.example.mydsl.myDsl.DeploymentStatement#getNodes <em>Nodes</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.DeploymentStatement#getSystem <em>System</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.DeploymentStatement#getNode <em>Node</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.myDsl.DeploymentStatement#getPlatform <em>Platform</em>}</li>
  * </ul>
  *
@@ -25,26 +26,48 @@ import org.eclipse.emf.ecore.EObject;
 public interface DeploymentStatement extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Nodes</b></em>' containment reference.
+   * Returns the value of the '<em><b>System</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Nodes</em>' containment reference.
-   * @see #setNodes(NodeInstanceReference)
-   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getDeploymentStatement_Nodes()
+   * @return the value of the '<em>System</em>' containment reference.
+   * @see #setSystem(SubSystemReference)
+   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getDeploymentStatement_System()
    * @model containment="true"
    * @generated
    */
-  NodeInstanceReference getNodes();
+  SubSystemReference getSystem();
 
   /**
-   * Sets the value of the '{@link org.xtext.example.mydsl.myDsl.DeploymentStatement#getNodes <em>Nodes</em>}' containment reference.
+   * Sets the value of the '{@link org.xtext.example.mydsl.myDsl.DeploymentStatement#getSystem <em>System</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Nodes</em>' containment reference.
-   * @see #getNodes()
+   * @param value the new value of the '<em>System</em>' containment reference.
+   * @see #getSystem()
    * @generated
    */
-  void setNodes(NodeInstanceReference value);
+  void setSystem(SubSystemReference value);
+
+  /**
+   * Returns the value of the '<em><b>Node</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Node</em>' reference.
+   * @see #setNode(NodeInstance)
+   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getDeploymentStatement_Node()
+   * @model
+   * @generated
+   */
+  NodeInstance getNode();
+
+  /**
+   * Sets the value of the '{@link org.xtext.example.mydsl.myDsl.DeploymentStatement#getNode <em>Node</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Node</em>' reference.
+   * @see #getNode()
+   * @generated
+   */
+  void setNode(NodeInstance value);
 
   /**
    * Returns the value of the '<em><b>Platform</b></em>' reference.

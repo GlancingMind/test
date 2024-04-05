@@ -22,9 +22,6 @@ SystemDefinition:
 
 SystemInstance: type=[SystemDefinition] name=ID;
 
-// Right recursive
-//SystemReference: system=[SystemInstance] ('.' subsystem=SystemReference)?;
-
 NodeInstanceReference: 
 	SystemReference ({NodeInstanceReference.ref=current} '.' tail=[Feature])*
 ;
@@ -38,6 +35,8 @@ Feature:
 DeploymentStatement:
 	'deploys' nodes=NodeInstanceReference 'on' platform=[PlatformInstance] ';'
 ;
+
+// TODO test function reference mapping
 
 Deployment: {Deployment} 'deployment' '{'
 		('platform' platforms+=PlatformInstance ';')*

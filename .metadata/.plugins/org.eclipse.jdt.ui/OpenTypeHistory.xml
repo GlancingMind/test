@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<typeInfoHistroy/>
+<typeInfoHistroy>
+    <typeInfo handle="=org.xtext.fetaml.ide/\/home\/sascha\/.m2\/repository\/org\/eclipse\/xtext\/org.eclipse.xtext\/2.26.0\/org.eclipse.xtext-2.26.0.jar=/maven.pomderived=/true=/=/maven.pomderived=/true=/=/maven.groupId=/org.eclipse.xtext=/=/maven.artifactId=/org.eclipse.xtext=/=/maven.version=/2.26.0=/=/maven.scope=/compile=/&lt;org.eclipse.xtext.scoping.impl(AbstractDeclarativeScopeProvider.class[AbstractDeclarativeScopeProvider" modifiers="1057" timestamp="1700326752870"/>
+    <typeInfo handle="=org.xtext.fetaml.ide/\/home\/sascha\/.m2\/repository\/org\/eclipse\/xtext\/org.eclipse.xtext\/2.26.0\/org.eclipse.xtext-2.26.0.jar=/maven.pomderived=/true=/=/maven.pomderived=/true=/=/maven.groupId=/org.eclipse.xtext=/=/maven.artifactId=/org.eclipse.xtext=/=/maven.version=/2.26.0=/=/maven.scope=/compile=/&lt;org.eclipse.xtext.scoping.impl(FilteringScope.class[FilteringScope" modifiers="33" timestamp="1700326752870"/>
+</typeInfoHistroy>

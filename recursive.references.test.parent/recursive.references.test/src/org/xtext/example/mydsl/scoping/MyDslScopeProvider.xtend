@@ -46,50 +46,13 @@ class MyDslScopeProvider extends AbstractMyDslScopeProvider {
 						return Scopes::scopeFor(candiadates)
 					}
 					NodeInstance: {
-						val node = tail
-						println(node.eContainingFeature.name)
-						val fqnNodeName = "" // TODO
-						println(fqnNodeName)
 						return IScope::NULLSCOPE	
 					}
 					default: return IScope::NULLSCOPE
 				}
 			}
+			
 			default: IScope::NULLSCOPE
 		}
 	}
-
-// Right recursive
-//	override getScope(EObject context, EReference reference) {
-//		switch(context) {
-//			NodeInstanceReference case reference == MyDslPackage::Literals::NODE_INSTANCE_REFERENCE__NODE: {
-//				getScopeForNodeInstanceReferenceNode(context, reference)
-//			}
-//			SystemReference case reference == MyDslPackage::Literals::SYSTEM_REFERENCE__SYSTEM: {
-//				getScopeForSystemReferenceSystem(context, reference)
-//			}
-//			default:
-//				super.getScope(context, reference)
-//		}
-//	}
-//	
-//	private def IScope getScopeForNodeInstanceReferenceNode(NodeInstanceReference nodeRef, EReference reference) {
-//		println("node")
-//		val systems = nodeRef.belongingSystemReference.systemPath
-//		val system = systems.last
-//		return Scopes::scopeFor(system.type.nodes)
-//	}
-//	
-//	private def IScope getScopeForSystemReferenceSystem(SystemReference sysRef, EReference reference) {
-//		println("system")
-//		// TODO habe sysRef, kenne aber den übergeordneten scope nicht...
-//		return super.getScope(sysRef, reference)
-//	}
-//	
-//	private static def Iterable<SystemInstance> getSystemPath(SystemReference ref) {
-//		if(ref.subsystem !== null) {
-//			return #[ref.system] + ref.subsystem.systemPath
-//		}
-//		return #[ref.system]
-//	}
 }

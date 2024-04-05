@@ -10,11 +10,11 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.xtext.example.mydsl.myDsl.Feature;
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
 import org.xtext.example.mydsl.myDsl.NodeInstanceReference;
+import org.xtext.example.mydsl.myDsl.SubSystemReference;
+import org.xtext.example.mydsl.myDsl.SystemInstance;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,7 +30,7 @@ import org.xtext.example.mydsl.myDsl.NodeInstanceReference;
  *
  * @generated
  */
-public class NodeInstanceReferenceImpl extends MinimalEObjectImpl.Container implements NodeInstanceReference
+public class NodeInstanceReferenceImpl extends SubSystemReferenceImpl implements NodeInstanceReference
 {
   /**
    * The cached value of the '{@link #getRef() <em>Ref</em>}' containment reference.
@@ -40,7 +40,7 @@ public class NodeInstanceReferenceImpl extends MinimalEObjectImpl.Container impl
    * @generated
    * @ordered
    */
-  protected NodeInstanceReference ref;
+  protected SubSystemReference ref;
 
   /**
    * The cached value of the '{@link #getTail() <em>Tail</em>}' reference.
@@ -50,7 +50,7 @@ public class NodeInstanceReferenceImpl extends MinimalEObjectImpl.Container impl
    * @generated
    * @ordered
    */
-  protected Feature tail;
+  protected SystemInstance tail;
 
   /**
    * <!-- begin-user-doc -->
@@ -79,7 +79,7 @@ public class NodeInstanceReferenceImpl extends MinimalEObjectImpl.Container impl
    * @generated
    */
   @Override
-  public NodeInstanceReference getRef()
+  public SubSystemReference getRef()
   {
     return ref;
   }
@@ -89,9 +89,9 @@ public class NodeInstanceReferenceImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetRef(NodeInstanceReference newRef, NotificationChain msgs)
+  public NotificationChain basicSetRef(SubSystemReference newRef, NotificationChain msgs)
   {
-    NodeInstanceReference oldRef = ref;
+    SubSystemReference oldRef = ref;
     ref = newRef;
     if (eNotificationRequired())
     {
@@ -107,7 +107,7 @@ public class NodeInstanceReferenceImpl extends MinimalEObjectImpl.Container impl
    * @generated
    */
   @Override
-  public void setRef(NodeInstanceReference newRef)
+  public void setRef(SubSystemReference newRef)
   {
     if (newRef != ref)
     {
@@ -129,12 +129,12 @@ public class NodeInstanceReferenceImpl extends MinimalEObjectImpl.Container impl
    * @generated
    */
   @Override
-  public Feature getTail()
+  public SystemInstance getTail()
   {
     if (tail != null && tail.eIsProxy())
     {
       InternalEObject oldTail = (InternalEObject)tail;
-      tail = (Feature)eResolveProxy(oldTail);
+      tail = (SystemInstance)eResolveProxy(oldTail);
       if (tail != oldTail)
       {
         if (eNotificationRequired())
@@ -149,7 +149,7 @@ public class NodeInstanceReferenceImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  public Feature basicGetTail()
+  public SystemInstance basicGetTail()
   {
     return tail;
   }
@@ -160,9 +160,9 @@ public class NodeInstanceReferenceImpl extends MinimalEObjectImpl.Container impl
    * @generated
    */
   @Override
-  public void setTail(Feature newTail)
+  public void setTail(SystemInstance newTail)
   {
-    Feature oldTail = tail;
+    SystemInstance oldTail = tail;
     tail = newTail;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.NODE_INSTANCE_REFERENCE__TAIL, oldTail, tail));
@@ -214,10 +214,10 @@ public class NodeInstanceReferenceImpl extends MinimalEObjectImpl.Container impl
     switch (featureID)
     {
       case MyDslPackage.NODE_INSTANCE_REFERENCE__REF:
-        setRef((NodeInstanceReference)newValue);
+        setRef((SubSystemReference)newValue);
         return;
       case MyDslPackage.NODE_INSTANCE_REFERENCE__TAIL:
-        setTail((Feature)newValue);
+        setTail((SystemInstance)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -234,10 +234,10 @@ public class NodeInstanceReferenceImpl extends MinimalEObjectImpl.Container impl
     switch (featureID)
     {
       case MyDslPackage.NODE_INSTANCE_REFERENCE__REF:
-        setRef((NodeInstanceReference)null);
+        setRef((SubSystemReference)null);
         return;
       case MyDslPackage.NODE_INSTANCE_REFERENCE__TAIL:
-        setTail((Feature)null);
+        setTail((SystemInstance)null);
         return;
     }
     super.eUnset(featureID);

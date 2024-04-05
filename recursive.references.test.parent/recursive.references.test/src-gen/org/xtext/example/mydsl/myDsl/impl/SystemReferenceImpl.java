@@ -27,7 +27,7 @@ import org.xtext.example.mydsl.myDsl.SystemReference;
  *
  * @generated
  */
-public class SystemReferenceImpl extends NodeInstanceReferenceImpl implements SystemReference
+public class SystemReferenceImpl extends SubSystemReferenceImpl implements SystemReference
 {
   /**
    * The cached value of the '{@link #getSystem() <em>System</em>}' reference.

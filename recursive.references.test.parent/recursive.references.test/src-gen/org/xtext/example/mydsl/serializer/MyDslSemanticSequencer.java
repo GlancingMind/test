@@ -57,7 +57,7 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				sequence_NodeInstance(context, (NodeInstance) semanticObject); 
 				return; 
 			case MyDslPackage.NODE_INSTANCE_REFERENCE:
-				sequence_NodeInstanceReference(context, (NodeInstanceReference) semanticObject); 
+				sequence_SubSystemReference(context, (NodeInstanceReference) semanticObject); 
 				return; 
 			case MyDslPackage.PLATFORM_INSTANCE:
 				sequence_PlatformInstance(context, (PlatformInstance) semanticObject); 
@@ -82,19 +82,22 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     DeploymentStatement returns DeploymentStatement
 	 *
 	 * Constraint:
-	 *     (nodes=NodeInstanceReference platform=[PlatformInstance|ID])
+	 *     (system=SubSystemReference node=[NodeInstance|ID] platform=[PlatformInstance|ID])
 	 * </pre>
 	 */
 	protected void sequence_DeploymentStatement(ISerializationContext context, DeploymentStatement semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.DEPLOYMENT_STATEMENT__NODES) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.DEPLOYMENT_STATEMENT__NODES));
+			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.DEPLOYMENT_STATEMENT__SYSTEM) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.DEPLOYMENT_STATEMENT__SYSTEM));
+			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.DEPLOYMENT_STATEMENT__NODE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.DEPLOYMENT_STATEMENT__NODE));
 			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.DEPLOYMENT_STATEMENT__PLATFORM) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.DEPLOYMENT_STATEMENT__PLATFORM));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getDeploymentStatementAccess().getNodesNodeInstanceReferenceParserRuleCall_1_0(), semanticObject.getNodes());
-		feeder.accept(grammarAccess.getDeploymentStatementAccess().getPlatformPlatformInstanceIDTerminalRuleCall_3_0_1(), semanticObject.eGet(MyDslPackage.Literals.DEPLOYMENT_STATEMENT__PLATFORM, false));
+		feeder.accept(grammarAccess.getDeploymentStatementAccess().getSystemSubSystemReferenceParserRuleCall_1_0(), semanticObject.getSystem());
+		feeder.accept(grammarAccess.getDeploymentStatementAccess().getNodeNodeInstanceIDTerminalRuleCall_3_0_1(), semanticObject.eGet(MyDslPackage.Literals.DEPLOYMENT_STATEMENT__NODE, false));
+		feeder.accept(grammarAccess.getDeploymentStatementAccess().getPlatformPlatformInstanceIDTerminalRuleCall_5_0_1(), semanticObject.eGet(MyDslPackage.Literals.DEPLOYMENT_STATEMENT__PLATFORM, false));
 		feeder.finish();
 	}
 	
@@ -150,32 +153,7 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	/**
 	 * <pre>
 	 * Contexts:
-	 *     NodeInstanceReference returns NodeInstanceReference
-	 *     NodeInstanceReference.NodeInstanceReference_1_0 returns NodeInstanceReference
-	 *
-	 * Constraint:
-	 *     (ref=NodeInstanceReference_NodeInstanceReference_1_0 tail=[Feature|ID])
-	 * </pre>
-	 */
-	protected void sequence_NodeInstanceReference(ISerializationContext context, NodeInstanceReference semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.NODE_INSTANCE_REFERENCE__REF) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.NODE_INSTANCE_REFERENCE__REF));
-			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.NODE_INSTANCE_REFERENCE__TAIL) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.NODE_INSTANCE_REFERENCE__TAIL));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getNodeInstanceReferenceAccess().getNodeInstanceReferenceRefAction_1_0(), semanticObject.getRef());
-		feeder.accept(grammarAccess.getNodeInstanceReferenceAccess().getTailFeatureIDTerminalRuleCall_1_2_0_1(), semanticObject.eGet(MyDslPackage.Literals.NODE_INSTANCE_REFERENCE__TAIL, false));
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * <pre>
-	 * Contexts:
 	 *     NodeInstance returns NodeInstance
-	 *     Feature returns NodeInstance
 	 *
 	 * Constraint:
 	 *     (type=[NodeDefinition|ID] name=ID)
@@ -185,8 +163,8 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 		if (errorAcceptor != null) {
 			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.NODE_INSTANCE__TYPE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.NODE_INSTANCE__TYPE));
-			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.FEATURE__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.FEATURE__NAME));
+			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.NODE_INSTANCE__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.NODE_INSTANCE__NAME));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getNodeInstanceAccess().getTypeNodeDefinitionIDTerminalRuleCall_0_0_1(), semanticObject.eGet(MyDslPackage.Literals.NODE_INSTANCE__TYPE, false));
@@ -218,6 +196,30 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	/**
 	 * <pre>
 	 * Contexts:
+	 *     SubSystemReference returns NodeInstanceReference
+	 *     SubSystemReference.NodeInstanceReference_1_0 returns NodeInstanceReference
+	 *
+	 * Constraint:
+	 *     (ref=SubSystemReference_NodeInstanceReference_1_0 tail=[SystemInstance|ID])
+	 * </pre>
+	 */
+	protected void sequence_SubSystemReference(ISerializationContext context, NodeInstanceReference semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.NODE_INSTANCE_REFERENCE__REF) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.NODE_INSTANCE_REFERENCE__REF));
+			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.NODE_INSTANCE_REFERENCE__TAIL) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.NODE_INSTANCE_REFERENCE__TAIL));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getSubSystemReferenceAccess().getNodeInstanceReferenceRefAction_1_0(), semanticObject.getRef());
+		feeder.accept(grammarAccess.getSubSystemReferenceAccess().getTailSystemInstanceIDTerminalRuleCall_1_2_0_1(), semanticObject.eGet(MyDslPackage.Literals.NODE_INSTANCE_REFERENCE__TAIL, false));
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * <pre>
+	 * Contexts:
 	 *     SystemDefinition returns SystemDefinition
 	 *
 	 * Constraint:
@@ -233,7 +235,6 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 * <pre>
 	 * Contexts:
 	 *     SystemInstance returns SystemInstance
-	 *     Feature returns SystemInstance
 	 *
 	 * Constraint:
 	 *     (type=[SystemDefinition|ID] name=ID)
@@ -243,8 +244,8 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 		if (errorAcceptor != null) {
 			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.SYSTEM_INSTANCE__TYPE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.SYSTEM_INSTANCE__TYPE));
-			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.FEATURE__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.FEATURE__NAME));
+			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.SYSTEM_INSTANCE__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.SYSTEM_INSTANCE__NAME));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getSystemInstanceAccess().getTypeSystemDefinitionIDTerminalRuleCall_0_0_1(), semanticObject.eGet(MyDslPackage.Literals.SYSTEM_INSTANCE__TYPE, false));
@@ -256,8 +257,8 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	/**
 	 * <pre>
 	 * Contexts:
-	 *     NodeInstanceReference returns SystemReference
-	 *     NodeInstanceReference.NodeInstanceReference_1_0 returns SystemReference
+	 *     SubSystemReference returns SystemReference
+	 *     SubSystemReference.NodeInstanceReference_1_0 returns SystemReference
 	 *     SystemReference returns SystemReference
 	 *
 	 * Constraint:
