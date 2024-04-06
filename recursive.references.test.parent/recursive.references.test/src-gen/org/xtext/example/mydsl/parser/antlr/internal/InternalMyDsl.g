@@ -520,25 +520,25 @@ ruleDeploymentStatement returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getDeploymentStatementAccess().getSystemSubSystemReferenceParserRuleCall_1_0());
+					newCompositeNode(grammarAccess.getDeploymentStatementAccess().getSystemRefSubSystemReferenceParserRuleCall_1_0());
 				}
-				lv_system_1_0=ruleSubSystemReference
+				lv_systemRef_1_0=ruleSubSystemReference
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getDeploymentStatementRule());
 					}
 					set(
 						$current,
-						"system",
-						lv_system_1_0,
+						"systemRef",
+						lv_systemRef_1_0,
 						"org.xtext.example.mydsl.MyDsl.SubSystemReference");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)
-		otherlv_2='->'
+		otherlv_2='.'
 		{
-			newLeafNode(otherlv_2, grammarAccess.getDeploymentStatementAccess().getHyphenMinusGreaterThanSignKeyword_2());
+			newLeafNode(otherlv_2, grammarAccess.getDeploymentStatementAccess().getFullStopKeyword_2());
 		}
 		(
 			(

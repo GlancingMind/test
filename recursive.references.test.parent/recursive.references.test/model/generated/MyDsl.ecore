@@ -31,7 +31,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="system" eType="#//SystemInstance"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DeploymentStatement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="system" eType="#//SystemReference"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="systemRef" eType="#//SystemReference"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="node" eType="#//NodeInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="platform" eType="#//PlatformInstance"/>

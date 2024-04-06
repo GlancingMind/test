@@ -8,7 +8,6 @@ import org.eclipse.emf.ecore.EReference
 import org.xtext.example.mydsl.myDsl.MyDslPackage
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
-import org.xtext.example.mydsl.myDsl.SystemInstance
 import org.xtext.example.mydsl.myDsl.SubSystemReference
 import org.xtext.example.mydsl.myDsl.DeploymentStatement
 import org.xtext.example.mydsl.myDsl.SystemReference
@@ -33,6 +32,21 @@ class MyDslScopeProvider extends AbstractMyDslScopeProvider {
 	}
 	
 	private def IScope getScopeForDeploymentStatement_node(DeploymentStatement deployment, EReference reference) {
-		return Scopes::scopeFor(deployment.system.system.type.nodes)
+		println(deployment.systemRef.getName)
+		return Scopes::scopeFor(deployment.systemRef.system.type.nodes)
+	}
+	
+	static def String getName(SystemReference ref) {
+		switch (ref) {
+			SubSystemReference: {
+				ref.parent.name +"_"+ ref.system.name 
+			}
+			SystemReference: {
+				ref.system.name
+			}
+			default: {
+				""
+			}
+		}
 	}
 }

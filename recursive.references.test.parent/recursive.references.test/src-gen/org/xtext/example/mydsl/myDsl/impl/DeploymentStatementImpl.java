@@ -26,7 +26,7 @@ import org.xtext.example.mydsl.myDsl.SystemReference;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.example.mydsl.myDsl.impl.DeploymentStatementImpl#getSystem <em>System</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.impl.DeploymentStatementImpl#getSystemRef <em>System Ref</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.myDsl.impl.DeploymentStatementImpl#getNode <em>Node</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.myDsl.impl.DeploymentStatementImpl#getPlatform <em>Platform</em>}</li>
  * </ul>
@@ -36,14 +36,14 @@ import org.xtext.example.mydsl.myDsl.SystemReference;
 public class DeploymentStatementImpl extends MinimalEObjectImpl.Container implements DeploymentStatement
 {
   /**
-   * The cached value of the '{@link #getSystem() <em>System</em>}' containment reference.
+   * The cached value of the '{@link #getSystemRef() <em>System Ref</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getSystem()
+   * @see #getSystemRef()
    * @generated
    * @ordered
    */
-  protected SystemReference system;
+  protected SystemReference systemRef;
 
   /**
    * The cached value of the '{@link #getNode() <em>Node</em>}' reference.
@@ -92,9 +92,9 @@ public class DeploymentStatementImpl extends MinimalEObjectImpl.Container implem
    * @generated
    */
   @Override
-  public SystemReference getSystem()
+  public SystemReference getSystemRef()
   {
-    return system;
+    return systemRef;
   }
 
   /**
@@ -102,13 +102,13 @@ public class DeploymentStatementImpl extends MinimalEObjectImpl.Container implem
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetSystem(SystemReference newSystem, NotificationChain msgs)
+  public NotificationChain basicSetSystemRef(SystemReference newSystemRef, NotificationChain msgs)
   {
-    SystemReference oldSystem = system;
-    system = newSystem;
+    SystemReference oldSystemRef = systemRef;
+    systemRef = newSystemRef;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM, oldSystem, newSystem);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM_REF, oldSystemRef, newSystemRef);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -120,20 +120,20 @@ public class DeploymentStatementImpl extends MinimalEObjectImpl.Container implem
    * @generated
    */
   @Override
-  public void setSystem(SystemReference newSystem)
+  public void setSystemRef(SystemReference newSystemRef)
   {
-    if (newSystem != system)
+    if (newSystemRef != systemRef)
     {
       NotificationChain msgs = null;
-      if (system != null)
-        msgs = ((InternalEObject)system).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM, null, msgs);
-      if (newSystem != null)
-        msgs = ((InternalEObject)newSystem).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM, null, msgs);
-      msgs = basicSetSystem(newSystem, msgs);
+      if (systemRef != null)
+        msgs = ((InternalEObject)systemRef).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM_REF, null, msgs);
+      if (newSystemRef != null)
+        msgs = ((InternalEObject)newSystemRef).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM_REF, null, msgs);
+      msgs = basicSetSystemRef(newSystemRef, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM, newSystem, newSystem));
+      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM_REF, newSystemRef, newSystemRef));
   }
 
   /**
@@ -236,8 +236,8 @@ public class DeploymentStatementImpl extends MinimalEObjectImpl.Container implem
   {
     switch (featureID)
     {
-      case MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM:
-        return basicSetSystem(null, msgs);
+      case MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM_REF:
+        return basicSetSystemRef(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -252,8 +252,8 @@ public class DeploymentStatementImpl extends MinimalEObjectImpl.Container implem
   {
     switch (featureID)
     {
-      case MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM:
-        return getSystem();
+      case MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM_REF:
+        return getSystemRef();
       case MyDslPackage.DEPLOYMENT_STATEMENT__NODE:
         if (resolve) return getNode();
         return basicGetNode();
@@ -274,8 +274,8 @@ public class DeploymentStatementImpl extends MinimalEObjectImpl.Container implem
   {
     switch (featureID)
     {
-      case MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM:
-        setSystem((SystemReference)newValue);
+      case MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM_REF:
+        setSystemRef((SystemReference)newValue);
         return;
       case MyDslPackage.DEPLOYMENT_STATEMENT__NODE:
         setNode((NodeInstance)newValue);
@@ -297,8 +297,8 @@ public class DeploymentStatementImpl extends MinimalEObjectImpl.Container implem
   {
     switch (featureID)
     {
-      case MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM:
-        setSystem((SystemReference)null);
+      case MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM_REF:
+        setSystemRef((SystemReference)null);
         return;
       case MyDslPackage.DEPLOYMENT_STATEMENT__NODE:
         setNode((NodeInstance)null);
@@ -320,8 +320,8 @@ public class DeploymentStatementImpl extends MinimalEObjectImpl.Container implem
   {
     switch (featureID)
     {
-      case MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM:
-        return system != null;
+      case MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM_REF:
+        return systemRef != null;
       case MyDslPackage.DEPLOYMENT_STATEMENT__NODE:
         return node != null;
       case MyDslPackage.DEPLOYMENT_STATEMENT__PLATFORM:

@@ -379,7 +379,7 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
    * @generated
    */
   @Override
-  public EReference getDeploymentStatement_System()
+  public EReference getDeploymentStatement_SystemRef()
   {
     return (EReference)deploymentStatementEClass.getEStructuralFeatures().get(0);
   }
@@ -550,7 +550,7 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
     createEReference(systemReferenceEClass, SYSTEM_REFERENCE__SYSTEM);
 
     deploymentStatementEClass = createEClass(DEPLOYMENT_STATEMENT);
-    createEReference(deploymentStatementEClass, DEPLOYMENT_STATEMENT__SYSTEM);
+    createEReference(deploymentStatementEClass, DEPLOYMENT_STATEMENT__SYSTEM_REF);
     createEReference(deploymentStatementEClass, DEPLOYMENT_STATEMENT__NODE);
     createEReference(deploymentStatementEClass, DEPLOYMENT_STATEMENT__PLATFORM);
 
@@ -623,7 +623,7 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
     initEReference(getSystemReference_System(), this.getSystemInstance(), null, "system", null, 0, 1, SystemReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(deploymentStatementEClass, DeploymentStatement.class, "DeploymentStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getDeploymentStatement_System(), this.getSystemReference(), null, "system", null, 0, 1, DeploymentStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDeploymentStatement_SystemRef(), this.getSystemReference(), null, "systemRef", null, 0, 1, DeploymentStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getDeploymentStatement_Node(), this.getNodeInstance(), null, "node", null, 0, 1, DeploymentStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getDeploymentStatement_Platform(), this.getPlatformInstance(), null, "platform", null, 0, 1, DeploymentStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

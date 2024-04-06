@@ -82,20 +82,20 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     DeploymentStatement returns DeploymentStatement
 	 *
 	 * Constraint:
-	 *     (system=SubSystemReference node=[NodeInstance|ID] platform=[PlatformInstance|ID])
+	 *     (systemRef=SubSystemReference node=[NodeInstance|ID] platform=[PlatformInstance|ID])
 	 * </pre>
 	 */
 	protected void sequence_DeploymentStatement(ISerializationContext context, DeploymentStatement semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.DEPLOYMENT_STATEMENT__SYSTEM) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.DEPLOYMENT_STATEMENT__SYSTEM));
+			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.DEPLOYMENT_STATEMENT__SYSTEM_REF) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.DEPLOYMENT_STATEMENT__SYSTEM_REF));
 			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.DEPLOYMENT_STATEMENT__NODE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.DEPLOYMENT_STATEMENT__NODE));
 			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.DEPLOYMENT_STATEMENT__PLATFORM) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.DEPLOYMENT_STATEMENT__PLATFORM));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getDeploymentStatementAccess().getSystemSubSystemReferenceParserRuleCall_1_0(), semanticObject.getSystem());
+		feeder.accept(grammarAccess.getDeploymentStatementAccess().getSystemRefSubSystemReferenceParserRuleCall_1_0(), semanticObject.getSystemRef());
 		feeder.accept(grammarAccess.getDeploymentStatementAccess().getNodeNodeInstanceIDTerminalRuleCall_3_0_1(), semanticObject.eGet(MyDslPackage.Literals.DEPLOYMENT_STATEMENT__NODE, false));
 		feeder.accept(grammarAccess.getDeploymentStatementAccess().getPlatformPlatformInstanceIDTerminalRuleCall_5_0_1(), semanticObject.eGet(MyDslPackage.Literals.DEPLOYMENT_STATEMENT__PLATFORM, false));
 		feeder.finish();

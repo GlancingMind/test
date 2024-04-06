@@ -8,9 +8,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
+import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.xtext.example.mydsl.myDsl.DeploymentStatement;
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
 import org.xtext.example.mydsl.myDsl.SubSystemReference;
+import org.xtext.example.mydsl.myDsl.SystemReference;
 
 @SuppressWarnings("all")
 public class MyDslScopeProvider extends AbstractMyDslScopeProvider {
@@ -45,6 +47,29 @@ public class MyDslScopeProvider extends AbstractMyDslScopeProvider {
   }
   
   private IScope getScopeForDeploymentStatement_node(final DeploymentStatement deployment, final EReference reference) {
-    return Scopes.scopeFor(deployment.getSystem().getSystem().getType().getNodes());
+    InputOutput.<String>println(MyDslScopeProvider.getName(deployment.getSystemRef()));
+    return Scopes.scopeFor(deployment.getSystemRef().getSystem().getType().getNodes());
+  }
+  
+  public static String getName(final SystemReference ref) {
+    String _switchResult = null;
+    boolean _matched = false;
+    if (ref instanceof SubSystemReference) {
+      _matched=true;
+      String _name = MyDslScopeProvider.getName(((SubSystemReference)ref).getParent());
+      String _plus = (_name + "_");
+      String _name_1 = ((SubSystemReference)ref).getSystem().getName();
+      _switchResult = (_plus + _name_1);
+    }
+    if (!_matched) {
+      if (ref instanceof SystemReference) {
+        _matched=true;
+        _switchResult = ref.getSystem().getName();
+      }
+    }
+    if (!_matched) {
+      _switchResult = "";
+    }
+    return _switchResult;
   }
 }

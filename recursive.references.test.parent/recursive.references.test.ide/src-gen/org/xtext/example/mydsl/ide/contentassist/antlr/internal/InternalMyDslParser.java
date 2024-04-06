@@ -22,7 +22,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalMyDslParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'node'", "';'", "'system'", "'{'", "'}'", "'nodes'", "':'", "'subsystems'", "'.'", "'deploys'", "'->'", "'on'", "'deployment'", "'platform'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'node'", "';'", "'system'", "'{'", "'}'", "'nodes'", "':'", "'subsystems'", "'.'", "'deploys'", "'on'", "'deployment'", "'platform'"
     };
     public static final int RULE_STRING=6;
     public static final int RULE_SL_COMMENT=8;
@@ -43,7 +43,6 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
     public static final int T__22=22;
     public static final int RULE_ML_COMMENT=7;
     public static final int T__23=23;
-    public static final int T__24=24;
     public static final int T__20=20;
     public static final int T__21=21;
 
@@ -132,7 +131,7 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
                 int alt1=2;
                 int LA1_0 = input.LA(1);
 
-                if ( (LA1_0==11||LA1_0==13||LA1_0==23) ) {
+                if ( (LA1_0==11||LA1_0==13||LA1_0==22) ) {
                     alt1=1;
                 }
 
@@ -890,7 +889,7 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
                 alt2=2;
                 }
                 break;
-            case 23:
+            case 22:
                 {
                 alt2=3;
                 }
@@ -2993,7 +2992,19 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
                 int LA7_0 = input.LA(1);
 
                 if ( (LA7_0==19) ) {
-                    alt7=1;
+                    int LA7_2 = input.LA(2);
+
+                    if ( (LA7_2==RULE_ID) ) {
+                        int LA7_3 = input.LA(3);
+
+                        if ( (LA7_3==EOF||LA7_3==19) ) {
+                            alt7=1;
+                        }
+
+
+                    }
+
+
                 }
 
 
@@ -3507,7 +3518,7 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
             // InternalMyDsl.g:1164:1: ( rule__DeploymentStatement__Group__1__Impl rule__DeploymentStatement__Group__2 )
             // InternalMyDsl.g:1165:2: rule__DeploymentStatement__Group__1__Impl rule__DeploymentStatement__Group__2
             {
-            pushFollow(FOLLOW_13);
+            pushFollow(FOLLOW_11);
             rule__DeploymentStatement__Group__1__Impl();
 
             state._fsp--;
@@ -3536,31 +3547,31 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DeploymentStatement__Group__1__Impl"
-    // InternalMyDsl.g:1172:1: rule__DeploymentStatement__Group__1__Impl : ( ( rule__DeploymentStatement__SystemAssignment_1 ) ) ;
+    // InternalMyDsl.g:1172:1: rule__DeploymentStatement__Group__1__Impl : ( ( rule__DeploymentStatement__SystemRefAssignment_1 ) ) ;
     public final void rule__DeploymentStatement__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalMyDsl.g:1176:1: ( ( ( rule__DeploymentStatement__SystemAssignment_1 ) ) )
-            // InternalMyDsl.g:1177:1: ( ( rule__DeploymentStatement__SystemAssignment_1 ) )
+            // InternalMyDsl.g:1176:1: ( ( ( rule__DeploymentStatement__SystemRefAssignment_1 ) ) )
+            // InternalMyDsl.g:1177:1: ( ( rule__DeploymentStatement__SystemRefAssignment_1 ) )
             {
-            // InternalMyDsl.g:1177:1: ( ( rule__DeploymentStatement__SystemAssignment_1 ) )
-            // InternalMyDsl.g:1178:2: ( rule__DeploymentStatement__SystemAssignment_1 )
+            // InternalMyDsl.g:1177:1: ( ( rule__DeploymentStatement__SystemRefAssignment_1 ) )
+            // InternalMyDsl.g:1178:2: ( rule__DeploymentStatement__SystemRefAssignment_1 )
             {
-             before(grammarAccess.getDeploymentStatementAccess().getSystemAssignment_1()); 
-            // InternalMyDsl.g:1179:2: ( rule__DeploymentStatement__SystemAssignment_1 )
-            // InternalMyDsl.g:1179:3: rule__DeploymentStatement__SystemAssignment_1
+             before(grammarAccess.getDeploymentStatementAccess().getSystemRefAssignment_1()); 
+            // InternalMyDsl.g:1179:2: ( rule__DeploymentStatement__SystemRefAssignment_1 )
+            // InternalMyDsl.g:1179:3: rule__DeploymentStatement__SystemRefAssignment_1
             {
             pushFollow(FOLLOW_2);
-            rule__DeploymentStatement__SystemAssignment_1();
+            rule__DeploymentStatement__SystemRefAssignment_1();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getDeploymentStatementAccess().getSystemAssignment_1()); 
+             after(grammarAccess.getDeploymentStatementAccess().getSystemRefAssignment_1()); 
 
             }
 
@@ -3621,21 +3632,21 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DeploymentStatement__Group__2__Impl"
-    // InternalMyDsl.g:1199:1: rule__DeploymentStatement__Group__2__Impl : ( '->' ) ;
+    // InternalMyDsl.g:1199:1: rule__DeploymentStatement__Group__2__Impl : ( '.' ) ;
     public final void rule__DeploymentStatement__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalMyDsl.g:1203:1: ( ( '->' ) )
-            // InternalMyDsl.g:1204:1: ( '->' )
+            // InternalMyDsl.g:1203:1: ( ( '.' ) )
+            // InternalMyDsl.g:1204:1: ( '.' )
             {
-            // InternalMyDsl.g:1204:1: ( '->' )
-            // InternalMyDsl.g:1205:2: '->'
+            // InternalMyDsl.g:1204:1: ( '.' )
+            // InternalMyDsl.g:1205:2: '.'
             {
-             before(grammarAccess.getDeploymentStatementAccess().getHyphenMinusGreaterThanSignKeyword_2()); 
-            match(input,21,FOLLOW_2); 
-             after(grammarAccess.getDeploymentStatementAccess().getHyphenMinusGreaterThanSignKeyword_2()); 
+             before(grammarAccess.getDeploymentStatementAccess().getFullStopKeyword_2()); 
+            match(input,19,FOLLOW_2); 
+             after(grammarAccess.getDeploymentStatementAccess().getFullStopKeyword_2()); 
 
             }
 
@@ -3667,7 +3678,7 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
             // InternalMyDsl.g:1218:1: ( rule__DeploymentStatement__Group__3__Impl rule__DeploymentStatement__Group__4 )
             // InternalMyDsl.g:1219:2: rule__DeploymentStatement__Group__3__Impl rule__DeploymentStatement__Group__4
             {
-            pushFollow(FOLLOW_14);
+            pushFollow(FOLLOW_13);
             rule__DeploymentStatement__Group__3__Impl();
 
             state._fsp--;
@@ -3794,7 +3805,7 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
             // InternalMyDsl.g:1259:2: 'on'
             {
              before(grammarAccess.getDeploymentStatementAccess().getOnKeyword_4()); 
-            match(input,22,FOLLOW_2); 
+            match(input,21,FOLLOW_2); 
              after(grammarAccess.getDeploymentStatementAccess().getOnKeyword_4()); 
 
             }
@@ -3982,7 +3993,7 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
             // InternalMyDsl.g:1326:1: ( rule__Deployment__Group__0__Impl rule__Deployment__Group__1 )
             // InternalMyDsl.g:1327:2: rule__Deployment__Group__0__Impl rule__Deployment__Group__1
             {
-            pushFollow(FOLLOW_15);
+            pushFollow(FOLLOW_14);
             rule__Deployment__Group__0__Impl();
 
             state._fsp--;
@@ -4099,7 +4110,7 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
             // InternalMyDsl.g:1367:2: 'deployment'
             {
              before(grammarAccess.getDeploymentAccess().getDeploymentKeyword_1()); 
-            match(input,23,FOLLOW_2); 
+            match(input,22,FOLLOW_2); 
              after(grammarAccess.getDeploymentAccess().getDeploymentKeyword_1()); 
 
             }
@@ -4132,7 +4143,7 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
             // InternalMyDsl.g:1380:1: ( rule__Deployment__Group__2__Impl rule__Deployment__Group__3 )
             // InternalMyDsl.g:1381:2: rule__Deployment__Group__2__Impl rule__Deployment__Group__3
             {
-            pushFollow(FOLLOW_16);
+            pushFollow(FOLLOW_15);
             rule__Deployment__Group__2__Impl();
 
             state._fsp--;
@@ -4207,7 +4218,7 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
             // InternalMyDsl.g:1407:1: ( rule__Deployment__Group__3__Impl rule__Deployment__Group__4 )
             // InternalMyDsl.g:1408:2: rule__Deployment__Group__3__Impl rule__Deployment__Group__4
             {
-            pushFollow(FOLLOW_16);
+            pushFollow(FOLLOW_15);
             rule__Deployment__Group__3__Impl();
 
             state._fsp--;
@@ -4255,7 +4266,7 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
                 int alt8=2;
                 int LA8_0 = input.LA(1);
 
-                if ( (LA8_0==24) ) {
+                if ( (LA8_0==23) ) {
                     alt8=1;
                 }
 
@@ -4264,7 +4275,7 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
             	case 1 :
             	    // InternalMyDsl.g:1422:3: rule__Deployment__Group_3__0
             	    {
-            	    pushFollow(FOLLOW_17);
+            	    pushFollow(FOLLOW_16);
             	    rule__Deployment__Group_3__0();
 
             	    state._fsp--;
@@ -4310,7 +4321,7 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
             // InternalMyDsl.g:1434:1: ( rule__Deployment__Group__4__Impl rule__Deployment__Group__5 )
             // InternalMyDsl.g:1435:2: rule__Deployment__Group__4__Impl rule__Deployment__Group__5
             {
-            pushFollow(FOLLOW_16);
+            pushFollow(FOLLOW_15);
             rule__Deployment__Group__4__Impl();
 
             state._fsp--;
@@ -4367,7 +4378,7 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
             	case 1 :
             	    // InternalMyDsl.g:1449:3: rule__Deployment__Group_4__0
             	    {
-            	    pushFollow(FOLLOW_18);
+            	    pushFollow(FOLLOW_17);
             	    rule__Deployment__Group_4__0();
 
             	    state._fsp--;
@@ -4413,7 +4424,7 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
             // InternalMyDsl.g:1461:1: ( rule__Deployment__Group__5__Impl rule__Deployment__Group__6 )
             // InternalMyDsl.g:1462:2: rule__Deployment__Group__5__Impl rule__Deployment__Group__6
             {
-            pushFollow(FOLLOW_16);
+            pushFollow(FOLLOW_15);
             rule__Deployment__Group__5__Impl();
 
             state._fsp--;
@@ -4470,7 +4481,7 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
             	case 1 :
             	    // InternalMyDsl.g:1476:3: rule__Deployment__DeploymentsAssignment_5
             	    {
-            	    pushFollow(FOLLOW_19);
+            	    pushFollow(FOLLOW_18);
             	    rule__Deployment__DeploymentsAssignment_5();
 
             	    state._fsp--;
@@ -4628,7 +4639,7 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
             // InternalMyDsl.g:1529:2: 'platform'
             {
              before(grammarAccess.getDeploymentAccess().getPlatformKeyword_3_0()); 
-            match(input,24,FOLLOW_2); 
+            match(input,23,FOLLOW_2); 
              after(grammarAccess.getDeploymentAccess().getPlatformKeyword_3_0()); 
 
             }
@@ -5569,9 +5580,9 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__SystemReference__SystemAssignment_1"
 
 
-    // $ANTLR start "rule__DeploymentStatement__SystemAssignment_1"
-    // InternalMyDsl.g:1884:1: rule__DeploymentStatement__SystemAssignment_1 : ( ruleSubSystemReference ) ;
-    public final void rule__DeploymentStatement__SystemAssignment_1() throws RecognitionException {
+    // $ANTLR start "rule__DeploymentStatement__SystemRefAssignment_1"
+    // InternalMyDsl.g:1884:1: rule__DeploymentStatement__SystemRefAssignment_1 : ( ruleSubSystemReference ) ;
+    public final void rule__DeploymentStatement__SystemRefAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -5582,13 +5593,13 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
             // InternalMyDsl.g:1889:2: ( ruleSubSystemReference )
             // InternalMyDsl.g:1890:3: ruleSubSystemReference
             {
-             before(grammarAccess.getDeploymentStatementAccess().getSystemSubSystemReferenceParserRuleCall_1_0()); 
+             before(grammarAccess.getDeploymentStatementAccess().getSystemRefSubSystemReferenceParserRuleCall_1_0()); 
             pushFollow(FOLLOW_2);
             ruleSubSystemReference();
 
             state._fsp--;
 
-             after(grammarAccess.getDeploymentStatementAccess().getSystemSubSystemReferenceParserRuleCall_1_0()); 
+             after(grammarAccess.getDeploymentStatementAccess().getSystemRefSubSystemReferenceParserRuleCall_1_0()); 
 
             }
 
@@ -5607,7 +5618,7 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__DeploymentStatement__SystemAssignment_1"
+    // $ANTLR end "rule__DeploymentStatement__SystemRefAssignment_1"
 
 
     // $ANTLR start "rule__DeploymentStatement__NodeAssignment_3"
@@ -5866,7 +5877,7 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
 
     public static final BitSet FOLLOW_1 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_2 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_3 = new BitSet(new long[]{0x0000000000802802L});
+    public static final BitSet FOLLOW_3 = new BitSet(new long[]{0x0000000000402802L});
     public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0000000000001000L});
     public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000000004000L});
@@ -5877,11 +5888,10 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000000000080000L});
     public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000000000080002L});
     public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000000802800L});
-    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x000000000110A000L});
-    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000000001000002L});
-    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000000002002L});
-    public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000000000100002L});
+    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000000000402800L});
+    public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x000000000090A000L});
+    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0000000000800002L});
+    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000000000002002L});
+    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000000100002L});
 
 }

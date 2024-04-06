@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.example.mydsl.myDsl.DeploymentStatement#getSystem <em>System</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.DeploymentStatement#getSystemRef <em>System Ref</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.myDsl.DeploymentStatement#getNode <em>Node</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.myDsl.DeploymentStatement#getPlatform <em>Platform</em>}</li>
  * </ul>
@@ -26,26 +26,26 @@ import org.eclipse.emf.ecore.EObject;
 public interface DeploymentStatement extends EObject
 {
   /**
-   * Returns the value of the '<em><b>System</b></em>' containment reference.
+   * Returns the value of the '<em><b>System Ref</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>System</em>' containment reference.
-   * @see #setSystem(SystemReference)
-   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getDeploymentStatement_System()
+   * @return the value of the '<em>System Ref</em>' containment reference.
+   * @see #setSystemRef(SystemReference)
+   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getDeploymentStatement_SystemRef()
    * @model containment="true"
    * @generated
    */
-  SystemReference getSystem();
+  SystemReference getSystemRef();
 
   /**
-   * Sets the value of the '{@link org.xtext.example.mydsl.myDsl.DeploymentStatement#getSystem <em>System</em>}' containment reference.
+   * Sets the value of the '{@link org.xtext.example.mydsl.myDsl.DeploymentStatement#getSystemRef <em>System Ref</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>System</em>' containment reference.
-   * @see #getSystem()
+   * @param value the new value of the '<em>System Ref</em>' containment reference.
+   * @see #getSystemRef()
    * @generated
    */
-  void setSystem(SystemReference value);
+  void setSystemRef(SystemReference value);
 
   /**
    * Returns the value of the '<em><b>Node</b></em>' reference.

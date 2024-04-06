@@ -290,13 +290,13 @@ public interface MyDslPackage extends EPackage
   int DEPLOYMENT_STATEMENT = 6;
 
   /**
-   * The feature id for the '<em><b>System</b></em>' containment reference.
+   * The feature id for the '<em><b>System Ref</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DEPLOYMENT_STATEMENT__SYSTEM = 0;
+  int DEPLOYMENT_STATEMENT__SYSTEM_REF = 0;
 
   /**
    * The feature id for the '<em><b>Node</b></em>' reference.
@@ -640,15 +640,15 @@ public interface MyDslPackage extends EPackage
   EClass getDeploymentStatement();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.DeploymentStatement#getSystem <em>System</em>}'.
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.DeploymentStatement#getSystemRef <em>System Ref</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>System</em>'.
-   * @see org.xtext.example.mydsl.myDsl.DeploymentStatement#getSystem()
+   * @return the meta object for the containment reference '<em>System Ref</em>'.
+   * @see org.xtext.example.mydsl.myDsl.DeploymentStatement#getSystemRef()
    * @see #getDeploymentStatement()
    * @generated
    */
-  EReference getDeploymentStatement_System();
+  EReference getDeploymentStatement_SystemRef();
 
   /**
    * Returns the meta object for the reference '{@link org.xtext.example.mydsl.myDsl.DeploymentStatement#getNode <em>Node</em>}'.
@@ -947,12 +947,12 @@ public interface MyDslPackage extends EPackage
     EClass DEPLOYMENT_STATEMENT = eINSTANCE.getDeploymentStatement();
 
     /**
-     * The meta object literal for the '<em><b>System</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>System Ref</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference DEPLOYMENT_STATEMENT__SYSTEM = eINSTANCE.getDeploymentStatement_System();
+    EReference DEPLOYMENT_STATEMENT__SYSTEM_REF = eINSTANCE.getDeploymentStatement_SystemRef();
 
     /**
      * The meta object literal for the '<em><b>Node</b></em>' reference feature.

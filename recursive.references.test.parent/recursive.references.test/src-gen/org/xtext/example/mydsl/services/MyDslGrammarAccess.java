@@ -324,9 +324,9 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.DeploymentStatement");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cDeploysKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cSystemAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cSystemSubSystemReferenceParserRuleCall_1_0 = (RuleCall)cSystemAssignment_1.eContents().get(0);
-		private final Keyword cHyphenMinusGreaterThanSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cSystemRefAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cSystemRefSubSystemReferenceParserRuleCall_1_0 = (RuleCall)cSystemRefAssignment_1.eContents().get(0);
+		private final Keyword cFullStopKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cNodeAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final CrossReference cNodeNodeInstanceCrossReference_3_0 = (CrossReference)cNodeAssignment_3.eContents().get(0);
 		private final RuleCall cNodeNodeInstanceIDTerminalRuleCall_3_0_1 = (RuleCall)cNodeNodeInstanceCrossReference_3_0.eContents().get(1);
@@ -337,24 +337,24 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//DeploymentStatement:
-		//    'deploys' system=SubSystemReference '->' node=[NodeInstance] 'on' platform=[PlatformInstance] ';'
+		//    'deploys' systemRef=SubSystemReference '.' node=[NodeInstance] 'on' platform=[PlatformInstance] ';'
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'deploys' system=SubSystemReference '->' node=[NodeInstance] 'on' platform=[PlatformInstance] ';'
+		//'deploys' systemRef=SubSystemReference '.' node=[NodeInstance] 'on' platform=[PlatformInstance] ';'
 		public Group getGroup() { return cGroup; }
 		
 		//'deploys'
 		public Keyword getDeploysKeyword_0() { return cDeploysKeyword_0; }
 		
-		//system=SubSystemReference
-		public Assignment getSystemAssignment_1() { return cSystemAssignment_1; }
+		//systemRef=SubSystemReference
+		public Assignment getSystemRefAssignment_1() { return cSystemRefAssignment_1; }
 		
 		//SubSystemReference
-		public RuleCall getSystemSubSystemReferenceParserRuleCall_1_0() { return cSystemSubSystemReferenceParserRuleCall_1_0; }
+		public RuleCall getSystemRefSubSystemReferenceParserRuleCall_1_0() { return cSystemRefSubSystemReferenceParserRuleCall_1_0; }
 		
-		//'->'
-		public Keyword getHyphenMinusGreaterThanSignKeyword_2() { return cHyphenMinusGreaterThanSignKeyword_2; }
+		//'.'
+		public Keyword getFullStopKeyword_2() { return cFullStopKeyword_2; }
 		
 		//node=[NodeInstance]
 		public Assignment getNodeAssignment_3() { return cNodeAssignment_3; }
@@ -616,7 +616,7 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	}
 	
 	//DeploymentStatement:
-	//    'deploys' system=SubSystemReference '->' node=[NodeInstance] 'on' platform=[PlatformInstance] ';'
+	//    'deploys' systemRef=SubSystemReference '.' node=[NodeInstance] 'on' platform=[PlatformInstance] ';'
 	//;
 	public DeploymentStatementElements getDeploymentStatementAccess() {
 		return pDeploymentStatement;

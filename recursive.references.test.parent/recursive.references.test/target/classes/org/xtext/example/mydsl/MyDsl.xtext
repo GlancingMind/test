@@ -31,7 +31,7 @@ SystemReference returns SystemReference:
 ;
 
 DeploymentStatement:
-	'deploys' system=SubSystemReference '->' node=[NodeInstance] 'on' platform=[PlatformInstance] ';'
+	'deploys' systemRef=SubSystemReference '.' node=[NodeInstance] 'on' platform=[PlatformInstance] ';'
 ;
 
 // TODO test function reference mapping
