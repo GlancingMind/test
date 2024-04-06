@@ -30,12 +30,12 @@ public interface DeploymentStatement extends EObject
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>System</em>' containment reference.
-   * @see #setSystem(SubSystemReference)
+   * @see #setSystem(SystemReference)
    * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getDeploymentStatement_System()
    * @model containment="true"
    * @generated
    */
-  SubSystemReference getSystem();
+  SystemReference getSystem();
 
   /**
    * Sets the value of the '{@link org.xtext.example.mydsl.myDsl.DeploymentStatement#getSystem <em>System</em>}' containment reference.
@@ -45,7 +45,7 @@ public interface DeploymentStatement extends EObject
    * @see #getSystem()
    * @generated
    */
-  void setSystem(SubSystemReference value);
+  void setSystem(SystemReference value);
 
   /**
    * Returns the value of the '<em><b>Node</b></em>' reference.

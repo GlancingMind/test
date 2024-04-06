@@ -433,7 +433,7 @@ ruleSubSystemReference returns [EObject current=null]
 			(
 				{
 					$current = forceCreateModelElementAndSet(
-						grammarAccess.getSubSystemReferenceAccess().getNodeInstanceReferenceRefAction_1_0(),
+						grammarAccess.getSubSystemReferenceAccess().getSubSystemReferenceParentAction_1_0(),
 						$current);
 				}
 			)
@@ -450,7 +450,7 @@ ruleSubSystemReference returns [EObject current=null]
 					}
 					otherlv_3=RULE_ID
 					{
-						newLeafNode(otherlv_3, grammarAccess.getSubSystemReferenceAccess().getTailSystemInstanceCrossReference_1_2_0());
+						newLeafNode(otherlv_3, grammarAccess.getSubSystemReferenceAccess().getSystemSystemInstanceCrossReference_1_2_0());
 					}
 				)
 			)
@@ -476,14 +476,23 @@ ruleSystemReference returns [EObject current=null]
 	(
 		(
 			{
-				if ($current==null) {
-					$current = createModelElement(grammarAccess.getSystemReferenceRule());
+				$current = forceCreateModelElement(
+					grammarAccess.getSystemReferenceAccess().getSystemReferenceAction_0(),
+					$current);
+			}
+		)
+		(
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getSystemReferenceRule());
+					}
 				}
-			}
-			otherlv_0=RULE_ID
-			{
-				newLeafNode(otherlv_0, grammarAccess.getSystemReferenceAccess().getSystemSystemInstanceCrossReference_0());
-			}
+				otherlv_1=RULE_ID
+				{
+					newLeafNode(otherlv_1, grammarAccess.getSystemReferenceAccess().getSystemSystemInstanceCrossReference_1_0());
+				}
+			)
 		)
 	)
 ;
@@ -527,9 +536,9 @@ ruleDeploymentStatement returns [EObject current=null]
 				}
 			)
 		)
-		otherlv_2='.'
+		otherlv_2='->'
 		{
-			newLeafNode(otherlv_2, grammarAccess.getDeploymentStatementAccess().getFullStopKeyword_2());
+			newLeafNode(otherlv_2, grammarAccess.getDeploymentStatementAccess().getHyphenMinusGreaterThanSignKeyword_2());
 		}
 		(
 			(

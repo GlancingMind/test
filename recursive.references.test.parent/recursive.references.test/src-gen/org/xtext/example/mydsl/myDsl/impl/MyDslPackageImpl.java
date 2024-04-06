@@ -17,7 +17,6 @@ import org.xtext.example.mydsl.myDsl.MyDslFactory;
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
 import org.xtext.example.mydsl.myDsl.NodeDefinition;
 import org.xtext.example.mydsl.myDsl.NodeInstance;
-import org.xtext.example.mydsl.myDsl.NodeInstanceReference;
 import org.xtext.example.mydsl.myDsl.PlatformInstance;
 import org.xtext.example.mydsl.myDsl.SubSystemReference;
 import org.xtext.example.mydsl.myDsl.SystemDefinition;
@@ -72,13 +71,6 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass subSystemReferenceEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass systemReferenceEClass = null;
 
   /**
@@ -107,7 +99,7 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass nodeInstanceReferenceEClass = null;
+  private EClass subSystemReferenceEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -354,17 +346,6 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
    * @generated
    */
   @Override
-  public EClass getSubSystemReference()
-  {
-    return subSystemReferenceEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public EClass getSystemReference()
   {
     return systemReferenceEClass;
@@ -497,9 +478,9 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
    * @generated
    */
   @Override
-  public EClass getNodeInstanceReference()
+  public EClass getSubSystemReference()
   {
-    return nodeInstanceReferenceEClass;
+    return subSystemReferenceEClass;
   }
 
   /**
@@ -508,20 +489,9 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
    * @generated
    */
   @Override
-  public EReference getNodeInstanceReference_Ref()
+  public EReference getSubSystemReference_Parent()
   {
-    return (EReference)nodeInstanceReferenceEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EReference getNodeInstanceReference_Tail()
-  {
-    return (EReference)nodeInstanceReferenceEClass.getEStructuralFeatures().get(1);
+    return (EReference)subSystemReferenceEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -576,8 +546,6 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
     createEReference(systemInstanceEClass, SYSTEM_INSTANCE__TYPE);
     createEAttribute(systemInstanceEClass, SYSTEM_INSTANCE__NAME);
 
-    subSystemReferenceEClass = createEClass(SUB_SYSTEM_REFERENCE);
-
     systemReferenceEClass = createEClass(SYSTEM_REFERENCE);
     createEReference(systemReferenceEClass, SYSTEM_REFERENCE__SYSTEM);
 
@@ -594,9 +562,8 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
     platformInstanceEClass = createEClass(PLATFORM_INSTANCE);
     createEAttribute(platformInstanceEClass, PLATFORM_INSTANCE__NAME);
 
-    nodeInstanceReferenceEClass = createEClass(NODE_INSTANCE_REFERENCE);
-    createEReference(nodeInstanceReferenceEClass, NODE_INSTANCE_REFERENCE__REF);
-    createEReference(nodeInstanceReferenceEClass, NODE_INSTANCE_REFERENCE__TAIL);
+    subSystemReferenceEClass = createEClass(SUB_SYSTEM_REFERENCE);
+    createEReference(subSystemReferenceEClass, SUB_SYSTEM_REFERENCE__PARENT);
   }
 
   /**
@@ -628,8 +595,7 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    systemReferenceEClass.getESuperTypes().add(this.getSubSystemReference());
-    nodeInstanceReferenceEClass.getESuperTypes().add(this.getSubSystemReference());
+    subSystemReferenceEClass.getESuperTypes().add(this.getSystemReference());
 
     // Initialize classes and features; add operations and parameters
     initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -653,13 +619,11 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
     initEReference(getSystemInstance_Type(), this.getSystemDefinition(), null, "type", null, 0, 1, SystemInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSystemInstance_Name(), ecorePackage.getEString(), "name", null, 0, 1, SystemInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(subSystemReferenceEClass, SubSystemReference.class, "SubSystemReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
     initEClass(systemReferenceEClass, SystemReference.class, "SystemReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getSystemReference_System(), this.getSystemInstance(), null, "system", null, 0, 1, SystemReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(deploymentStatementEClass, DeploymentStatement.class, "DeploymentStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getDeploymentStatement_System(), this.getSubSystemReference(), null, "system", null, 0, 1, DeploymentStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDeploymentStatement_System(), this.getSystemReference(), null, "system", null, 0, 1, DeploymentStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getDeploymentStatement_Node(), this.getNodeInstance(), null, "node", null, 0, 1, DeploymentStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getDeploymentStatement_Platform(), this.getPlatformInstance(), null, "platform", null, 0, 1, DeploymentStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -671,9 +635,8 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
     initEClass(platformInstanceEClass, PlatformInstance.class, "PlatformInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPlatformInstance_Name(), ecorePackage.getEString(), "name", null, 0, 1, PlatformInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(nodeInstanceReferenceEClass, NodeInstanceReference.class, "NodeInstanceReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getNodeInstanceReference_Ref(), this.getSubSystemReference(), null, "ref", null, 0, 1, NodeInstanceReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getNodeInstanceReference_Tail(), this.getSystemInstance(), null, "tail", null, 0, 1, NodeInstanceReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(subSystemReferenceEClass, SubSystemReference.class, "SubSystemReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getSubSystemReference_Parent(), this.getSystemReference(), null, "parent", null, 0, 1, SubSystemReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

@@ -27,7 +27,6 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference MyDsl.ecore#//SystemInstance/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//SystemInstance/name"/>
     </genClasses>
-    <genClasses ecoreClass="MyDsl.ecore#//SubSystemReference"/>
     <genClasses ecoreClass="MyDsl.ecore#//SystemReference">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference MyDsl.ecore#//SystemReference/system"/>
     </genClasses>
@@ -44,9 +43,8 @@
     <genClasses ecoreClass="MyDsl.ecore#//PlatformInstance">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//PlatformInstance/name"/>
     </genClasses>
-    <genClasses ecoreClass="MyDsl.ecore#//NodeInstanceReference">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//NodeInstanceReference/ref"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference MyDsl.ecore#//NodeInstanceReference/tail"/>
+    <genClasses ecoreClass="MyDsl.ecore#//SubSystemReference">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//SubSystemReference/parent"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

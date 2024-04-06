@@ -16,7 +16,7 @@ import org.xtext.example.mydsl.myDsl.DeploymentStatement;
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
 import org.xtext.example.mydsl.myDsl.NodeInstance;
 import org.xtext.example.mydsl.myDsl.PlatformInstance;
-import org.xtext.example.mydsl.myDsl.SubSystemReference;
+import org.xtext.example.mydsl.myDsl.SystemReference;
 
 /**
  * <!-- begin-user-doc -->
@@ -43,7 +43,7 @@ public class DeploymentStatementImpl extends MinimalEObjectImpl.Container implem
    * @generated
    * @ordered
    */
-  protected SubSystemReference system;
+  protected SystemReference system;
 
   /**
    * The cached value of the '{@link #getNode() <em>Node</em>}' reference.
@@ -92,7 +92,7 @@ public class DeploymentStatementImpl extends MinimalEObjectImpl.Container implem
    * @generated
    */
   @Override
-  public SubSystemReference getSystem()
+  public SystemReference getSystem()
   {
     return system;
   }
@@ -102,9 +102,9 @@ public class DeploymentStatementImpl extends MinimalEObjectImpl.Container implem
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetSystem(SubSystemReference newSystem, NotificationChain msgs)
+  public NotificationChain basicSetSystem(SystemReference newSystem, NotificationChain msgs)
   {
-    SubSystemReference oldSystem = system;
+    SystemReference oldSystem = system;
     system = newSystem;
     if (eNotificationRequired())
     {
@@ -120,7 +120,7 @@ public class DeploymentStatementImpl extends MinimalEObjectImpl.Container implem
    * @generated
    */
   @Override
-  public void setSystem(SubSystemReference newSystem)
+  public void setSystem(SystemReference newSystem)
   {
     if (newSystem != system)
     {
@@ -275,7 +275,7 @@ public class DeploymentStatementImpl extends MinimalEObjectImpl.Container implem
     switch (featureID)
     {
       case MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM:
-        setSystem((SubSystemReference)newValue);
+        setSystem((SystemReference)newValue);
         return;
       case MyDslPackage.DEPLOYMENT_STATEMENT__NODE:
         setNode((NodeInstance)newValue);
@@ -298,7 +298,7 @@ public class DeploymentStatementImpl extends MinimalEObjectImpl.Container implem
     switch (featureID)
     {
       case MyDslPackage.DEPLOYMENT_STATEMENT__SYSTEM:
-        setSystem((SubSystemReference)null);
+        setSystem((SystemReference)null);
         return;
       case MyDslPackage.DEPLOYMENT_STATEMENT__NODE:
         setNode((NodeInstance)null);

@@ -252,25 +252,6 @@ public interface MyDslPackage extends EPackage
   int SYSTEM_INSTANCE_FEATURE_COUNT = 2;
 
   /**
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.SubSystemReferenceImpl <em>Sub System Reference</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.SubSystemReferenceImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getSubSystemReference()
-   * @generated
-   */
-  int SUB_SYSTEM_REFERENCE = 5;
-
-  /**
-   * The number of structural features of the '<em>Sub System Reference</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SUB_SYSTEM_REFERENCE_FEATURE_COUNT = 0;
-
-  /**
    * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.SystemReferenceImpl <em>System Reference</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -278,7 +259,7 @@ public interface MyDslPackage extends EPackage
    * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getSystemReference()
    * @generated
    */
-  int SYSTEM_REFERENCE = 6;
+  int SYSTEM_REFERENCE = 5;
 
   /**
    * The feature id for the '<em><b>System</b></em>' reference.
@@ -287,7 +268,7 @@ public interface MyDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SYSTEM_REFERENCE__SYSTEM = SUB_SYSTEM_REFERENCE_FEATURE_COUNT + 0;
+  int SYSTEM_REFERENCE__SYSTEM = 0;
 
   /**
    * The number of structural features of the '<em>System Reference</em>' class.
@@ -296,7 +277,7 @@ public interface MyDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SYSTEM_REFERENCE_FEATURE_COUNT = SUB_SYSTEM_REFERENCE_FEATURE_COUNT + 1;
+  int SYSTEM_REFERENCE_FEATURE_COUNT = 1;
 
   /**
    * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.DeploymentStatementImpl <em>Deployment Statement</em>}' class.
@@ -306,7 +287,7 @@ public interface MyDslPackage extends EPackage
    * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getDeploymentStatement()
    * @generated
    */
-  int DEPLOYMENT_STATEMENT = 7;
+  int DEPLOYMENT_STATEMENT = 6;
 
   /**
    * The feature id for the '<em><b>System</b></em>' containment reference.
@@ -352,7 +333,7 @@ public interface MyDslPackage extends EPackage
    * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getDeployment()
    * @generated
    */
-  int DEPLOYMENT = 8;
+  int DEPLOYMENT = 7;
 
   /**
    * The feature id for the '<em><b>Platforms</b></em>' containment reference list.
@@ -398,7 +379,7 @@ public interface MyDslPackage extends EPackage
    * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getPlatformInstance()
    * @generated
    */
-  int PLATFORM_INSTANCE = 9;
+  int PLATFORM_INSTANCE = 8;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -419,41 +400,41 @@ public interface MyDslPackage extends EPackage
   int PLATFORM_INSTANCE_FEATURE_COUNT = 1;
 
   /**
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.NodeInstanceReferenceImpl <em>Node Instance Reference</em>}' class.
+   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.SubSystemReferenceImpl <em>Sub System Reference</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.NodeInstanceReferenceImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getNodeInstanceReference()
+   * @see org.xtext.example.mydsl.myDsl.impl.SubSystemReferenceImpl
+   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getSubSystemReference()
    * @generated
    */
-  int NODE_INSTANCE_REFERENCE = 10;
+  int SUB_SYSTEM_REFERENCE = 9;
 
   /**
-   * The feature id for the '<em><b>Ref</b></em>' containment reference.
+   * The feature id for the '<em><b>System</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int NODE_INSTANCE_REFERENCE__REF = SUB_SYSTEM_REFERENCE_FEATURE_COUNT + 0;
+  int SUB_SYSTEM_REFERENCE__SYSTEM = SYSTEM_REFERENCE__SYSTEM;
 
   /**
-   * The feature id for the '<em><b>Tail</b></em>' reference.
+   * The feature id for the '<em><b>Parent</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int NODE_INSTANCE_REFERENCE__TAIL = SUB_SYSTEM_REFERENCE_FEATURE_COUNT + 1;
+  int SUB_SYSTEM_REFERENCE__PARENT = SYSTEM_REFERENCE_FEATURE_COUNT + 0;
 
   /**
-   * The number of structural features of the '<em>Node Instance Reference</em>' class.
+   * The number of structural features of the '<em>Sub System Reference</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int NODE_INSTANCE_REFERENCE_FEATURE_COUNT = SUB_SYSTEM_REFERENCE_FEATURE_COUNT + 2;
+  int SUB_SYSTEM_REFERENCE_FEATURE_COUNT = SYSTEM_REFERENCE_FEATURE_COUNT + 1;
 
 
   /**
@@ -628,16 +609,6 @@ public interface MyDslPackage extends EPackage
   EAttribute getSystemInstance_Name();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.SubSystemReference <em>Sub System Reference</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Sub System Reference</em>'.
-   * @see org.xtext.example.mydsl.myDsl.SubSystemReference
-   * @generated
-   */
-  EClass getSubSystemReference();
-
-  /**
    * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.SystemReference <em>System Reference</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -766,36 +737,25 @@ public interface MyDslPackage extends EPackage
   EAttribute getPlatformInstance_Name();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.NodeInstanceReference <em>Node Instance Reference</em>}'.
+   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.SubSystemReference <em>Sub System Reference</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Node Instance Reference</em>'.
-   * @see org.xtext.example.mydsl.myDsl.NodeInstanceReference
+   * @return the meta object for class '<em>Sub System Reference</em>'.
+   * @see org.xtext.example.mydsl.myDsl.SubSystemReference
    * @generated
    */
-  EClass getNodeInstanceReference();
+  EClass getSubSystemReference();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.NodeInstanceReference#getRef <em>Ref</em>}'.
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.SubSystemReference#getParent <em>Parent</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Ref</em>'.
-   * @see org.xtext.example.mydsl.myDsl.NodeInstanceReference#getRef()
-   * @see #getNodeInstanceReference()
+   * @return the meta object for the containment reference '<em>Parent</em>'.
+   * @see org.xtext.example.mydsl.myDsl.SubSystemReference#getParent()
+   * @see #getSubSystemReference()
    * @generated
    */
-  EReference getNodeInstanceReference_Ref();
-
-  /**
-   * Returns the meta object for the reference '{@link org.xtext.example.mydsl.myDsl.NodeInstanceReference#getTail <em>Tail</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Tail</em>'.
-   * @see org.xtext.example.mydsl.myDsl.NodeInstanceReference#getTail()
-   * @see #getNodeInstanceReference()
-   * @generated
-   */
-  EReference getNodeInstanceReference_Tail();
+  EReference getSubSystemReference_Parent();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -959,16 +919,6 @@ public interface MyDslPackage extends EPackage
     EAttribute SYSTEM_INSTANCE__NAME = eINSTANCE.getSystemInstance_Name();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.SubSystemReferenceImpl <em>Sub System Reference</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.SubSystemReferenceImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getSubSystemReference()
-     * @generated
-     */
-    EClass SUB_SYSTEM_REFERENCE = eINSTANCE.getSubSystemReference();
-
-    /**
      * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.SystemReferenceImpl <em>System Reference</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1073,30 +1023,22 @@ public interface MyDslPackage extends EPackage
     EAttribute PLATFORM_INSTANCE__NAME = eINSTANCE.getPlatformInstance_Name();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.NodeInstanceReferenceImpl <em>Node Instance Reference</em>}' class.
+     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.SubSystemReferenceImpl <em>Sub System Reference</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.NodeInstanceReferenceImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getNodeInstanceReference()
+     * @see org.xtext.example.mydsl.myDsl.impl.SubSystemReferenceImpl
+     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getSubSystemReference()
      * @generated
      */
-    EClass NODE_INSTANCE_REFERENCE = eINSTANCE.getNodeInstanceReference();
+    EClass SUB_SYSTEM_REFERENCE = eINSTANCE.getSubSystemReference();
 
     /**
-     * The meta object literal for the '<em><b>Ref</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Parent</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference NODE_INSTANCE_REFERENCE__REF = eINSTANCE.getNodeInstanceReference_Ref();
-
-    /**
-     * The meta object literal for the '<em><b>Tail</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference NODE_INSTANCE_REFERENCE__TAIL = eINSTANCE.getNodeInstanceReference_Tail();
+    EReference SUB_SYSTEM_REFERENCE__PARENT = eINSTANCE.getSubSystemReference_Parent();
 
   }
 

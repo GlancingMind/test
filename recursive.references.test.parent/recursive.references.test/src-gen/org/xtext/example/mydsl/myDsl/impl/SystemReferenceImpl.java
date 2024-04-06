@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
 import org.xtext.example.mydsl.myDsl.SystemInstance;
@@ -27,7 +28,7 @@ import org.xtext.example.mydsl.myDsl.SystemReference;
  *
  * @generated
  */
-public class SystemReferenceImpl extends SubSystemReferenceImpl implements SystemReference
+public class SystemReferenceImpl extends MinimalEObjectImpl.Container implements SystemReference
 {
   /**
    * The cached value of the '{@link #getSystem() <em>System</em>}' reference.

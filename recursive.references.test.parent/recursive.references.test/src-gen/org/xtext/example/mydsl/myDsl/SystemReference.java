@@ -3,6 +3,7 @@
  */
 package org.xtext.example.mydsl.myDsl;
 
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,7 +21,7 @@ package org.xtext.example.mydsl.myDsl;
  * @model
  * @generated
  */
-public interface SystemReference extends SubSystemReference
+public interface SystemReference extends EObject
 {
   /**
    * Returns the value of the '<em><b>System</b></em>' reference.

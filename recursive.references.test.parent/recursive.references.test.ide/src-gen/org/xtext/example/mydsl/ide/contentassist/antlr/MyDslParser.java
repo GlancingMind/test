@@ -43,6 +43,7 @@ public class MyDslParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getSystemInstanceAccess().getGroup(), "rule__SystemInstance__Group__0");
 			builder.put(grammarAccess.getSubSystemReferenceAccess().getGroup(), "rule__SubSystemReference__Group__0");
 			builder.put(grammarAccess.getSubSystemReferenceAccess().getGroup_1(), "rule__SubSystemReference__Group_1__0");
+			builder.put(grammarAccess.getSystemReferenceAccess().getGroup(), "rule__SystemReference__Group__0");
 			builder.put(grammarAccess.getDeploymentStatementAccess().getGroup(), "rule__DeploymentStatement__Group__0");
 			builder.put(grammarAccess.getDeploymentAccess().getGroup(), "rule__Deployment__Group__0");
 			builder.put(grammarAccess.getDeploymentAccess().getGroup_3(), "rule__Deployment__Group_3__0");
@@ -58,8 +59,8 @@ public class MyDslParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getSystemDefinitionAccess().getSubsystemsAssignment_3_1_2_0(), "rule__SystemDefinition__SubsystemsAssignment_3_1_2_0");
 			builder.put(grammarAccess.getSystemInstanceAccess().getTypeAssignment_0(), "rule__SystemInstance__TypeAssignment_0");
 			builder.put(grammarAccess.getSystemInstanceAccess().getNameAssignment_1(), "rule__SystemInstance__NameAssignment_1");
-			builder.put(grammarAccess.getSubSystemReferenceAccess().getTailAssignment_1_2(), "rule__SubSystemReference__TailAssignment_1_2");
-			builder.put(grammarAccess.getSystemReferenceAccess().getSystemAssignment(), "rule__SystemReference__SystemAssignment");
+			builder.put(grammarAccess.getSubSystemReferenceAccess().getSystemAssignment_1_2(), "rule__SubSystemReference__SystemAssignment_1_2");
+			builder.put(grammarAccess.getSystemReferenceAccess().getSystemAssignment_1(), "rule__SystemReference__SystemAssignment_1");
 			builder.put(grammarAccess.getDeploymentStatementAccess().getSystemAssignment_1(), "rule__DeploymentStatement__SystemAssignment_1");
 			builder.put(grammarAccess.getDeploymentStatementAccess().getNodeAssignment_3(), "rule__DeploymentStatement__NodeAssignment_3");
 			builder.put(grammarAccess.getDeploymentStatementAccess().getPlatformAssignment_5(), "rule__DeploymentStatement__PlatformAssignment_5");

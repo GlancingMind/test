@@ -108,18 +108,10 @@ public class MyDslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MyDslPackage.SUB_SYSTEM_REFERENCE:
-      {
-        SubSystemReference subSystemReference = (SubSystemReference)theEObject;
-        T result = caseSubSystemReference(subSystemReference);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case MyDslPackage.SYSTEM_REFERENCE:
       {
         SystemReference systemReference = (SystemReference)theEObject;
         T result = caseSystemReference(systemReference);
-        if (result == null) result = caseSubSystemReference(systemReference);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -144,11 +136,11 @@ public class MyDslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MyDslPackage.NODE_INSTANCE_REFERENCE:
+      case MyDslPackage.SUB_SYSTEM_REFERENCE:
       {
-        NodeInstanceReference nodeInstanceReference = (NodeInstanceReference)theEObject;
-        T result = caseNodeInstanceReference(nodeInstanceReference);
-        if (result == null) result = caseSubSystemReference(nodeInstanceReference);
+        SubSystemReference subSystemReference = (SubSystemReference)theEObject;
+        T result = caseSubSystemReference(subSystemReference);
+        if (result == null) result = caseSystemReference(subSystemReference);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -237,22 +229,6 @@ public class MyDslSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Sub System Reference</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Sub System Reference</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseSubSystemReference(SubSystemReference object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>System Reference</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -317,17 +293,17 @@ public class MyDslSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Node Instance Reference</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Sub System Reference</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Node Instance Reference</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Sub System Reference</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseNodeInstanceReference(NodeInstanceReference object)
+  public T caseSubSystemReference(SubSystemReference object)
   {
     return null;
   }

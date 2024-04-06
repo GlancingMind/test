@@ -27,12 +27,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//SystemDefinition"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SubSystemReference"/>
-  <eClassifiers xsi:type="ecore:EClass" name="SystemReference" eSuperTypes="#//SubSystemReference">
+  <eClassifiers xsi:type="ecore:EClass" name="SystemReference">
     <eStructuralFeatures xsi:type="ecore:EReference" name="system" eType="#//SystemInstance"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DeploymentStatement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="system" eType="#//SubSystemReference"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="system" eType="#//SystemReference"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="node" eType="#//NodeInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="platform" eType="#//PlatformInstance"/>
@@ -48,9 +47,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="PlatformInstance">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NodeInstanceReference" eSuperTypes="#//SubSystemReference">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="#//SubSystemReference"
+  <eClassifiers xsi:type="ecore:EClass" name="SubSystemReference" eSuperTypes="#//SystemReference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//SystemReference"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="tail" eType="#//SystemInstance"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -20,8 +20,8 @@ import org.xtext.example.mydsl.myDsl.Model;
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
 import org.xtext.example.mydsl.myDsl.NodeDefinition;
 import org.xtext.example.mydsl.myDsl.NodeInstance;
-import org.xtext.example.mydsl.myDsl.NodeInstanceReference;
 import org.xtext.example.mydsl.myDsl.PlatformInstance;
+import org.xtext.example.mydsl.myDsl.SubSystemReference;
 import org.xtext.example.mydsl.myDsl.SystemDefinition;
 import org.xtext.example.mydsl.myDsl.SystemInstance;
 import org.xtext.example.mydsl.myDsl.SystemReference;
@@ -56,11 +56,11 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 			case MyDslPackage.NODE_INSTANCE:
 				sequence_NodeInstance(context, (NodeInstance) semanticObject); 
 				return; 
-			case MyDslPackage.NODE_INSTANCE_REFERENCE:
-				sequence_SubSystemReference(context, (NodeInstanceReference) semanticObject); 
-				return; 
 			case MyDslPackage.PLATFORM_INSTANCE:
 				sequence_PlatformInstance(context, (PlatformInstance) semanticObject); 
+				return; 
+			case MyDslPackage.SUB_SYSTEM_REFERENCE:
+				sequence_SubSystemReference(context, (SubSystemReference) semanticObject); 
 				return; 
 			case MyDslPackage.SYSTEM_DEFINITION:
 				sequence_SystemDefinition(context, (SystemDefinition) semanticObject); 
@@ -196,23 +196,23 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	/**
 	 * <pre>
 	 * Contexts:
-	 *     SubSystemReference returns NodeInstanceReference
-	 *     SubSystemReference.NodeInstanceReference_1_0 returns NodeInstanceReference
+	 *     SubSystemReference returns SubSystemReference
+	 *     SubSystemReference.SubSystemReference_1_0 returns SubSystemReference
 	 *
 	 * Constraint:
-	 *     (ref=SubSystemReference_NodeInstanceReference_1_0 tail=[SystemInstance|ID])
+	 *     (parent=SubSystemReference_SubSystemReference_1_0 system=[SystemInstance|ID])
 	 * </pre>
 	 */
-	protected void sequence_SubSystemReference(ISerializationContext context, NodeInstanceReference semanticObject) {
+	protected void sequence_SubSystemReference(ISerializationContext context, SubSystemReference semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.NODE_INSTANCE_REFERENCE__REF) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.NODE_INSTANCE_REFERENCE__REF));
-			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.NODE_INSTANCE_REFERENCE__TAIL) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.NODE_INSTANCE_REFERENCE__TAIL));
+			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.SUB_SYSTEM_REFERENCE__PARENT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.SUB_SYSTEM_REFERENCE__PARENT));
+			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.SYSTEM_REFERENCE__SYSTEM) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.SYSTEM_REFERENCE__SYSTEM));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getSubSystemReferenceAccess().getNodeInstanceReferenceRefAction_1_0(), semanticObject.getRef());
-		feeder.accept(grammarAccess.getSubSystemReferenceAccess().getTailSystemInstanceIDTerminalRuleCall_1_2_0_1(), semanticObject.eGet(MyDslPackage.Literals.NODE_INSTANCE_REFERENCE__TAIL, false));
+		feeder.accept(grammarAccess.getSubSystemReferenceAccess().getSubSystemReferenceParentAction_1_0(), semanticObject.getParent());
+		feeder.accept(grammarAccess.getSubSystemReferenceAccess().getSystemSystemInstanceIDTerminalRuleCall_1_2_0_1(), semanticObject.eGet(MyDslPackage.Literals.SYSTEM_REFERENCE__SYSTEM, false));
 		feeder.finish();
 	}
 	
@@ -258,7 +258,7 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 * <pre>
 	 * Contexts:
 	 *     SubSystemReference returns SystemReference
-	 *     SubSystemReference.NodeInstanceReference_1_0 returns SystemReference
+	 *     SubSystemReference.SubSystemReference_1_0 returns SystemReference
 	 *     SystemReference returns SystemReference
 	 *
 	 * Constraint:
@@ -271,7 +271,7 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.SYSTEM_REFERENCE__SYSTEM));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getSystemReferenceAccess().getSystemSystemInstanceIDTerminalRuleCall_0_1(), semanticObject.eGet(MyDslPackage.Literals.SYSTEM_REFERENCE__SYSTEM, false));
+		feeder.accept(grammarAccess.getSystemReferenceAccess().getSystemSystemInstanceIDTerminalRuleCall_1_0_1(), semanticObject.eGet(MyDslPackage.Literals.SYSTEM_REFERENCE__SYSTEM, false));
 		feeder.finish();
 	}
 	

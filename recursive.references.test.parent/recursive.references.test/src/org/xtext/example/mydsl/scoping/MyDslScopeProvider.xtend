@@ -7,52 +7,32 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.xtext.example.mydsl.myDsl.MyDslPackage
 import org.eclipse.xtext.scoping.IScope
-import org.xtext.example.mydsl.myDsl.NodeInstanceReference
 import org.eclipse.xtext.scoping.Scopes
-import org.xtext.example.mydsl.myDsl.SystemReference
 import org.xtext.example.mydsl.myDsl.SystemInstance
-import org.xtext.example.mydsl.myDsl.NodeInstance
+import org.xtext.example.mydsl.myDsl.SubSystemReference
+import org.xtext.example.mydsl.myDsl.DeploymentStatement
+import org.xtext.example.mydsl.myDsl.SystemReference
 
 class MyDslScopeProvider extends AbstractMyDslScopeProvider {
 
 	override getScope(EObject context, EReference reference) {
 		switch(context) {
-			NodeInstanceReference case reference == MyDslPackage::Literals::NODE_INSTANCE_REFERENCE__TAIL: {
-				getScopeForNodeInstanceReferenceTail(context, reference)
+			SubSystemReference case reference == MyDslPackage::Literals::SYSTEM_REFERENCE__SYSTEM: {
+				getScopeForSubSystemReference_SubSystem(context, reference)
+			}
+			DeploymentStatement case reference == MyDslPackage::Literals::DEPLOYMENT_STATEMENT__NODE: {
+				getScopeForDeploymentStatement_node(context, reference)
 			}
 			default:
 				super.getScope(context, reference)
 		}
 	}
-
-	private def IScope getScopeForNodeInstanceReferenceTail(NodeInstanceReference nodeRef, EReference reference) {
-		val head = nodeRef.ref
-		switch(head) {
-			SystemReference: {
-				val sysType = head.system.type
-				val nodes = sysType.nodes
-				val subSystems = sysType.subsystems
-				val candiadates = nodes + subSystems
-				return Scopes::scopeFor(candiadates)
-			}
-			NodeInstanceReference: {
-				val tail = head.tail
-				switch(tail) {
-					SystemInstance: {
-						val sysType = tail.type
-						val nodes = sysType.nodes
-						val subSystems = sysType.subsystems
-						val candiadates = nodes + subSystems
-						return Scopes::scopeFor(candiadates)
-					}
-					NodeInstance: {
-						return IScope::NULLSCOPE	
-					}
-					default: return IScope::NULLSCOPE
-				}
-			}
-			
-			default: IScope::NULLSCOPE
-		}
+	
+	private def IScope getScopeForSubSystemReference_SubSystem(SubSystemReference subSysRef, EReference reference) {
+		Scopes::scopeFor(subSysRef.parent.system.type.subsystems)
+	}
+	
+	private def IScope getScopeForDeploymentStatement_node(DeploymentStatement deployment, EReference reference) {
+		return Scopes::scopeFor(deployment.system.system.type.nodes)
 	}
 }

@@ -257,58 +257,68 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cSystemReferenceParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cNodeInstanceReferenceRefAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Action cSubSystemReferenceParentAction_1_0 = (Action)cGroup_1.eContents().get(0);
 		private final Keyword cFullStopKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
-		private final Assignment cTailAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final CrossReference cTailSystemInstanceCrossReference_1_2_0 = (CrossReference)cTailAssignment_1_2.eContents().get(0);
-		private final RuleCall cTailSystemInstanceIDTerminalRuleCall_1_2_0_1 = (RuleCall)cTailSystemInstanceCrossReference_1_2_0.eContents().get(1);
+		private final Assignment cSystemAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final CrossReference cSystemSystemInstanceCrossReference_1_2_0 = (CrossReference)cSystemAssignment_1_2.eContents().get(0);
+		private final RuleCall cSystemSystemInstanceIDTerminalRuleCall_1_2_0_1 = (RuleCall)cSystemSystemInstanceCrossReference_1_2_0.eContents().get(1);
 		
-		//SubSystemReference:
-		//    SystemReference ({NodeInstanceReference.ref=current} '.' tail=[SystemInstance])*
+		//SubSystemReference returns SystemReference:
+		//    SystemReference ({SubSystemReference.parent=current} '.' system=[SystemInstance])*
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//SystemReference ({NodeInstanceReference.ref=current} '.' tail=[SystemInstance])*
+		//SystemReference ({SubSystemReference.parent=current} '.' system=[SystemInstance])*
 		public Group getGroup() { return cGroup; }
 		
 		//SystemReference
 		public RuleCall getSystemReferenceParserRuleCall_0() { return cSystemReferenceParserRuleCall_0; }
 		
-		//({NodeInstanceReference.ref=current} '.' tail=[SystemInstance])*
+		//({SubSystemReference.parent=current} '.' system=[SystemInstance])*
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//{NodeInstanceReference.ref=current}
-		public Action getNodeInstanceReferenceRefAction_1_0() { return cNodeInstanceReferenceRefAction_1_0; }
+		//{SubSystemReference.parent=current}
+		public Action getSubSystemReferenceParentAction_1_0() { return cSubSystemReferenceParentAction_1_0; }
 		
 		//'.'
 		public Keyword getFullStopKeyword_1_1() { return cFullStopKeyword_1_1; }
 		
-		//tail=[SystemInstance]
-		public Assignment getTailAssignment_1_2() { return cTailAssignment_1_2; }
+		//system=[SystemInstance]
+		public Assignment getSystemAssignment_1_2() { return cSystemAssignment_1_2; }
 		
 		//[SystemInstance]
-		public CrossReference getTailSystemInstanceCrossReference_1_2_0() { return cTailSystemInstanceCrossReference_1_2_0; }
+		public CrossReference getSystemSystemInstanceCrossReference_1_2_0() { return cSystemSystemInstanceCrossReference_1_2_0; }
 		
 		//ID
-		public RuleCall getTailSystemInstanceIDTerminalRuleCall_1_2_0_1() { return cTailSystemInstanceIDTerminalRuleCall_1_2_0_1; }
+		public RuleCall getSystemSystemInstanceIDTerminalRuleCall_1_2_0_1() { return cSystemSystemInstanceIDTerminalRuleCall_1_2_0_1; }
 	}
 	public class SystemReferenceElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.SystemReference");
-		private final Assignment cSystemAssignment = (Assignment)rule.eContents().get(1);
-		private final CrossReference cSystemSystemInstanceCrossReference_0 = (CrossReference)cSystemAssignment.eContents().get(0);
-		private final RuleCall cSystemSystemInstanceIDTerminalRuleCall_0_1 = (RuleCall)cSystemSystemInstanceCrossReference_0.eContents().get(1);
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cSystemReferenceAction_0 = (Action)cGroup.eContents().get(0);
+		private final Assignment cSystemAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cSystemSystemInstanceCrossReference_1_0 = (CrossReference)cSystemAssignment_1.eContents().get(0);
+		private final RuleCall cSystemSystemInstanceIDTerminalRuleCall_1_0_1 = (RuleCall)cSystemSystemInstanceCrossReference_1_0.eContents().get(1);
 		
-		//SystemReference: system=[SystemInstance];
+		//SystemReference returns SystemReference:
+		//    {SystemReference} system=[SystemInstance]
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
+		//{SystemReference} system=[SystemInstance]
+		public Group getGroup() { return cGroup; }
+		
+		//{SystemReference}
+		public Action getSystemReferenceAction_0() { return cSystemReferenceAction_0; }
+		
 		//system=[SystemInstance]
-		public Assignment getSystemAssignment() { return cSystemAssignment; }
+		public Assignment getSystemAssignment_1() { return cSystemAssignment_1; }
 		
 		//[SystemInstance]
-		public CrossReference getSystemSystemInstanceCrossReference_0() { return cSystemSystemInstanceCrossReference_0; }
+		public CrossReference getSystemSystemInstanceCrossReference_1_0() { return cSystemSystemInstanceCrossReference_1_0; }
 		
 		//ID
-		public RuleCall getSystemSystemInstanceIDTerminalRuleCall_0_1() { return cSystemSystemInstanceIDTerminalRuleCall_0_1; }
+		public RuleCall getSystemSystemInstanceIDTerminalRuleCall_1_0_1() { return cSystemSystemInstanceIDTerminalRuleCall_1_0_1; }
 	}
 	public class DeploymentStatementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.DeploymentStatement");
@@ -316,7 +326,7 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final Keyword cDeploysKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cSystemAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cSystemSubSystemReferenceParserRuleCall_1_0 = (RuleCall)cSystemAssignment_1.eContents().get(0);
-		private final Keyword cFullStopKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Keyword cHyphenMinusGreaterThanSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cNodeAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final CrossReference cNodeNodeInstanceCrossReference_3_0 = (CrossReference)cNodeAssignment_3.eContents().get(0);
 		private final RuleCall cNodeNodeInstanceIDTerminalRuleCall_3_0_1 = (RuleCall)cNodeNodeInstanceCrossReference_3_0.eContents().get(1);
@@ -327,11 +337,11 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//DeploymentStatement:
-		//    'deploys' system=SubSystemReference '.' node=[NodeInstance] 'on' platform=[PlatformInstance] ';'
+		//    'deploys' system=SubSystemReference '->' node=[NodeInstance] 'on' platform=[PlatformInstance] ';'
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'deploys' system=SubSystemReference '.' node=[NodeInstance] 'on' platform=[PlatformInstance] ';'
+		//'deploys' system=SubSystemReference '->' node=[NodeInstance] 'on' platform=[PlatformInstance] ';'
 		public Group getGroup() { return cGroup; }
 		
 		//'deploys'
@@ -343,8 +353,8 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//SubSystemReference
 		public RuleCall getSystemSubSystemReferenceParserRuleCall_1_0() { return cSystemSubSystemReferenceParserRuleCall_1_0; }
 		
-		//'.'
-		public Keyword getFullStopKeyword_2() { return cFullStopKeyword_2; }
+		//'->'
+		public Keyword getHyphenMinusGreaterThanSignKeyword_2() { return cHyphenMinusGreaterThanSignKeyword_2; }
 		
 		//node=[NodeInstance]
 		public Assignment getNodeAssignment_3() { return cNodeAssignment_3; }
@@ -583,8 +593,8 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		return getSystemInstanceAccess().getRule();
 	}
 	
-	//SubSystemReference:
-	//    SystemReference ({NodeInstanceReference.ref=current} '.' tail=[SystemInstance])*
+	//SubSystemReference returns SystemReference:
+	//    SystemReference ({SubSystemReference.parent=current} '.' system=[SystemInstance])*
 	//;
 	public SubSystemReferenceElements getSubSystemReferenceAccess() {
 		return pSubSystemReference;
@@ -594,7 +604,9 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		return getSubSystemReferenceAccess().getRule();
 	}
 	
-	//SystemReference: system=[SystemInstance];
+	//SystemReference returns SystemReference:
+	//    {SystemReference} system=[SystemInstance]
+	//;
 	public SystemReferenceElements getSystemReferenceAccess() {
 		return pSystemReference;
 	}
@@ -604,7 +616,7 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	}
 	
 	//DeploymentStatement:
-	//    'deploys' system=SubSystemReference '.' node=[NodeInstance] 'on' platform=[PlatformInstance] ';'
+	//    'deploys' system=SubSystemReference '->' node=[NodeInstance] 'on' platform=[PlatformInstance] ';'
 	//;
 	public DeploymentStatementElements getDeploymentStatementAccess() {
 		return pDeploymentStatement;

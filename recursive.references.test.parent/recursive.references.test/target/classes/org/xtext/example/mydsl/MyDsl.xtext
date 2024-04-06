@@ -22,18 +22,16 @@ SystemDefinition:
 
 SystemInstance: type=[SystemDefinition] name=ID;
 
-NodeInstanceReference: 
-	SystemReference ({NodeInstanceReference.ref=current} '.' tail=[Feature])*
+SubSystemReference returns SystemReference:
+	SystemReference ({SubSystemReference.parent=current} '.' system=[SystemInstance])*
 ;
 
-SystemReference: system=[SystemInstance];
-
-Feature:
-	SystemInstance | NodeInstance
+SystemReference returns SystemReference:
+	{SystemReference} system=[SystemInstance]
 ;
 
 DeploymentStatement:
-	'deploys' nodes=NodeInstanceReference 'on' platform=[PlatformInstance] ';'
+	'deploys' system=SubSystemReference '->' node=[NodeInstance] 'on' platform=[PlatformInstance] ';'
 ;
 
 // TODO test function reference mapping

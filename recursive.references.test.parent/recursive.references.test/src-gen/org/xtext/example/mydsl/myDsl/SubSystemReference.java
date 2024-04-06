@@ -3,18 +3,45 @@
  */
 package org.xtext.example.mydsl.myDsl;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Sub System Reference</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.SubSystemReference#getParent <em>Parent</em>}</li>
+ * </ul>
  *
  * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getSubSystemReference()
  * @model
  * @generated
  */
-public interface SubSystemReference extends EObject
+public interface SubSystemReference extends SystemReference
 {
+  /**
+   * Returns the value of the '<em><b>Parent</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Parent</em>' containment reference.
+   * @see #setParent(SystemReference)
+   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getSubSystemReference_Parent()
+   * @model containment="true"
+   * @generated
+   */
+  SystemReference getParent();
+
+  /**
+   * Sets the value of the '{@link org.xtext.example.mydsl.myDsl.SubSystemReference#getParent <em>Parent</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Parent</em>' containment reference.
+   * @see #getParent()
+   * @generated
+   */
+  void setParent(SystemReference value);
+
 } // SubSystemReference

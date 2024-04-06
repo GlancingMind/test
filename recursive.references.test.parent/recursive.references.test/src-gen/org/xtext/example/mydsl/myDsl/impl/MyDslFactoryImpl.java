@@ -70,12 +70,11 @@ public class MyDslFactoryImpl extends EFactoryImpl implements MyDslFactory
       case MyDslPackage.NODE_INSTANCE: return createNodeInstance();
       case MyDslPackage.SYSTEM_DEFINITION: return createSystemDefinition();
       case MyDslPackage.SYSTEM_INSTANCE: return createSystemInstance();
-      case MyDslPackage.SUB_SYSTEM_REFERENCE: return createSubSystemReference();
       case MyDslPackage.SYSTEM_REFERENCE: return createSystemReference();
       case MyDslPackage.DEPLOYMENT_STATEMENT: return createDeploymentStatement();
       case MyDslPackage.DEPLOYMENT: return createDeployment();
       case MyDslPackage.PLATFORM_INSTANCE: return createPlatformInstance();
-      case MyDslPackage.NODE_INSTANCE_REFERENCE: return createNodeInstanceReference();
+      case MyDslPackage.SUB_SYSTEM_REFERENCE: return createSubSystemReference();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -147,18 +146,6 @@ public class MyDslFactoryImpl extends EFactoryImpl implements MyDslFactory
    * @generated
    */
   @Override
-  public SubSystemReference createSubSystemReference()
-  {
-    SubSystemReferenceImpl subSystemReference = new SubSystemReferenceImpl();
-    return subSystemReference;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public SystemReference createSystemReference()
   {
     SystemReferenceImpl systemReference = new SystemReferenceImpl();
@@ -207,10 +194,10 @@ public class MyDslFactoryImpl extends EFactoryImpl implements MyDslFactory
    * @generated
    */
   @Override
-  public NodeInstanceReference createNodeInstanceReference()
+  public SubSystemReference createSubSystemReference()
   {
-    NodeInstanceReferenceImpl nodeInstanceReference = new NodeInstanceReferenceImpl();
-    return nodeInstanceReference;
+    SubSystemReferenceImpl subSystemReference = new SubSystemReferenceImpl();
+    return subSystemReference;
   }
 
   /**

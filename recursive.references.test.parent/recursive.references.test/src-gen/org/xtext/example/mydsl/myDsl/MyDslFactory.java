@@ -69,15 +69,6 @@ public interface MyDslFactory extends EFactory
   SystemInstance createSystemInstance();
 
   /**
-   * Returns a new object of class '<em>Sub System Reference</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Sub System Reference</em>'.
-   * @generated
-   */
-  SubSystemReference createSubSystemReference();
-
-  /**
    * Returns a new object of class '<em>System Reference</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -114,13 +105,13 @@ public interface MyDslFactory extends EFactory
   PlatformInstance createPlatformInstance();
 
   /**
-   * Returns a new object of class '<em>Node Instance Reference</em>'.
+   * Returns a new object of class '<em>Sub System Reference</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Node Instance Reference</em>'.
+   * @return a new object of class '<em>Sub System Reference</em>'.
    * @generated
    */
-  NodeInstanceReference createNodeInstanceReference();
+  SubSystemReference createSubSystemReference();
 
   /**
    * Returns the package supported by this factory.
