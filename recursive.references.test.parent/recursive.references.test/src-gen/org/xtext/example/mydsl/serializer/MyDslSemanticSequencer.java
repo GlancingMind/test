@@ -271,7 +271,7 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.SYSTEM_REFERENCE__SYSTEM));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getSystemReferenceAccess().getSystemSystemInstanceIDTerminalRuleCall_1_0_1(), semanticObject.eGet(MyDslPackage.Literals.SYSTEM_REFERENCE__SYSTEM, false));
+		feeder.accept(grammarAccess.getSystemReferenceAccess().getSystemSystemInstanceIDTerminalRuleCall_0_1(), semanticObject.eGet(MyDslPackage.Literals.SYSTEM_REFERENCE__SYSTEM, false));
 		feeder.finish();
 	}
 	

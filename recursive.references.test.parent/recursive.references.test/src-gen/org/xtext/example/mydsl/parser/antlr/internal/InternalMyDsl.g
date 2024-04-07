@@ -476,23 +476,14 @@ ruleSystemReference returns [EObject current=null]
 	(
 		(
 			{
-				$current = forceCreateModelElement(
-					grammarAccess.getSystemReferenceAccess().getSystemReferenceAction_0(),
-					$current);
+				if ($current==null) {
+					$current = createModelElement(grammarAccess.getSystemReferenceRule());
+				}
 			}
-		)
-		(
-			(
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getSystemReferenceRule());
-					}
-				}
-				otherlv_1=RULE_ID
-				{
-					newLeafNode(otherlv_1, grammarAccess.getSystemReferenceAccess().getSystemSystemInstanceCrossReference_1_0());
-				}
-			)
+			otherlv_0=RULE_ID
+			{
+				newLeafNode(otherlv_0, grammarAccess.getSystemReferenceAccess().getSystemSystemInstanceCrossReference_0());
+			}
 		)
 	)
 ;

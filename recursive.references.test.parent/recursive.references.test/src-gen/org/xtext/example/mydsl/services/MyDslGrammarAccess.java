@@ -294,31 +294,23 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	}
 	public class SystemReferenceElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.SystemReference");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cSystemReferenceAction_0 = (Action)cGroup.eContents().get(0);
-		private final Assignment cSystemAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final CrossReference cSystemSystemInstanceCrossReference_1_0 = (CrossReference)cSystemAssignment_1.eContents().get(0);
-		private final RuleCall cSystemSystemInstanceIDTerminalRuleCall_1_0_1 = (RuleCall)cSystemSystemInstanceCrossReference_1_0.eContents().get(1);
+		private final Assignment cSystemAssignment = (Assignment)rule.eContents().get(1);
+		private final CrossReference cSystemSystemInstanceCrossReference_0 = (CrossReference)cSystemAssignment.eContents().get(0);
+		private final RuleCall cSystemSystemInstanceIDTerminalRuleCall_0_1 = (RuleCall)cSystemSystemInstanceCrossReference_0.eContents().get(1);
 		
 		//SystemReference returns SystemReference:
-		//    {SystemReference} system=[SystemInstance]
+		//    system=[SystemInstance]
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{SystemReference} system=[SystemInstance]
-		public Group getGroup() { return cGroup; }
-		
-		//{SystemReference}
-		public Action getSystemReferenceAction_0() { return cSystemReferenceAction_0; }
-		
 		//system=[SystemInstance]
-		public Assignment getSystemAssignment_1() { return cSystemAssignment_1; }
+		public Assignment getSystemAssignment() { return cSystemAssignment; }
 		
 		//[SystemInstance]
-		public CrossReference getSystemSystemInstanceCrossReference_1_0() { return cSystemSystemInstanceCrossReference_1_0; }
+		public CrossReference getSystemSystemInstanceCrossReference_0() { return cSystemSystemInstanceCrossReference_0; }
 		
 		//ID
-		public RuleCall getSystemSystemInstanceIDTerminalRuleCall_1_0_1() { return cSystemSystemInstanceIDTerminalRuleCall_1_0_1; }
+		public RuleCall getSystemSystemInstanceIDTerminalRuleCall_0_1() { return cSystemSystemInstanceIDTerminalRuleCall_0_1; }
 	}
 	public class DeploymentStatementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.DeploymentStatement");
@@ -605,7 +597,7 @@ public class MyDslGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	}
 	
 	//SystemReference returns SystemReference:
-	//    {SystemReference} system=[SystemInstance]
+	//    system=[SystemInstance]
 	//;
 	public SystemReferenceElements getSystemReferenceAccess() {
 		return pSystemReference;

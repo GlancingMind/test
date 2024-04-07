@@ -3,10 +3,36 @@
  */
 package org.xtext.example.mydsl.ui.contentassist;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.Assignment;
+import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
+import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
+import org.xtext.example.mydsl.myDsl.DeploymentStatement;
 
 /**
  * See https://www.eclipse.org/Xtext/documentation/310_eclipse_support.html#content-assist
  * on how to customize the content assistant.
  */
 public class MyDslProposalProvider extends AbstractMyDslProposalProvider {
+		
+	@Override
+	public void completeSubSystemReference_System(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		// NOTE 
+	}
+	
+	@Override
+	public void completeDeploymentStatement_Node(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {		
+		var dstmt = (DeploymentStatement) model;
+		var sysRef = dstmt.getSystemRef();
+		
+		var subSystems = sysRef.getSystem().getType().getSubsystems();
+		for(var subSys : subSystems) {
+			acceptor.accept(createCompletionProposal(subSys.getName(), subSys.getName()+" - SubSystem", null, context));
+		}
+		
+		var nodes = sysRef.getSystem().getType().getNodes();
+		for(var node : nodes) {
+			acceptor.accept(createCompletionProposal(node.getName(), node.getName()+" - Node", null, context));
+		}
+	}
 }

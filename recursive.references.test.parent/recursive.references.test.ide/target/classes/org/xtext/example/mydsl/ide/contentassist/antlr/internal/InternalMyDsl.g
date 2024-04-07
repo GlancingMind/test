@@ -215,9 +215,9 @@ ruleSystemReference
 	}
 	:
 	(
-		{ before(grammarAccess.getSystemReferenceAccess().getGroup()); }
-		(rule__SystemReference__Group__0)
-		{ after(grammarAccess.getSystemReferenceAccess().getGroup()); }
+		{ before(grammarAccess.getSystemReferenceAccess().getSystemAssignment()); }
+		(rule__SystemReference__SystemAssignment)
+		{ after(grammarAccess.getSystemReferenceAccess().getSystemAssignment()); }
 	)
 ;
 finally {
@@ -1076,60 +1076,6 @@ finally {
 }
 
 
-rule__SystemReference__Group__0
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-	rule__SystemReference__Group__0__Impl
-	rule__SystemReference__Group__1
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__SystemReference__Group__0__Impl
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-(
-	{ before(grammarAccess.getSystemReferenceAccess().getSystemReferenceAction_0()); }
-	()
-	{ after(grammarAccess.getSystemReferenceAccess().getSystemReferenceAction_0()); }
-)
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__SystemReference__Group__1
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-	rule__SystemReference__Group__1__Impl
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__SystemReference__Group__1__Impl
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-(
-	{ before(grammarAccess.getSystemReferenceAccess().getSystemAssignment_1()); }
-	(rule__SystemReference__SystemAssignment_1)
-	{ after(grammarAccess.getSystemReferenceAccess().getSystemAssignment_1()); }
-)
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
 rule__DeploymentStatement__Group__0
 	@init {
 		int stackSize = keepStackSize();
@@ -1862,19 +1808,19 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__SystemReference__SystemAssignment_1
+rule__SystemReference__SystemAssignment
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
 	(
-		{ before(grammarAccess.getSystemReferenceAccess().getSystemSystemInstanceCrossReference_1_0()); }
+		{ before(grammarAccess.getSystemReferenceAccess().getSystemSystemInstanceCrossReference_0()); }
 		(
-			{ before(grammarAccess.getSystemReferenceAccess().getSystemSystemInstanceIDTerminalRuleCall_1_0_1()); }
+			{ before(grammarAccess.getSystemReferenceAccess().getSystemSystemInstanceIDTerminalRuleCall_0_1()); }
 			RULE_ID
-			{ after(grammarAccess.getSystemReferenceAccess().getSystemSystemInstanceIDTerminalRuleCall_1_0_1()); }
+			{ after(grammarAccess.getSystemReferenceAccess().getSystemSystemInstanceIDTerminalRuleCall_0_1()); }
 		)
-		{ after(grammarAccess.getSystemReferenceAccess().getSystemSystemInstanceCrossReference_1_0()); }
+		{ after(grammarAccess.getSystemReferenceAccess().getSystemSystemInstanceCrossReference_0()); }
 	)
 ;
 finally {

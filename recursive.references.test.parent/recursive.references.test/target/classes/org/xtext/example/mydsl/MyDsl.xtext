@@ -27,7 +27,7 @@ SubSystemReference returns SystemReference:
 ;
 
 SystemReference returns SystemReference:
-	{SystemReference} system=[SystemInstance]
+	system=[SystemInstance]
 ;
 
 DeploymentStatement:

@@ -10,7 +10,6 @@ import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.xtext.example.mydsl.myDsl.SubSystemReference
 import org.xtext.example.mydsl.myDsl.DeploymentStatement
-import org.xtext.example.mydsl.myDsl.SystemReference
 
 class MyDslScopeProvider extends AbstractMyDslScopeProvider {
 
@@ -28,25 +27,32 @@ class MyDslScopeProvider extends AbstractMyDslScopeProvider {
 	}
 	
 	private def IScope getScopeForSubSystemReference_SubSystem(SubSystemReference subSysRef, EReference reference) {
-		Scopes::scopeFor(subSysRef.parent.system.type.subsystems)
+		val subsystemsOfParentSystem = subSysRef?.parent?.system?.type?.subsystems
+		if(subsystemsOfParentSystem.isNullOrEmpty) {
+			return IScope::NULLSCOPE
+		}
+		return Scopes::scopeFor(subsystemsOfParentSystem)
 	}
 	
 	private def IScope getScopeForDeploymentStatement_node(DeploymentStatement deployment, EReference reference) {
-		println(deployment.systemRef.getName)
-		return Scopes::scopeFor(deployment.systemRef.system.type.nodes)
+		val nodes = deployment?.systemRef?.system?.type?.nodes
+		if(nodes.isNullOrEmpty) {
+			return IScope::NULLSCOPE
+		}
+		return Scopes::scopeFor(nodes)
 	}
 	
-	static def String getName(SystemReference ref) {
-		switch (ref) {
-			SubSystemReference: {
-				ref.parent.name +"_"+ ref.system.name 
-			}
-			SystemReference: {
-				ref.system.name
-			}
-			default: {
-				""
-			}
-		}
-	}
+//	static def String getName(SystemReference ref) {
+//		switch (ref) {
+//			SubSystemReference: {
+//				ref.parent.name +"_"+ ref.system.name 
+//			}
+//			SystemReference: {
+//				ref.system.name
+//			}
+//			default: {
+//				""
+//			}
+//		}
+//	}
 }

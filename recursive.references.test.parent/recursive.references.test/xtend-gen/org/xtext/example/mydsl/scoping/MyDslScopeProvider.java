@@ -4,14 +4,18 @@
 package org.xtext.example.mydsl.scoping;
 
 import com.google.common.base.Objects;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
-import org.eclipse.xtext.xbase.lib.InputOutput;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.xtext.example.mydsl.myDsl.DeploymentStatement;
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
+import org.xtext.example.mydsl.myDsl.NodeInstance;
 import org.xtext.example.mydsl.myDsl.SubSystemReference;
+import org.xtext.example.mydsl.myDsl.SystemDefinition;
+import org.xtext.example.mydsl.myDsl.SystemInstance;
 import org.xtext.example.mydsl.myDsl.SystemReference;
 
 @SuppressWarnings("all")
@@ -43,33 +47,52 @@ public class MyDslScopeProvider extends AbstractMyDslScopeProvider {
   }
   
   private IScope getScopeForSubSystemReference_SubSystem(final SubSystemReference subSysRef, final EReference reference) {
-    return Scopes.scopeFor(subSysRef.getParent().getSystem().getType().getSubsystems());
+    SystemReference _parent = null;
+    if (subSysRef!=null) {
+      _parent=subSysRef.getParent();
+    }
+    SystemInstance _system = null;
+    if (_parent!=null) {
+      _system=_parent.getSystem();
+    }
+    SystemDefinition _type = null;
+    if (_system!=null) {
+      _type=_system.getType();
+    }
+    EList<SystemInstance> _subsystems = null;
+    if (_type!=null) {
+      _subsystems=_type.getSubsystems();
+    }
+    final EList<SystemInstance> subsystemsOfParentSystem = _subsystems;
+    boolean _isNullOrEmpty = IterableExtensions.isNullOrEmpty(subsystemsOfParentSystem);
+    if (_isNullOrEmpty) {
+      return IScope.NULLSCOPE;
+    }
+    return Scopes.scopeFor(subsystemsOfParentSystem);
   }
   
   private IScope getScopeForDeploymentStatement_node(final DeploymentStatement deployment, final EReference reference) {
-    InputOutput.<String>println(MyDslScopeProvider.getName(deployment.getSystemRef()));
-    return Scopes.scopeFor(deployment.getSystemRef().getSystem().getType().getNodes());
-  }
-  
-  public static String getName(final SystemReference ref) {
-    String _switchResult = null;
-    boolean _matched = false;
-    if (ref instanceof SubSystemReference) {
-      _matched=true;
-      String _name = MyDslScopeProvider.getName(((SubSystemReference)ref).getParent());
-      String _plus = (_name + "_");
-      String _name_1 = ((SubSystemReference)ref).getSystem().getName();
-      _switchResult = (_plus + _name_1);
+    SystemReference _systemRef = null;
+    if (deployment!=null) {
+      _systemRef=deployment.getSystemRef();
     }
-    if (!_matched) {
-      if (ref instanceof SystemReference) {
-        _matched=true;
-        _switchResult = ref.getSystem().getName();
-      }
+    SystemInstance _system = null;
+    if (_systemRef!=null) {
+      _system=_systemRef.getSystem();
     }
-    if (!_matched) {
-      _switchResult = "";
+    SystemDefinition _type = null;
+    if (_system!=null) {
+      _type=_system.getType();
     }
-    return _switchResult;
+    EList<NodeInstance> _nodes = null;
+    if (_type!=null) {
+      _nodes=_type.getNodes();
+    }
+    final EList<NodeInstance> nodes = _nodes;
+    boolean _isNullOrEmpty = IterableExtensions.isNullOrEmpty(nodes);
+    if (_isNullOrEmpty) {
+      return IScope.NULLSCOPE;
+    }
+    return Scopes.scopeFor(nodes);
   }
 }
