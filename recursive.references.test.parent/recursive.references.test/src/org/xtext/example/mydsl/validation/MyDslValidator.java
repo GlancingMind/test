@@ -3,6 +3,11 @@
  */
 package org.xtext.example.mydsl.validation;
 
+import org.eclipse.xtext.tasks.Priority;
+import org.eclipse.xtext.validation.Check;
+import org.xtext.example.mydsl.myDsl.DeploymentStatement;
+import org.xtext.example.mydsl.myDsl.MyDslPackage;
+import org.xtext.example.mydsl.myDsl.NodeInstance;
 
 /**
  * This class contains custom validation rules. 
@@ -22,4 +27,10 @@ public class MyDslValidator extends AbstractMyDslValidator {
 //		}
 //	}
 	
+	@Check
+	public void checkSystemNotUsedAsNodeInstance(DeploymentStatement stmt) {
+		if(stmt.getNode().getName() == null) {
+			error("Not a node instance", MyDslPackage.Literals.DEPLOYMENT_STATEMENT__NODE);
+		}
+	}
 }
