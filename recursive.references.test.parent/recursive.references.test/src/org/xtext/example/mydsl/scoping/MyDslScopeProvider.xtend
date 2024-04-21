@@ -16,7 +16,7 @@ class MyDslScopeProvider extends AbstractMyDslScopeProvider {
 	override getScope(EObject context, EReference reference) {
 		switch(context) {
 			SubSystemReference case reference == MyDslPackage::Literals::SYSTEM_REFERENCE__SYSTEM: {
-				getScopeForSubSystemReference_SubSystem(context, reference)
+				getScopeForSubSystemReference_System(context, reference)
 			}
 			DeploymentStatement case reference == MyDslPackage::Literals::DEPLOYMENT_STATEMENT__NODE: {
 				getScopeForDeploymentStatement_node(context, reference)
@@ -26,7 +26,7 @@ class MyDslScopeProvider extends AbstractMyDslScopeProvider {
 		}
 	}
 	
-	private def IScope getScopeForSubSystemReference_SubSystem(SubSystemReference subSysRef, EReference reference) {
+	private def IScope getScopeForSubSystemReference_System(SubSystemReference subSysRef, EReference reference) {
 		val subsystemsOfParentSystem = subSysRef?.parent?.system?.type?.subsystems
 		if(subsystemsOfParentSystem.isNullOrEmpty) {
 			return IScope::NULLSCOPE

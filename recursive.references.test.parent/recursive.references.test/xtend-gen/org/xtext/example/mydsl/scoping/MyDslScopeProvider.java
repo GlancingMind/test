@@ -28,7 +28,7 @@ public class MyDslScopeProvider extends AbstractMyDslScopeProvider {
       boolean _equals = Objects.equal(reference, MyDslPackage.Literals.SYSTEM_REFERENCE__SYSTEM);
       if (_equals) {
         _matched=true;
-        _switchResult = this.getScopeForSubSystemReference_SubSystem(((SubSystemReference)context), reference);
+        _switchResult = this.getScopeForSubSystemReference_System(((SubSystemReference)context), reference);
       }
     }
     if (!_matched) {
@@ -46,7 +46,7 @@ public class MyDslScopeProvider extends AbstractMyDslScopeProvider {
     return _switchResult;
   }
   
-  private IScope getScopeForSubSystemReference_SubSystem(final SubSystemReference subSysRef, final EReference reference) {
+  private IScope getScopeForSubSystemReference_System(final SubSystemReference subSysRef, final EReference reference) {
     SystemReference _parent = null;
     if (subSysRef!=null) {
       _parent=subSysRef.getParent();

@@ -3,11 +3,10 @@
  */
 package org.xtext.example.mydsl.validation;
 
-import org.eclipse.xtext.tasks.Priority;
 import org.eclipse.xtext.validation.Check;
 import org.xtext.example.mydsl.myDsl.DeploymentStatement;
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
-import org.xtext.example.mydsl.myDsl.NodeInstance;
+//import org.xtext.example.mydsl.myDsl.NodeInstance;
 
 /**
  * This class contains custom validation rules. 
